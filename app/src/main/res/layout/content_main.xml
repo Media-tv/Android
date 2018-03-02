@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.vacuum.app.cinema.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <!--I use LinearLayout to be the container_parent-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--TOP VIEW-->
+        <RelativeLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:elevation="0dp">
+
+            <!--START OF FloatingActionButton and set it to bottom|center-->
+            <FrameLayout
+                android:id="@+id/frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </RelativeLayout>
+        <!--END OF TOP VIEW-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:fabSize="normal"
+            android:scaleType="center"
+            app:backgroundTint="@color/lightYellow"
+            app:srcCompat="@drawable/if_sed_home_04_2232319"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            />
+        <!--BOTTOM VIEW-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="5dp"
+            android:layout_alignParentBottom="true"
+            app:cardUseCompatPadding="false"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp">
+
+            <LinearLayout
+                android:id="@+id/bottom_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/lightcolor"
+                android:gravity="center_horizontal"
+                android:minHeight="48dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btn_one"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
+                    android:layout_width="0dp"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/if_sed_04_2232319"/>
+
+                <ImageButton
+                    android:id="@+id/btn_two"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
+                    android:layout_width="0dp"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/if_sed_14_2232334" />
+
+                <!--START OF FAKE BUTTON FOR SPACER-->
+                <ImageButton
+                    android:id="@+id/fake_btn_spacer"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
+                    android:layout_width="0dp"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:src="@null"
+                    android:clickable="false" />
+                <!--END OF START OF FAKE BUTTON FOR SPACER-->
+
+                <ImageButton
+                    android:id="@+id/btn_three"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
+                    android:layout_width="0dp"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/if_67_111124" />
+
+                <ImageButton
+                    android:id="@+id/btn_four"
+                    android:layout_width="0dp"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
+                    app:srcCompat="@drawable/if_sed_10_2232321"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+        <!--END OF BOTTOM VIEW-->
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,72 @@
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#1c2132"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/logo1"
+                android:scaleType="centerCrop"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="version 1.1(16062601)"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="#fff"
+                android:id="@+id/text1"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ss"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="#fff"
+                android:id="@+id/text2"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/if_facebook_1164534"
+                    android:id="@+id/Button01"
+                    />
+                <Button
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/if_twitter_1164528"
+                    android:id="@+id/Button02"
+
+                    />
+                <Button
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/if_mail_1164530"
+                    android:id="@+id/Button03"
+
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>
