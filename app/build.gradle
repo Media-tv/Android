@@ -46,6 +46,9 @@ dependencies {
     implementation 'com.daimajia.slider:library:1.1.5@aar'
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
-    compile 'com.github.bluzwong:swipeback:0.2.0@aar'
+    implementation 'com.github.bluzwong:swipeback:0.2.0@aar'
+    implementation 'com.kyleduo.switchbutton:library:2.0.0'
+
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 
 }

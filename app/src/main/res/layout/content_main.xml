@@ -33,7 +33,7 @@
         </RelativeLayout>
         <!--END OF TOP VIEW-->
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/btn_three"
             android:layout_width="80dp"
             android:layout_height="80dp"
             app:fabSize="normal"
@@ -87,7 +87,6 @@
 
                 <!--START OF FAKE BUTTON FOR SPACER-->
                 <ImageButton
-                    android:id="@+id/fake_btn_spacer"
                     style="@style/Base.Widget.AppCompat.ActionButton"
                     android:layout_width="0dp"
                     android:layout_height="?attr/actionBarSize"
@@ -98,7 +97,7 @@
                 <!--END OF START OF FAKE BUTTON FOR SPACER-->
 
                 <ImageButton
-                    android:id="@+id/btn_three"
+                    android:id="@+id/btn_four"
                     style="@style/Base.Widget.AppCompat.ActionButton"
                     android:layout_width="0dp"
                     android:layout_height="?attr/actionBarSize"
@@ -107,7 +106,7 @@
                     app:srcCompat="@drawable/if_67_111124" />
 
                 <ImageButton
-                    android:id="@+id/btn_four"
+                    android:id="@+id/btn_five"
                     android:layout_width="0dp"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_weight="1"

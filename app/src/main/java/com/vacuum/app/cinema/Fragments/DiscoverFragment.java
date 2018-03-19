@@ -12,12 +12,12 @@ import com.vacuum.app.cinema.R;
  * Created by Home on 2/19/2018.
  */
 
-public class PhotosFragment extends Fragment {
+public class DiscoverFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_two, container, false);
+        View view = inflater.inflate(R.layout.discoverfragment, container, false);
 
 
         return view;

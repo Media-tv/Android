@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/movies_layout"
+    android:layout_width="110dp"
+    android:layout_height="165dp"
+    android:gravity="center_vertical"
+    android:minHeight="72dp"
+    android:background="@color/lightcolor"
+    android:orientation="vertical"
+    android:padding="10dp"
+    >
+
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:id="@+id/thumbnail"
+
+                />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="3dp"
+        >
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:textStyle="normal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="sds dg df gdf gdf fs dsdffss"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="charachter dsadasdasdas"
+            android:textSize="12sp"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:id="@+id/character"
+            />
+    </LinearLayout>
+
+</LinearLayout>

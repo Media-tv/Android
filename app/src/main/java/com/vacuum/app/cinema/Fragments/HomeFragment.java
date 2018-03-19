@@ -1,9 +1,9 @@
 package com.vacuum.app.cinema.Fragments;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,12 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -39,39 +37,48 @@ import retrofit2.Response;
  * Created by Home on 2/19/2018.
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener{
 
-    private final static String API_KEY = "";
-    RecyclerView movies_recycler1_UpComing,movies_recycler2_popular,movies_recycler3_top_rated,movies_recycler4_tv_popular,movies_recycler5_tv_toprated;
+    private static String API_KEY;
+    RecyclerView movies_recycler1_UpComing,movies_recycler2_popular,movies_recycler3_top_rated;
     Context mContext;
     SliderLayout mDemoSlider;
     ProgressBar progressBar;
+    TextView more_upcoming,more_Popular,more_top_rated;
     LinearLayout layout;
-    //LinearLayoutManager layoutManager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_one, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         mContext = this.getActivity();
-        movies_recycler1_UpComing= (RecyclerView) view.findViewById(R.id.movies_recycler1_UpComing);
-        movies_recycler2_popular= (RecyclerView) view.findViewById(R.id.movies_recycler2_popular);
-        movies_recycler3_top_rated= (RecyclerView) view.findViewById(R.id.movies_recycler3_top_rated);
-        movies_recycler4_tv_popular= (RecyclerView) view.findViewById(R.id.movies_recycler4_tv_popular);
-        movies_recycler5_tv_toprated= (RecyclerView) view.findViewById(R.id.movies_recycler5_tv_toprated);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        layout = (LinearLayout) view.findViewById(R.id.layout);
+        API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
+        movies_recycler1_UpComing=  view.findViewById(R.id.movies_recycler1_UpComing);
+        movies_recycler2_popular=  view.findViewById(R.id.movies_recycler2_popular);
+        movies_recycler3_top_rated=  view.findViewById(R.id.movies_recycler3_top_rated);
 
-        mDemoSlider = (SliderLayout)view.findViewById(R.id.slider);
+        progressBar =  view.findViewById(R.id.progressBar);
+        layout =  view.findViewById(R.id.layout);
+
+
+        more_upcoming= view.findViewById(R.id.more_upcoming);
+        more_Popular= view.findViewById(R.id.more_Popular);
+        more_top_rated= view.findViewById(R.id.more_top_rated);
+
+        more_upcoming.setOnClickListener(this);
+        more_Popular.setOnClickListener(this);
+        more_top_rated.setOnClickListener(this);
+
+
+
+        mDemoSlider = view.findViewById(R.id.slider);
 
 
         //layoutManager= new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         movies_recycler1_UpComing.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         movies_recycler2_popular.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         movies_recycler3_top_rated.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-        movies_recycler4_tv_popular.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-        movies_recycler5_tv_toprated.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
 
 
 
@@ -118,11 +125,12 @@ public class HomeFragment extends Fragment {
 
 
 
-
+        progressBar.setVisibility(View.VISIBLE);
+        layout.setVisibility(View.GONE);
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<MoviesResponse> call_UpComing = apiService.getupcomingMovies(API_KEY);
+        Call<MoviesResponse> call_UpComing = apiService.getupcomingMovies(API_KEY,1);
         call_UpComing.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
@@ -142,7 +150,7 @@ public class HomeFragment extends Fragment {
         //====================================================================================
         //====================================================================================
         //====================================================================================
-        Call<MoviesResponse> call_popular = apiService.getpopularMovies(API_KEY);
+        Call<MoviesResponse> call_popular = apiService.getpopularMovies(API_KEY,1);
         call_popular.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
@@ -159,7 +167,7 @@ public class HomeFragment extends Fragment {
         //====================================================================================
         //====================================================================================
         //====================================================================================
-        Call<MoviesResponse> call_top_rated = apiService.getTopRatedMovies(API_KEY);
+        Call<MoviesResponse> call_top_rated = apiService.getTopRatedMovies(API_KEY,1);
         call_top_rated.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
@@ -175,42 +183,40 @@ public class HomeFragment extends Fragment {
         });
 
 
-        //====================================================================================
-        //====================================================================================
-        //====================================================================================
-        Call<MoviesResponse> call_popularTV = apiService.getpopularTV(API_KEY);
-        call_popularTV.enqueue(new Callback<MoviesResponse>() {
-            @Override
-            public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
-                List<Movie> movies = response.body().getResults();
-                movies_recycler4_tv_popular.setAdapter(new MoviesAdapter(movies, mContext));
-            }
 
-            @Override
-            public void onFailure(Call<MoviesResponse>call, Throwable t) {
-                // Log error here since request failed
-                Log.e("tag", t.toString());
-            }
-        });
-
-
-
-        //====================================================================================
-        //====================================================================================
-        //====================================================================================
-        Call<MoviesResponse> call_getTopRatedTV = apiService.getTopRatedTV(API_KEY);
-        call_getTopRatedTV.enqueue(new Callback<MoviesResponse>() {
-            @Override
-            public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
-                List<Movie> movies = response.body().getResults();
-                movies_recycler5_tv_toprated.setAdapter(new MoviesAdapter(movies, mContext));
-            }
-
-            @Override
-            public void onFailure(Call<MoviesResponse>call, Throwable t) {
-                // Log error here since request failed
-                Log.e("tag", t.toString());
-            }
-        });
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.more_upcoming:
+                switchFragment("more_upcoming");
+                break;
+            case R.id.more_top_rated:
+                switchFragment("more_top_rated");
+                break;
+            case R.id.more_Popular:
+                switchFragment("more_Popular");
+                break;
+        }
+    }
+
+    private void switchFragment(String value) {
+        Fragment fragment = new MoreFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("value", value);
+        fragment.setArguments(bundle);
+
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.frame, fragment, MoreFragment.TAG_MORE_FRAGMENT);
+        fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
+        fragmentTransaction.commit();
+    }
+
+
+
+
+
 }

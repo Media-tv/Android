@@ -67,6 +67,12 @@ public class Movie implements Serializable {
     @SerializedName("release_date")
     private String releaseDate;
 
+    @SerializedName("first_air_date")
+    private String first_air_date;
+
+    @SerializedName("media_type")
+    private String media_type;
+
     public Integer getVoteCount() {
         return voteCount;
     }
@@ -188,8 +194,20 @@ public class Movie implements Serializable {
     }
 
 
+    public String getFirst_air_date() {
+        return first_air_date;
+    }
 
+    public void setFirst_air_date(String first_air_date) {
+        this.first_air_date = first_air_date;
+    }
 
+    public String getMedia_type() {
+        return media_type;
+    }
 
+    public void setMedia_type(String media_type) {
+        this.media_type = media_type;
+    }
 }
 

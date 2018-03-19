@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.vacuum.app.cinema.Model.Cast;
 import com.vacuum.app.cinema.Model.Trailer;
 import com.vacuum.app.cinema.R;
@@ -31,8 +32,8 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.CreditsV
         ImageView thumbnail;
         public CreditsViewHolder(View v) {
             super(v);
-            name = (TextView) v.findViewById(R.id.trailerTitle);
-            character = (TextView) v.findViewById(R.id.site);
+            name = (TextView) v.findViewById(R.id.name);
+            character = (TextView) v.findViewById(R.id.character);
             thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
 
         }
@@ -46,7 +47,7 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.CreditsV
     @Override
     public CreditsAdapter.CreditsViewHolder onCreateViewHolder(ViewGroup parent,
                                                                int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_trailer, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_cast, parent, false);
         return new CreditsAdapter.CreditsViewHolder(view);
     }
     @Override
@@ -55,8 +56,10 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.CreditsV
         holder.name.setText(casts.get(position).getName());
         holder.character.setText(casts.get(position).getCharacter());
 
-        if (casts.get(position).getProfilePath()!= null)
-        Glide.with(mContext).load("http://image.tmdb.org/t/p/w185"+casts.get(position).getProfilePath()).into(holder.thumbnail);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.if_person);
+        requestOptions.error(R.drawable.if_person);
+        Glide.with(mContext).setDefaultRequestOptions(requestOptions).load("http://image.tmdb.org/t/p/w185"+casts.get(position).getProfilePath()).apply(RequestOptions.circleCropTransform()).into(holder.thumbnail);
 
 
         //onClick

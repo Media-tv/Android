@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Cima Club</string>
+    <string name="TMBDB_API_KEY"></string>
+    <string name="Alluc_API_KEY"></string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

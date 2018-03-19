@@ -16,5 +16,6 @@
 
     <color name="duskYellow" >#ffe046</color>
     <color name="lightYellow" >#f4c010</color>
+    <color name="medium_grey">#ffffff</color>
 
 </resources>

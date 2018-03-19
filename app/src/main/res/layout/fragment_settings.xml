@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        tools:ignore="MissingPrefix"
+        android:gravity="center"
+        android:layout_marginBottom="160dp"
+        android:background="#e2e2e2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="General Settings"
+            android:textColor="#696969"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                fontPath="fonts/airbnb.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="Cache Files"
+                android:textSize="16sp" />
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sb_default_measure1"
+                android:layout_width="80dp"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_margin="5dp"
+                android:layout_alignParentRight="true"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="228dp"
+                android:background="#fff"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="350dp"
+                    android:layout_height="1dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="#c6c6c6" />
+
+                <TextView
+                    style="@style/Base.TextAppearance.AppCompat.Large"
+                    fontPath="fonts/oswaldlight.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Offline Mode" />
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/sb_default_measure6"
+                    android:layout_width="80dp"
+                    android:layout_margin="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="#ffffff" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:id="@+id/Language"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c6c6c6"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerHorizontal="true"
+                />
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                fontPath="fonts/airbnb.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="Language"
+                android:textSize="16sp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/if_arrow_right_01_186409"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c6c6c6"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                fontPath="fonts/airbnb.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="open links with chrome"
+                android:textSize="16sp" />
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sb_default_measure3"
+                style="@style/SwitchButtonStyle"
+                android:layout_width="80dp"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_margin="5dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:id="@+id/Themes"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c6c6c6"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerHorizontal="true"
+                />
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                fontPath="fonts/airbnb.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="Themes"
+                android:textSize="16sp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/if_arrow_right_01_186409"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preferences "
+            android:textColor="#696969"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                fontPath="fonts/airbnb.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="Use Cellular Data"
+                android:textSize="16sp" />
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sb_default_measure4"
+                style="@style/SwitchButtonStyle"
+                android:layout_width="80dp"
+                android:layout_margin="5dp"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c6c6c6"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                fontPath="fonts/airbnb.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="Enable Auto Download"
+                android:textSize="16sp" />
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sb_default_measure5"
+                style="@style/SwitchButtonStyle"
+                android:layout_width="80dp"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_margin="5dp"
+                android:checked="true"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Timeline"
+            android:textColor="#696969"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="5dp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                fontPath="fonts/airbnb.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="Push notifications"
+                android:textSize="16sp" />
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sb_default_measure7"
+                style="@style/SwitchButtonStyle"
+                android:layout_width="80dp"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_margin="5dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c6c6c6"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="Sound"
+                fontPath="fonts/airbnb.ttf"
+                android:textSize="16sp"
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                />
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sb_default_measure8"
+                style="@style/SwitchButtonStyle"
+                android:layout_width="80dp"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_margin="5dp"
+                android:checked="true"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Legal"
+            android:textColor="#696969"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="5dp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:id="@+id/terms"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="Terms_Conditions_title"
+                fontPath="fonts/airbnb.ttf"
+                android:textSize="16sp"
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/if_arrow_right_01_186409"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:id="@+id/policy"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c6c6c6"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textSize="16sp"
+                android:text="@string/privacy_policy"
+                fontPath="fonts/airbnb.ttf"
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/if_arrow_right_01_186409"
+                style="@style/SwitchButtonStyle"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="version"
+                fontPath="fonts/airbnb.ttf"
+                android:textSize="16sp"
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="#c6c6c6"
+                android:textSize="16sp"
+                android:text="1.12"
+                fontPath="fonts/airbnb.ttf"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c6c6c6"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="Bulid number"
+                fontPath="fonts/airbnb.ttf"
+                android:textSize="16sp"
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="#c6c6c6"
+                android:textSize="16sp"
+                fontPath="fonts/airbnb.ttf"
+                android:text="(16062601)"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                />
+        </RelativeLayout>
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="50dip"
+            android:text="Clear Cache"
+            android:id="@+id/clearcach"
+            android:drawableTint="@color/white"
+            android:drawableLeft="@drawable/if_basket_1814090"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:background="@drawable/social_buttons"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_margin="5dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="#a9a9a9"
+            android:textSize="12sp"
+            fontPath="fonts/airbnb.ttf"
+            android:text="copyright"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="60dp"
+            />
+
+    </LinearLayout>
+</ScrollView>

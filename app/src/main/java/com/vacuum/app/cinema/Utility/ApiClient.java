@@ -11,6 +11,7 @@ public class ApiClient {
 
     public static final String BASE_URL = "http://api.themoviedb.org/3/";
     private static Retrofit retrofit = null;
+    //private static Retrofit retrofit2 = null;
 
 
     public static Retrofit getClient() {
