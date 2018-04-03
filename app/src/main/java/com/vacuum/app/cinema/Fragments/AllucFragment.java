@@ -62,7 +62,7 @@ public class AllucFragment extends Fragment {
     private void getDate() {
         String Alluc_API_KEY = getString(R.string.Alluc_API_KEY);
         ApiInterface apiService2 =
-                ApiClient.getClient().create(ApiInterface.class);
+                ApiClient.getClient(mContext).create(ApiInterface.class);
         String url = "https://www.alluc.ee/api/search/download/?apikey="+Alluc_API_KEY+"&query="+movie.getTitle()+"+"+movie.getReleaseDate().substring(0, 4)+"&count=5&from=0&getmeta=0";
 
         //setRecyclerView_trailers

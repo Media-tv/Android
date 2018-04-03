@@ -1,26 +1,30 @@
 package com.vacuum.app.cinema.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
-import com.vacuum.app.cinema.Activities.detailsActivity;
+import com.vacuum.app.cinema.Fragments.DetailsMovie_Fragment;
+import com.vacuum.app.cinema.Fragments.DetailsTV_Fragment;
+import com.vacuum.app.cinema.MainActivity;
 import com.vacuum.app.cinema.Model.Movie;
 import com.vacuum.app.cinema.R;
 
 import java.util.List;
+
+import me.samthompson.bubbleactions.BubbleActions;
+import me.samthompson.bubbleactions.Callback;
 
 /**
  * Created by Home on 2/20/2018.
@@ -61,7 +65,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
 
     @Override
-    public void onBindViewHolder(MovieViewHolder holder, final int position) {
+    public void onBindViewHolder(final MovieViewHolder holder, final int position) {
 
         final Movie movie = movies.get(position);
         if(movie.getTitle()==null) {
@@ -76,26 +80,60 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
         //onClick
         //==================================================================
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Activity activity = (Activity) mContext;
-                Intent intent = new Intent(mContext.getApplicationContext(), detailsActivity.class);
-                intent.putExtra("movie", movie);
-               SwipeBackActivityHelper.activityBuilder(activity)
-                        .intent(intent)
-                        .needParallax(true)
-                        .needBackgroundShadow(true)
-                        .startActivity();
+                if(movie.getTitle() == null){
+                    Fragment(movie,new  DetailsTV_Fragment(),DetailsTV_Fragment.TAG_DetailsTV_Fragment);
+                }else {
+                    Fragment(movie,new DetailsMovie_Fragment(),DetailsMovie_Fragment.TAG_DetailsMovie_Fragment);
+                }
+
 
             }
         });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(final View view) {
+                BubbleActions.on(view)
+                        .addAction("Star", R.drawable.if_heart_119_111093, new Callback() {
+                            @Override
+                            public void doAction() {
+                                Toast.makeText(view.getContext(), "Like !", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addAction("Share", R.drawable.if_share4_216719, new Callback() {
+                            @Override
+                            public void doAction() {
+                                Toast.makeText(view.getContext(), "Share pressed!", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addAction("Hide", R.drawable.if_icon_close_round_211651, new Callback() {
+                            @Override
+                            public void doAction() {
+                                Toast.makeText(view.getContext(), "Hide pressed!", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .show();
+                return false;
+            }
+        });
     }
-
     @Override
     public int getItemCount() {
         return movies.size();
     }
 
+    private void Fragment(Movie movie,Fragment getfragment,String TAG) {
+        Fragment fragment = getfragment;
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("movie", movie);
+        fragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.frame, fragment,TAG );
+        fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
+        fragmentTransaction.commit();
+    }
 }

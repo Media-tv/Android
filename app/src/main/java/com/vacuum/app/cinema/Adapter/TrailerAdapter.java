@@ -1,6 +1,5 @@
 package com.vacuum.app.cinema.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,13 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
-import com.vacuum.app.cinema.Activities.detailsActivity;
-import com.vacuum.app.cinema.Model.Movie;
+import com.vacuum.app.cinema.Model.Poster;
 import com.vacuum.app.cinema.Model.Trailer;
 import com.vacuum.app.cinema.R;
 
@@ -28,6 +24,7 @@ import java.util.List;
 public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerViewHolder> {
 
     private List<Trailer> trailer;
+
     private Context mContext;
 
 

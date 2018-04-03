@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Cima Club</string>
-    <string name="TMBDB_API_KEY"></string>
-    <string name="Alluc_API_KEY"></string>
+    <string name="TMBDB_API_KEY">d08157e78b7478bea59e97af188b7054</string>
+    <string name="Alluc_API_KEY">1062e98c3af6a3aa7998a3993d2a3ea9</string>
+    <string name="OPENLOAD_API_Login">169a92673705ce52</string>
+    <string name="OPENLOAD_API_KEY">B5vw4WjV</string>
+
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

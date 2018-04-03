@@ -15,19 +15,21 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
-import com.vacuum.app.cinema.Activities.detailsActivity;
 import com.vacuum.app.cinema.Adapter.CreditsAdapter;
 import com.vacuum.app.cinema.Adapter.CrewAdapter;
+import com.vacuum.app.cinema.Adapter.ImagesAdapter;
 import com.vacuum.app.cinema.Adapter.TrailerAdapter;
 import com.vacuum.app.cinema.Model.Cast;
 import com.vacuum.app.cinema.Model.Credits;
 import com.vacuum.app.cinema.Model.Crew;
 import com.vacuum.app.cinema.Model.Genre;
+import com.vacuum.app.cinema.Model.Images_tmdb;
 import com.vacuum.app.cinema.Model.Movie;
 import com.vacuum.app.cinema.Model.MovieDetails;
+import com.vacuum.app.cinema.Model.Poster;
 import com.vacuum.app.cinema.Model.Trailer;
 import com.vacuum.app.cinema.Model.TrailerResponse;
 import com.vacuum.app.cinema.R;
@@ -44,20 +46,17 @@ import retrofit2.Response;
  * Created by Home on 3/3/2018.
  */
 
-public class DetailsFragment extends Fragment {
+public class DetailsMovie_Fragment extends Fragment {
 
     private static boolean LIKE = true;
+    public static final String TAG_DetailsMovie_Fragment = "TAG_DetailsMovie_Fragment";
 
-
-
-
-    SwipeBackActivityHelper helper ;
     TextView title,year,rating,overview,runtime,voteCount,genre1,genre2,genre3;
     ImageView cover;
     Context mContext;
-    RecyclerView recyclerView_trailers,recyclerView_actors,recyclerView_crew;
+    RecyclerView recyclerView_trailers,recyclerView_actors,recyclerView_crew,recyclerView_images;
     RelativeLayout layout_genre1,layout_genre2,layout_genre3;
-    LinearLayout trailer_layout,actors_layout,crew_layout;
+    LinearLayout trailer_layout,actors_layout,crew_layout,image_layout;
     RatingBar ratingBar;
     ImageView like,watch;
     int x;
@@ -66,11 +65,10 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.details_fragment_layout, container, false);
+        View view = inflater.inflate(R.layout.details_movie_fragment_layout, container, false);
 
         mContext = this.getActivity();
 
-        helper = detailsActivity.helper;
         title = view.findViewById(R.id.title);
         year = view.findViewById(R.id.year);
         rating = view.findViewById(R.id.rating);
@@ -89,29 +87,38 @@ public class DetailsFragment extends Fragment {
         watch = view.findViewById(R.id.watch);
         trailer_layout = view.findViewById(R.id.trailer_layout);
         actors_layout = view.findViewById(R.id.actors_layout);
+        image_layout = view.findViewById(R.id.image_layout);
 
         recyclerView_trailers = view.findViewById(R.id.recyclerView_trailers);
         recyclerView_actors = view.findViewById(R.id.recyclerView_actors);
+        recyclerView_images = view.findViewById(R.id.recyclerView_images);
         recyclerView_crew = view.findViewById(R.id.recyclerView_crew);
         crew_layout = view.findViewById(R.id.crew_layout);
 
 
-        movie = (Movie) getActivity().getIntent().getSerializableExtra("movie");
 
-        title.setText(movie.getTitle());
-        if(movie.getReleaseDate()!=null) {
+
+        movie = (Movie)getArguments().getSerializable("movie");
+
+
+
+        try{
+            title.setText(movie.getOriginalTitle());
             year.setText(movie.getReleaseDate().substring(0, 4));
+            rating.setText(movie.getVoteAverage().toString());
+            overview.setText(movie.getOverview());
+            ratingBar.setRating(movie.getVoteAverage().floatValue()/2);
+            voteCount.setText(movie.getVoteCount().toString());
+            x= movie.getId();
+            Glide.with(this)
+                    .load("http://image.tmdb.org/t/p/w500"+movie.getBackdropPath().toString())
+                    .into(cover);
+        }catch (Exception e){
+            Log.i("TAG :",e.toString());
         }
-        rating.setText(movie.getVoteAverage().toString());
-        overview.setText(movie.getOverview());
-        ratingBar.setRating(movie.getVoteAverage().floatValue()/2);
-        voteCount.setText(movie.getVoteCount().toString());
 
-        x= movie.getId();
 
-        Glide.with(this)
-                .load("http://image.tmdb.org/t/p/w500"+movie.getBackdropPath().toString())
-                .into(cover);
+
         retrofit();
         Like();
         replaceFragment();
@@ -121,7 +128,7 @@ public class DetailsFragment extends Fragment {
     private void retrofit() {
         String API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
         ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+                ApiClient.getClient(mContext).create(ApiInterface.class);
 
         Call<MovieDetails> call_details = apiService.getMovieDetails(x,API_KEY);
         call_details.enqueue(new Callback<MovieDetails>() {
@@ -130,18 +137,23 @@ public class DetailsFragment extends Fragment {
                 MovieDetails m = response.body();
 
 
-                if(m.getRuntime() != null){
-                    int t = m.getRuntime();
-                    int hours = t / 60; //since both are ints, you get an int
-                    int minutes = t % 60;
-                    System.out.printf("%d:%02d", hours, minutes);
-                    runtime.setText(String.valueOf(hours)+"h "+String.valueOf(minutes)+"min");
+                    try{
+                        int t = m.getRuntime();
+                        int hours = t / 60; //since both are ints, you get an int
+                        int minutes = t % 60;
+                        System.out.printf("%d:%02d", hours, minutes);
+                        runtime.setText(String.valueOf(hours)+"h "+String.valueOf(minutes)+"min");
+                        setgenre(m.getGenres(),m.getGenres().size());
+                    }catch (Exception e){
+                        Log.i("TAG :",e.toString());
+                    }
 
-                }
+
+
 
                 //============================++++++++++++++++++++++++++
 
-                setgenre(m.getGenres(),m.getGenres().size());
+
 
             }
 
@@ -151,10 +163,31 @@ public class DetailsFragment extends Fragment {
                 Log.e("tag", t.toString());
             }
         });
+        //setRecyclerView_images
+        //==================================================================
+        Call<Images_tmdb> call_RecyclerView_images = apiService.getImages("movie",x,API_KEY);
+        call_RecyclerView_images.enqueue(new Callback<Images_tmdb>() {
+            @Override
+            public void onResponse(Call<Images_tmdb> call, Response<Images_tmdb> response) {
+                List<Poster> posters;
 
+                posters = response.body().getPosters();
+                image_layout.setVisibility(View.VISIBLE);
+                recyclerView_images.setLayoutManager(new LinearLayoutManager(mContext,
+                        LinearLayoutManager.HORIZONTAL, false));
+                recyclerView_images.setAdapter(new ImagesAdapter(posters, mContext));
+
+            }
+
+            @Override
+            public void onFailure(Call<Images_tmdb> call, Throwable t) {
+                // Log error here since request failed
+                Log.e("tag", t.toString());
+            }
+        });
         //setRecyclerView_trailers
         //==================================================================
-        Call<TrailerResponse> call_RecyclerView_trailers = apiService.getMovietrailers(x,API_KEY);
+        Call<TrailerResponse> call_RecyclerView_trailers = apiService.gettrailers("movie",x,API_KEY);
         call_RecyclerView_trailers.enqueue(new Callback<TrailerResponse>() {
             @Override
             public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
@@ -166,7 +199,7 @@ public class DetailsFragment extends Fragment {
                         trailer_layout.setVisibility(View.VISIBLE);
                         recyclerView_trailers.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
                         recyclerView_trailers.setAdapter(new TrailerAdapter(trailers, mContext));
-                        recyclerViewTouch(recyclerView_trailers);
+
 
                     }
                 }catch (Exception e ){
@@ -195,7 +228,7 @@ public class DetailsFragment extends Fragment {
                         actors_layout.setVisibility(View.VISIBLE);
                         recyclerView_actors.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
                         recyclerView_actors.setAdapter(new CreditsAdapter(casts, mContext));
-                        recyclerViewTouch(recyclerView_actors);
+
                     }
                 }catch (Exception e ){
                     Log.e("Exception::>>",e.toString());
@@ -224,7 +257,7 @@ public class DetailsFragment extends Fragment {
                         crew_layout.setVisibility(View.VISIBLE);
                         recyclerView_crew.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
                         recyclerView_crew.setAdapter(new CrewAdapter(crews, mContext));
-                        recyclerViewTouch(recyclerView_crew);
+
                     }
                 }catch (Exception e ){
                     Log.e("Exception::",e.toString());
@@ -282,7 +315,7 @@ public class DetailsFragment extends Fragment {
 
     }
 
-    private void recyclerViewTouch(RecyclerView recyclerView_all) {
+    /*private void recyclerViewTouch(RecyclerView recyclerView_all) {
 
         recyclerView_all.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -306,7 +339,7 @@ public class DetailsFragment extends Fragment {
             }
         });
 
-    }
+    }*/
 
 
     public void replaceFragment() {

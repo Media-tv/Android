@@ -1,19 +1,21 @@
 package com.vacuum.app.cinema.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
-import com.vacuum.app.cinema.Activities.detailsActivity;
+import com.vacuum.app.cinema.Fragments.DetailsMovie_Fragment;
+import com.vacuum.app.cinema.Fragments.DetailsTV_Fragment;
+import com.vacuum.app.cinema.MainActivity;
 import com.vacuum.app.cinema.Model.Movie;
 import com.vacuum.app.cinema.R;
 
@@ -66,7 +68,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         if (movie.getTitle() == null) {
             holder.Title.setText(movie.getOriginal_name());
         } else {
-            holder.Title.setText(movie.getTitle());
+            holder.Title.setText(movie.getOriginalTitle());
         }
         if (movie.getReleaseDate() != null) {
             holder.year.setText(movie.getReleaseDate());
@@ -88,15 +90,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Activity activity = (Activity) mContext;
-                Intent intent = new Intent(mContext.getApplicationContext(), detailsActivity.class);
-                intent.putExtra("movie", movie);
-                SwipeBackActivityHelper.activityBuilder(activity)
-                        .intent(intent)
-                        .needParallax(true)
-                        .needBackgroundShadow(true)
-                        .startActivity();
 
+                if(movie.getTitle() == null){
+                    Fragment(movie,new DetailsTV_Fragment(),DetailsTV_Fragment.TAG_DetailsTV_Fragment);
+                }else {
+                    Fragment(movie,new DetailsMovie_Fragment(),DetailsMovie_Fragment.TAG_DetailsMovie_Fragment);
+                }
             }
         });
     }
@@ -106,4 +105,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         return movies.size();
     }
 
+
+    private void Fragment(Movie movie,Fragment getfragment,String TAG) {
+        Fragment fragment = getfragment;
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("movie", movie);
+        fragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.frame, fragment,TAG );
+        fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
+        fragmentTransaction.commit();
+    }
 }

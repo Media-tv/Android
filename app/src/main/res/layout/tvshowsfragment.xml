@@ -11,7 +11,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="200dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"

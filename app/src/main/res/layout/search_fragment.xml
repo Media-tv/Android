@@ -1,21 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="vertical"
-    >
-
+    android:orientation="vertical">
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/rounded_edittext"
         android:id="@+id/edit_query"
         android:imeOptions="actionSearch"
         android:inputType="text"
+        android:drawableLeft="@drawable/if_67_111124"
+        android:drawableRight="@drawable/if_icon_close_circled_small"
+        android:hint="Search..."
+        android:textColorHint="@color/white"
+        fontPath="fonts/airbnb.ttf"
+        android:textColor="@color/white"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/layout_search"
+        android:gravity="center"
+        >
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/if_67_111124"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find your favorite movie"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#dcffffff"
+            fontPath="fonts/airbnb.ttf"
+            />
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="search for movies, anime,trilogy, tv series and profiles"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="#81ffffff"
+            />
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recyclerView_search"/>

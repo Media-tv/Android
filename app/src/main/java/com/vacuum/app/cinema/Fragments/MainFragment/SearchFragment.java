@@ -1,4 +1,4 @@
-package com.vacuum.app.cinema.Fragments;
+package com.vacuum.app.cinema.Fragments.MainFragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vacuum.app.cinema.Adapter.MoviesAdapter;
@@ -43,7 +44,7 @@ import retrofit2.Response;
 public class SearchFragment extends Fragment {
     Context mContext;
     RecyclerView recyclerView_search;
-
+    LinearLayout layout_search;
     EditText edit_query;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,12 +52,15 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.search_fragment, container, false);
         recyclerView_search = view.findViewById(R.id.recyclerView_search);
+        layout_search = view.findViewById(R.id.layout_search);
+
         mContext = this.getActivity();
         edit_query = view.findViewById(R.id.edit_query);
         edit_query.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                recyclerView_search.setVisibility(View.VISIBLE);
+                layout_search.setVisibility(View.GONE);
             }
 
             @Override
@@ -66,7 +70,17 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                String ed_text = edit_query.getText().toString().trim();
+                if(ed_text.isEmpty() || ed_text.length() == 0 || ed_text.equals("") || ed_text == null)
+                {
+                    //EditText is empty
+                    recyclerView_search.setVisibility(View.GONE);
+                    layout_search.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    //EditText is not empty
+                }
             }
         });
 
@@ -78,7 +92,7 @@ public class SearchFragment extends Fragment {
         String query = Char.toString();
 
         ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+                ApiClient.getClient(mContext).create(ApiInterface.class);
 
 
         //setRecyclerView_search

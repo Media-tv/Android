@@ -16,7 +16,7 @@ import com.vacuum.app.cinema.R;
 
 public class SettingFragment extends Fragment {
     Context mContext;
-    static final String TAG_SETTING_FRAGMENT = "TAG_SETTING_FRAGMENT";
+    public  static final String TAG_SETTING_FRAGMENT = "TAG_SETTING_FRAGMENT";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

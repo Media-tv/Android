@@ -1,4 +1,4 @@
-package com.vacuum.app.cinema.Fragments;
+package com.vacuum.app.cinema.Fragments.MainFragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,9 +19,12 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.vacuum.app.cinema.Adapter.MoviesAdapter;
+import com.vacuum.app.cinema.Fragments.MoreFragment;
+import com.vacuum.app.cinema.Fragments.WatchFragment;
 import com.vacuum.app.cinema.MainActivity;
 import com.vacuum.app.cinema.Model.Movie;
 import com.vacuum.app.cinema.Model.MoviesResponse;
+import com.vacuum.app.cinema.Model.Slider;
 import com.vacuum.app.cinema.R;
 import com.vacuum.app.cinema.Utility.ApiClient;
 import com.vacuum.app.cinema.Utility.ApiInterface;
@@ -29,9 +32,11 @@ import com.vacuum.app.cinema.Utility.ApiInterface;
 import java.util.HashMap;
 import java.util.List;
 
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 /**
  * Created by Home on 2/19/2018.
@@ -41,11 +46,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private static String API_KEY;
     RecyclerView movies_recycler1_UpComing,movies_recycler2_popular,movies_recycler3_top_rated;
-    Context mContext;
+    private Context mContext;
+    //public static Context HomeFragment_mContext;
+
     SliderLayout mDemoSlider;
-    ProgressBar progressBar;
+    public static  ProgressBar progressBar;
+    public static  ApiInterface apiService;
+
     TextView more_upcoming,more_Popular,more_top_rated;
-    LinearLayout layout;
+    public  static  LinearLayout layout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,6 +62,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         mContext = this.getActivity();
+
         API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
         movies_recycler1_UpComing=  view.findViewById(R.id.movies_recycler1_UpComing);
         movies_recycler2_popular=  view.findViewById(R.id.movies_recycler2_popular);
@@ -84,39 +94,46 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
 
         retrofit();
-        setupslider();
         return view;
     }
 
-    private void setupslider() {
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
-        url_maps.put("Diriliş Ertuğrul", "https://scontent-cai1-1.xx.fbcdn.net/v/t31.0-8/22905018_1209112999232380_3565256246963278246_o.jpg?oh=01056944fbe2dbff150f61f7740f7f2d&oe=5B132A7B");
-        url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
-        url_maps.put("Game of Thrones", "http://www.shmee.me/wp-content/uploads/2016/06/Game-of-Thrones-Season-6-HEADER.jpg");
+    private void setupslider(final List<Slider> sliders) {
+
+        final HashMap<String,String> url_maps = new HashMap<>();
+        for(int i=0;i<sliders.size();i++){
+            url_maps.put(sliders.get(i).getTitle(),sliders.get(i).getPosterPath());
+        }
 
 
 
-        for(String name : url_maps.keySet()){
+        for(final Slider s : sliders){
             TextSliderView textSliderView = new TextSliderView(mContext);
             // initialize a SliderLayout
             textSliderView
-                    .description(name)
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit);
+                    .description(s.getTitle())
+                    .image(s.getPosterPath())
+                    .setScaleType(BaseSliderView.ScaleType.CenterCrop);
 
             //add your extra information
-            textSliderView.bundle(new Bundle());
+            /*textSliderView.bundle(new Bundle());
             textSliderView.getBundle()
-                    .putString("extra",name);
+                    .putString("extra",name);*/
 
+            textSliderView.image(s.getPosterPath())
+                    .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+
+
+                    watchFragment(s);
+                }
+            });
             mDemoSlider.addSlider(textSliderView);
         }
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(4000);
-
 
     }
 
@@ -125,10 +142,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
 
 
-        progressBar.setVisibility(View.VISIBLE);
-        layout.setVisibility(View.GONE);
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+        //progressBar.setVisibility(View.VISIBLE);
+        //layout.setVisibility(View.GONE);
+
+
+        /*File httpCacheDirectory = new File(mContext.getCacheDir(), "responses");
+        int cacheSize = 10 * 1024 * 1024; // 10 MiB
+        Cache cache = new Cache(httpCacheDirectory, cacheSize);
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .cache(cache)
+                .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
+                .build();
+
+        String BASE_URL = "http://api.themoviedb.org/3/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();*/
+        apiService =
+                ApiClient.getClient(mContext).create(ApiInterface.class);
 
         Call<MoviesResponse> call_UpComing = apiService.getupcomingMovies(API_KEY,1);
         call_UpComing.enqueue(new Callback<MoviesResponse>() {
@@ -136,9 +170,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
                 List<Movie> movies = response.body().getResults();
                 movies_recycler1_UpComing.setAdapter(new MoviesAdapter(movies, mContext));
-                progressBar.setVisibility(View.GONE);
-                layout.setVisibility(View.VISIBLE);
-
             }
 
             @Override
@@ -182,6 +213,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             }
         });
 
+        //====================================================================================
+        //====================================================================================
+        //====================================================================================
+
+        Call<List<Slider>> call_slider = apiService.getSlider("https://mohamedebrahim.000webhostapp.com/cimaclub/slider.php");
+        call_slider.enqueue(new Callback<List<Slider>>() {
+            @Override
+            public void onResponse(Call<List<Slider>>call, Response<List<Slider>> response) {
+                List<Slider> slider = response.body();
+                Log.i("slider", slider.get(0).getTitle());
+                setupslider(slider);
+                progressBar.setVisibility(View.GONE);
+                layout.setVisibility(View.VISIBLE);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Slider>>call, Throwable t) {
+                // Log error here since request failed
+                Log.e("slider", t.toString());
+            }
+        });
+
 
 
     }
@@ -214,6 +268,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
         fragmentTransaction.commit();
     }
+
+    private void watchFragment(Slider slid) {
+        Fragment fragment = new WatchFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("url", slid);
+        fragment.setArguments(bundle);
+
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.frame, fragment, WatchFragment.TAG_WATCH_FRAGMENT);
+        fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
+        fragmentTransaction.commit();
+    }
+
 
 
 

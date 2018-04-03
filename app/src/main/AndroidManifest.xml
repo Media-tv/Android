@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:screenOrientation="portrait"
             android:name=".MainActivity"
             >
             <intent-filter>
@@ -23,10 +24,6 @@
         </activity>
 
         <activity android:name=".Fragments.AboutUsActivity"/>
-        <activity android:name=".Fragments.PrivacyPolicyActivity"/>
-        <activity android:name=".Activities.detailsActivity"
-            />
-
 
 
     </application>

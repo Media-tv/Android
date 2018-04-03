@@ -1,37 +1,69 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
 
-    <!-- View that will be hidden when video goes fullscreen -->
+    android:background="@color/colorPrimaryDark"
+    tools:context=".MainActivity"
+    android:layout_marginBottom="50dp"
+    >
+
+
     <RelativeLayout
-        android:id="@+id/nonVideoLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:id="@+id/Layout_videoplayer"
+        >
 
-        <com.vacuum.app.cinema.Utility.VideoEnabledWebView
-            android:id="@+id/webView"
+        <!--<tcking.github.com.giraffeplayer2.VideoView
+            android:id="@+id/videoplayer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="180dp"
+            android:layout_margin="8dp"
+            />-->
+        <cn.jzvd.JZVideoPlayerStandard
+            android:id="@+id/videoplayer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
 
     </RelativeLayout>
-
-    <!-- View where the video will be shown when video goes fullscreen -->
     <RelativeLayout
-        android:id="@+id/videoLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/Layout_webview"
+        >
 
-        <!-- View that will be shown while the fullscreen video loads (maybe include a spinner and a "Loading..." message) -->
-        <View
-            android:id="@+id/videoLoading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="invisible" />
+    <!-- View that will be hidden when video goes fullscreen -->
+        <RelativeLayout
+            android:id="@+id/nonVideoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
+            <com.vacuum.app.cinema.Utility.VideoEnabledWebView
+                android:id="@+id/webView"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <!-- View where the video will be shown when video goes fullscreen -->
+        <RelativeLayout
+            android:id="@+id/videoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <!-- View that will be shown while the fullscreen video loads (maybe include a spinner and a "Loading..." message) -->
+            <View
+                android:id="@+id/videoLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>

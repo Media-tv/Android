@@ -35,18 +35,21 @@ import retrofit2.Response;
 
 public class MoreFragment extends Fragment {
     Context mContext;
-    static final String TAG_MORE_FRAGMENT = "TAG_MORE_FRAGMENT";
+    public static final String TAG_MORE_FRAGMENT = "TAG_MORE_FRAGMENT";
     RecyclerView fragment_grid_recylerview;
     String value;
     private boolean userScrolled = true;
-    private static int  pageIndex = 1;
+    private static int  pageIndex ;
 
     private LinearLayoutManager mLayoutManager;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     private  RelativeLayout bottomLayout;
     MoviesAdapter moviesAdapter;
-    List<Movie> movies ;
+    List<Movie> movies = new ArrayList<>();
+    List<Movie> movies2 = new ArrayList<>();
     String API_KEY;
+    Handler mHandler;
+    Runnable myRunnable;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,12 +59,17 @@ public class MoreFragment extends Fragment {
         fragment_grid_recylerview=  view.findViewById(R.id.fragment_grid_recylerview);
         bottomLayout = view.findViewById(R.id.loadItemsLayout_recyclerView);
         mLayoutManager = new GridLayoutManager(mContext,3);
+        fragment_grid_recylerview.setLayoutManager(mLayoutManager);
+        pageIndex = 1;
 
-        movies = new ArrayList<Movie>();
         API_KEY = getString(R.string.TMBDB_API_KEY);
         Bundle bundle = this.getArguments();
         value = bundle.getString("value");
 
+        if(myRunnable != null){
+            mHandler.removeCallbacks(myRunnable);
+
+        }
 
         retrofit();
         Pagination();
@@ -106,7 +114,6 @@ public class MoreFragment extends Fragment {
                         if (userScrolled
                                 && (visibleItemCount + pastVisiblesItems) == totalItemCount) {
                             userScrolled = false;
-
                             updateRecyclerView();
                         }
 
@@ -119,18 +126,39 @@ public class MoreFragment extends Fragment {
 
             bottomLayout.setVisibility(View.VISIBLE);
 
-            new Handler().postDelayed(new Runnable() {
+             /*mHandler = new Handler();
+             mHandler.postDelayed(new Runnable() {
+                 @Override
+                 public void run() {
+                     retrofit();
+                     Toast.makeText(mContext, "Items Updated.",
+                             Toast.LENGTH_SHORT).show();
+                     bottomLayout.setVisibility(View.GONE);
+                 }
+             },2000);*/
+            /*new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
 
                     retrofit();
-                    pageIndex++;
                     Toast.makeText(getActivity(), "Items Updated.",
                             Toast.LENGTH_SHORT).show();
                     bottomLayout.setVisibility(View.GONE);
 
                 }
-            }, 3000);
+            }, 3000);*/
+
+        mHandler=  new Handler();
+        myRunnable = new Runnable() {
+            public void run() {
+                retrofit();
+                Toast.makeText(mContext, "Items Updated.",
+                        Toast.LENGTH_SHORT).show();
+                bottomLayout.setVisibility(View.GONE);
+            }
+        };
+        mHandler.postDelayed(myRunnable,2000);
+
 
     }
 
@@ -146,10 +174,21 @@ public class MoreFragment extends Fragment {
         call.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
-                movies = response.body().getResults();
-                fragment_grid_recylerview.setLayoutManager(mLayoutManager);
-                moviesAdapter = new MoviesAdapter(movies, mContext);
-                fragment_grid_recylerview.setAdapter(moviesAdapter);
+                pageIndex++;
+
+                if(pageIndex >=2){
+                    movies2 = response.body().getResults();
+                    movies.addAll(movies2);
+                    moviesAdapter = new MoviesAdapter(movies, mContext);
+                    fragment_grid_recylerview.setAdapter(moviesAdapter);
+                    fragment_grid_recylerview.scrollToPosition(pastVisiblesItems);
+
+                }else {
+                    movies = response.body().getResults();
+                    moviesAdapter = new MoviesAdapter(movies, mContext);
+                    fragment_grid_recylerview.setAdapter(moviesAdapter);
+                }
+
             }
 
             @Override
@@ -159,12 +198,10 @@ public class MoreFragment extends Fragment {
         });
 
     }
-
-
     private Call getapiService() {
 
         ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+                ApiClient.getClient(mContext).create(ApiInterface.class);
         Call<MoviesResponse> calll = null;
         switch (value){
             case "more_Popular_tv":
@@ -186,6 +223,13 @@ public class MoreFragment extends Fragment {
         return calll;
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(myRunnable != null){
+            mHandler.removeCallbacksAndMessages(myRunnable);
+        }
+        Log.i("TAG : Fragment", "onPause");
+    }
 }
 

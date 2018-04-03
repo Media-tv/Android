@@ -73,6 +73,7 @@ public class Movie implements Serializable {
     @SerializedName("media_type")
     private String media_type;
 
+
     public Integer getVoteCount() {
         return voteCount;
     }
@@ -209,5 +210,7 @@ public class Movie implements Serializable {
     public void setMedia_type(String media_type) {
         this.media_type = media_type;
     }
+
+
 }
 

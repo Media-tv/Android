@@ -8,7 +8,6 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
         android:id="@+id/fragment_grid_recylerview"
         />
 
@@ -16,8 +15,8 @@
         android:id="@+id/loadItemsLayout_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
         layout="@layout/progress_layout"
         android:visibility="gone" />
 

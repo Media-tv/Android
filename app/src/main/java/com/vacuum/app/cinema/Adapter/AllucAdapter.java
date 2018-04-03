@@ -110,7 +110,7 @@ public class AllucAdapter extends RecyclerView.Adapter<AllucAdapter.AllucViewHol
 
         String url = "https://www.alluc.ee/api/thumbnail/"+id+"&apikey="+Alluc_API_KEY;
         ApiInterface apiService2 =
-                ApiClient.getClient().create(ApiInterface.class);
+                ApiClient.getClient(mContext).create(ApiInterface.class);
         Call<allucThumbnail> call_Image_Alluc = apiService2.profilePicture2(url);
         call_Image_Alluc.enqueue(new Callback<allucThumbnail>() {
             @Override

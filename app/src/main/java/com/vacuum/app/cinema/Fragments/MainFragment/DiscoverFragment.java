@@ -1,4 +1,4 @@
-package com.vacuum.app.cinema.Fragments;
+package com.vacuum.app.cinema.Fragments.MainFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

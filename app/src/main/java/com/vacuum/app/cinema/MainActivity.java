@@ -9,15 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.MediaController;
-import android.widget.Toast;
-import android.widget.VideoView;
 
-import com.vacuum.app.cinema.Fragments.HomeFragment;
-import com.vacuum.app.cinema.Fragments.TvShowsFragment;
-import com.vacuum.app.cinema.Fragments.DiscoverFragment;
-import com.vacuum.app.cinema.Fragments.SearchFragment;
-import com.vacuum.app.cinema.Fragments.ProfileFragment;
+import com.vacuum.app.cinema.Fragments.MainFragment.HomeFragment;
+import com.vacuum.app.cinema.Fragments.MainFragment.TvShowsFragment;
+import com.vacuum.app.cinema.Fragments.MainFragment.DiscoverFragment;
+import com.vacuum.app.cinema.Fragments.MainFragment.SearchFragment;
+import com.vacuum.app.cinema.Fragments.MainFragment.ProfileFragment;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -44,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+
         btn_one =  findViewById(R.id.btn_one);
         btn_two =  findViewById(R.id.btn_two);
         btn_three = findViewById(R.id.btn_three);

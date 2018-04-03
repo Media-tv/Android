@@ -1,4 +1,4 @@
-package com.vacuum.app.cinema.Fragments;
+package com.vacuum.app.cinema.Fragments.MainFragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.vacuum.app.cinema.Adapter.MoviesAdapter;
+import com.vacuum.app.cinema.Fragments.MoreFragment;
 import com.vacuum.app.cinema.MainActivity;
 import com.vacuum.app.cinema.Model.Movie;
 import com.vacuum.app.cinema.Model.MoviesResponse;
@@ -27,6 +28,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.vacuum.app.cinema.Fragments.MainFragment.HomeFragment.apiService;
 
 /**
  * Created by Home on 2/19/2018.
@@ -67,10 +70,10 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
     private void retrofit() {
 
         String API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
-        progressBar.setVisibility(View.VISIBLE);
-        layout.setVisibility(View.GONE);
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+        //progressBar.setVisibility(View.VISIBLE);
+        //layout.setVisibility(View.GONE);
+        apiService =
+                ApiClient.getClient(mContext).create(ApiInterface.class);
 
         //====================================================================================
         //====================================================================================
@@ -138,4 +141,6 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
         fragmentTransaction.commit();
     }
+
+
 }
