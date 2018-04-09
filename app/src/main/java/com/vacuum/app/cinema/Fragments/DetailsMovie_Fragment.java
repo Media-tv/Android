@@ -1,6 +1,7 @@
 package com.vacuum.app.cinema.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,14 +15,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.vacuum.app.cinema.Activities.WatchActivity;
 import com.vacuum.app.cinema.Adapter.CreditsAdapter;
 import com.vacuum.app.cinema.Adapter.CrewAdapter;
 import com.vacuum.app.cinema.Adapter.ImagesAdapter;
 import com.vacuum.app.cinema.Adapter.TrailerAdapter;
+import com.vacuum.app.cinema.Model.Backdrop;
 import com.vacuum.app.cinema.Model.Cast;
 import com.vacuum.app.cinema.Model.Credits;
 import com.vacuum.app.cinema.Model.Crew;
@@ -46,12 +50,12 @@ import retrofit2.Response;
  * Created by Home on 3/3/2018.
  */
 
-public class DetailsMovie_Fragment extends Fragment {
+public class DetailsMovie_Fragment extends Fragment implements View.OnClickListener{
 
     private static boolean LIKE = true;
     public static final String TAG_DetailsMovie_Fragment = "TAG_DetailsMovie_Fragment";
 
-    TextView title,year,rating,overview,runtime,voteCount,genre1,genre2,genre3;
+    TextView title,year,rating,overview,runtime,voteCount,genre1,genre2,genre3,id_number;
     ImageView cover;
     Context mContext;
     RecyclerView recyclerView_trailers,recyclerView_actors,recyclerView_crew,recyclerView_images;
@@ -80,6 +84,7 @@ public class DetailsMovie_Fragment extends Fragment {
         genre1 = view.findViewById(R.id.genre1);
         genre2 = view.findViewById(R.id.genre2);
         genre3 = view.findViewById(R.id.genre3);
+        id_number = view.findViewById(R.id.id_number);
         layout_genre1 = view.findViewById(R.id.layout_genre1);
         layout_genre2 = view.findViewById(R.id.layout_genre2);
         layout_genre3 = view.findViewById(R.id.layout_genre3);
@@ -94,7 +99,8 @@ public class DetailsMovie_Fragment extends Fragment {
         recyclerView_images = view.findViewById(R.id.recyclerView_images);
         recyclerView_crew = view.findViewById(R.id.recyclerView_crew);
         crew_layout = view.findViewById(R.id.crew_layout);
-
+        like.setOnClickListener(this);
+        watch.setOnClickListener(this);
 
 
 
@@ -110,6 +116,8 @@ public class DetailsMovie_Fragment extends Fragment {
             ratingBar.setRating(movie.getVoteAverage().floatValue()/2);
             voteCount.setText(movie.getVoteCount().toString());
             x= movie.getId();
+            id_number.setText("id:" + String.valueOf(x));
+
             Glide.with(this)
                     .load("http://image.tmdb.org/t/p/w500"+movie.getBackdropPath().toString())
                     .into(cover);
@@ -120,8 +128,6 @@ public class DetailsMovie_Fragment extends Fragment {
 
 
         retrofit();
-        Like();
-        replaceFragment();
         return view;
     }
 
@@ -169,9 +175,9 @@ public class DetailsMovie_Fragment extends Fragment {
         call_RecyclerView_images.enqueue(new Callback<Images_tmdb>() {
             @Override
             public void onResponse(Call<Images_tmdb> call, Response<Images_tmdb> response) {
-                List<Poster> posters;
-
-                posters = response.body().getPosters();
+                //List<Poster> posters;
+                List<Backdrop> posters;
+                posters = response.body().getBackdrops();
                 image_layout.setVisibility(View.VISIBLE);
                 recyclerView_images.setLayoutManager(new LinearLayoutManager(mContext,
                         LinearLayoutManager.HORIZONTAL, false));
@@ -299,10 +305,14 @@ public class DetailsMovie_Fragment extends Fragment {
 
     }
 
-    private void Like() {
-        like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+
+
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.like:
                 if (LIKE){
                     like.setImageResource(R.drawable.if_heart_119_111093);
                     LIKE = false;
@@ -310,52 +320,22 @@ public class DetailsMovie_Fragment extends Fragment {
                     like.setImageResource(R.drawable.if_heart_1814104);
                     LIKE = true;
                 }
-            }
-        });
-
+                    break;
+            case  R.id.watch:
+                watchActivity();
+                break;
+        }
     }
 
-    /*private void recyclerViewTouch(RecyclerView recyclerView_all) {
-
-        recyclerView_all.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                switch (newState) {
-                    case RecyclerView.SCROLL_STATE_IDLE:
-                        System.out.println("The RecyclerView is not scrolling");
-                        helper.enableSwipeBack();
-                        break;
-                    case RecyclerView.SCROLL_STATE_DRAGGING:
-                        System.out.println("Scrolling now");
-                        helper.disableSwipeBack();
-                        break;
-                    case RecyclerView.SCROLL_STATE_SETTLING:
-                        System.out.println("Scroll Settling");
-                        helper.disableSwipeBack();
-                        break;
-
-                }
-            }
-        });
-
-    }*/
 
 
-    public void replaceFragment() {
-        watch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Bundle bundle = new Bundle();
-                //bundle.putInt("x", x);
-                Fragment someFragment = new AllucFragment();
-                //someFragment.setArguments(bundle);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_detailsFragment, someFragment);
-                transaction.addToBackStack(null).commit();
-            }
-        });
-
+    private void watchActivity() {
+        String url = "";
+        String openload_thumbnail_url = "";
+        String title = "";
+        String intArray[] = {url,title,openload_thumbnail_url};
+        Intent inent = new Intent(mContext, WatchActivity.class);
+        inent.putExtra("url", intArray);
+        mContext.startActivity(inent);
     }
-
 }

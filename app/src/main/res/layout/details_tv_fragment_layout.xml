@@ -245,7 +245,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_margin="10dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 >
 
                 <TextView
@@ -264,50 +264,55 @@
                     android:id="@+id/overview"
                     />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/episodes_layout"
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:visibility="visible"
-                android:background="@color/lightcolor">
+                android:layout_height="match_parent">
 
-
-                <RelativeLayout
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Spinner
-                        android:id="@+id/spinner_episodes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="center"
-                        android:spinnerMode="dropdown" />
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/if_arrow_down" />
-
-                </RelativeLayout>
-
-
-                <android.support.v7.widget.RecyclerView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/recyclerView_episodes"
-                    android:clickable="true"
-                    android:scrollbars="vertical"
-                    />
+                    android:orientation="vertical"
+                    android:background="@color/lightcolor"
+                    android:id="@+id/episodes_layout"
+                    android:focusableInTouchMode="true"> <!-- Prevents scrolling location from being overriden by RecyclerView -->
 
 
-            </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/spinner_episodes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:spinnerMode="dropdown" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            app:srcCompat="@drawable/if_arrow_down" />
+
+                    </RelativeLayout>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recyclerView_episodes"
+                        android:clickable="true"
+                        android:scrollbars="vertical"
+                        />
+
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
             <LinearLayout
                 android:id="@+id/actors_layout"
                 android:layout_width="match_parent"

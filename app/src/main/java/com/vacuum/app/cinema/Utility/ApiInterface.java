@@ -2,7 +2,6 @@ package com.vacuum.app.cinema.Utility;
 
 import com.vacuum.app.cinema.Model.Credits;
 import com.vacuum.app.cinema.Model.Images_tmdb;
-import com.vacuum.app.cinema.Model.Movie;
 import com.vacuum.app.cinema.Model.MovieDetails;
 import com.vacuum.app.cinema.Model.MoviesResponse;
 import com.vacuum.app.cinema.Model.OpenloadResult;
@@ -11,13 +10,15 @@ import com.vacuum.app.cinema.Model.SeasonDetails;
 import com.vacuum.app.cinema.Model.Slider;
 import com.vacuum.app.cinema.Model.TVDetails;
 import com.vacuum.app.cinema.Model.TrailerResponse;
-import com.vacuum.app.cinema.Model.allucResults;
-import com.vacuum.app.cinema.Model.allucThumbnail;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
@@ -71,13 +72,6 @@ public interface ApiInterface {
     Call<Images_tmdb> getImages(@Path("type") String type,@Path("id") int id, @Query("api_key") String apiKey);
 
 
-
-    @GET
-    Call<allucResults> profilePicture(@Url String url);
-
-    @GET
-    Call<allucThumbnail> profilePicture2(@Url String url);
-
     @GET
     Call<List<Slider>> getSlider(@Url String url);
 
@@ -86,4 +80,10 @@ public interface ApiInterface {
 
     @GET
     Call<OpenloadThumbnail> getOpenloadThumbnail(@Url String url);
+
+
+    @FormUrlEncoded
+    @POST("cimaclub/request.php")
+    Call<ResponseBody> requestMovie(@Field("movie_id") String movie_id,
+                                   @Field("title") String title);
 }

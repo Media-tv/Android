@@ -29,6 +29,7 @@ import com.vacuum.app.cinema.Adapter.EpisodesAdapter;
 import com.vacuum.app.cinema.Adapter.ImagesAdapter;
 import com.vacuum.app.cinema.Adapter.SearchAdapter;
 import com.vacuum.app.cinema.Adapter.TrailerAdapter;
+import com.vacuum.app.cinema.Model.Backdrop;
 import com.vacuum.app.cinema.Model.Cast;
 import com.vacuum.app.cinema.Model.Credits;
 import com.vacuum.app.cinema.Model.Crew;
@@ -176,7 +177,7 @@ public class DetailsTV_Fragment extends Fragment {
                             @Override
                             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                                 // your code here
-                                episodes(position);
+                                episodes(position+1);
                             }
 
                             @Override
@@ -260,9 +261,10 @@ public class DetailsTV_Fragment extends Fragment {
         call_RecyclerView_images.enqueue(new Callback<Images_tmdb>() {
             @Override
             public void onResponse(Call<Images_tmdb> call, Response<Images_tmdb> response) {
-                List<Poster> posters;
+                List<Backdrop> posters;
+                //List<Poster> posters;
 
-                    posters = response.body().getPosters();
+                    posters = response.body().getBackdrops();
                     image_layout.setVisibility(View.VISIBLE);
                     recyclerView_images.setLayoutManager(new LinearLayoutManager(mContext,
                             LinearLayoutManager.HORIZONTAL, false));
@@ -361,14 +363,9 @@ public class DetailsTV_Fragment extends Fragment {
                                            episodes_layout.setVisibility(View.VISIBLE);
                                            recyclerView_episodes.setLayoutManager(new LinearLayoutManager(mContext,
                                                    LinearLayoutManager.VERTICAL, false));
-
-                                           //recyclerView_episodes.setLayoutManager(new MyLinearLayoutManager(mContext,1,false));
-                                           DisplayMetrics displaymetrics = new DisplayMetrics();
-                                           getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-
-                                           int a =  (displaymetrics.heightPixels*90)/100;
-                                           recyclerView_episodes.getLayoutParams().height =a;
                                            recyclerView_episodes.setAdapter(new EpisodesAdapter(episodes, mContext));
+                                           recyclerView_episodes.setNestedScrollingEnabled(false);
+
 
                                        }
 

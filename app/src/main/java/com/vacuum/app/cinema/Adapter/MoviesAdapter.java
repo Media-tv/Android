@@ -1,11 +1,13 @@
 package com.vacuum.app.cinema.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +17,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.vacuum.app.cinema.Activities.WatchActivity;
 import com.vacuum.app.cinema.Fragments.DetailsMovie_Fragment;
 import com.vacuum.app.cinema.Fragments.DetailsTV_Fragment;
 import com.vacuum.app.cinema.MainActivity;
 import com.vacuum.app.cinema.Model.Movie;
 import com.vacuum.app.cinema.R;
+import com.vacuum.app.cinema.Utility.ApiInterface;
 
+import java.io.IOException;
 import java.util.List;
 
 import me.samthompson.bubbleactions.BubbleActions;
 import me.samthompson.bubbleactions.Callback;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Home on 2/20/2018.
@@ -99,7 +109,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                         .addAction("Star", R.drawable.if_heart_119_111093, new Callback() {
                             @Override
                             public void doAction() {
-                                Toast.makeText(view.getContext(), "Like !", Toast.LENGTH_SHORT).show();
+                                request_movie(movie.getId().toString(),movie.getTitle());
                             }
                         })
                         .addAction("Share", R.drawable.if_share4_216719, new Callback() {
@@ -119,6 +129,45 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             }
         });
     }
+
+    private void request_movie(String id,String title) {
+            String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(ROOT_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            ApiInterface api = retrofit.create(ApiInterface.class);
+            api.requestMovie(
+                    id,
+                    title
+            ).enqueue(new retrofit2.Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    if(response.isSuccessful()) {
+                        String responsse ;
+                        try {
+                            responsse  = response.body().string();
+                            System.out.println("====================================================");
+                            System.out.println(responsse);
+                            Toast.makeText(mContext,responsse, Toast.LENGTH_SHORT).show();
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.e("TAG", "Unable to submit post to API.");
+                }
+            });
+
+    }
+
     @Override
     public int getItemCount() {
         return movies.size();
@@ -136,4 +185,5 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
         fragmentTransaction.commit();
     }
+
 }

@@ -116,6 +116,14 @@
                             android:textColor="@color/textcolor"
                             android:id="@+id/voteCount"
                             />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="33547"
+                            android:layout_gravity="center"
+                            android:textColor="@color/textcolor"
+                            android:id="@+id/id_number"
+                            />
                     </LinearLayout>
 
                     <TextView

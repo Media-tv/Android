@@ -32,12 +32,22 @@
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 />
+
             <ImageView
                 android:layout_width="110dp"
                 android:layout_height="50dp"
                 android:rotation="180"
                 android:src="@drawable/dark_gradient"
                 android:layout_gravity="bottom"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zom3aa"
+                android:textStyle="bold"
+                android:textSize="9sp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:textColor="@color/lightYellow"
                 />
         </android.support.v7.widget.CardView>
 
