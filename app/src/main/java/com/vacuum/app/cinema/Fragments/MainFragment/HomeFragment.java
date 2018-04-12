@@ -3,6 +3,8 @@ package com.vacuum.app.cinema.Fragments.MainFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -32,6 +35,7 @@ import com.vacuum.app.cinema.MainActivity;
 import com.vacuum.app.cinema.Model.Movie;
 import com.vacuum.app.cinema.Model.MoviesResponse;
 import com.vacuum.app.cinema.Model.OpenloadResult;
+import com.vacuum.app.cinema.Model.OpenloadResult2;
 import com.vacuum.app.cinema.Model.OpenloadThumbnail;
 import com.vacuum.app.cinema.Model.Slider;
 import com.vacuum.app.cinema.R;
@@ -64,7 +68,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     TextView more_upcoming,more_Popular,more_top_rated;
     public  static  LinearLayout layout;
     EditText captcha_edit_text;
-    String OPENLOAD_API_Login,OPENLOAD_API_KEY,ticket,file_id,openload_thumbnail_url,title,captcha_text;
+    String OPENLOAD_API_Login,OPENLOAD_API_KEY,ticket,file_id,openload_thumbnail_url,title;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -106,6 +110,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         retrofit();
         return view;
     }
+
+
 
     private void setupslider(final List<Slider> sliders) {
 
@@ -153,27 +159,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private void retrofit(){
 
-
-
-        //progressBar.setVisibility(View.VISIBLE);
-        //layout.setVisibility(View.GONE);
-
-
-        /*File httpCacheDirectory = new File(mContext.getCacheDir(), "responses");
-        int cacheSize = 10 * 1024 * 1024; // 10 MiB
-        Cache cache = new Cache(httpCacheDirectory, cacheSize);
-
-        OkHttpClient client = new OkHttpClient.Builder()
-                .cache(cache)
-                .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
-                .build();
-
-        String BASE_URL = "http://api.themoviedb.org/3/";
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();*/
         apiService =
                 ApiClient.getClient(mContext).create(ApiInterface.class);
 
@@ -301,8 +286,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         OPENLOAD_API_KEY = getResources().getString(R.string.OPENLOAD_API_KEY);
         String full_url = "https://api.openload.co/1/file/dlticket?file=" + file_id + "&login=" + OPENLOAD_API_Login + "&key=" + OPENLOAD_API_KEY;
 
-
-
+        Log.e("TAG","retrofit_1");
         ApiInterface apiService =
                 ApiClient.getClient(mContext).create(ApiInterface.class);
         Call<OpenloadResult> call_slider = apiService.getOpenload(full_url);
@@ -310,15 +294,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onResponse(Call<OpenloadResult> call, Response<OpenloadResult> response) {
                 OpenloadResult open = response.body();
-                AlertDialog(open.getOpenload().getCaptchaUrl());
                 ticket = open.getOpenload().getTicket();
-                Log.i("openloadgetCaptchaUrl: ", open.getOpenload().getCaptchaUrl());
+                Boolean x = open.getOpenload().getcaptchaUrlboolen();
+                Log.e("TAG: Boolen ==  ", x.toString());
+
+                String url = "https://api.openload.co/1/file/dl?file=" + file_id + "&ticket=" + ticket;
+                retrofit_2(url);
             }
 
             @Override
             public void onFailure(Call<OpenloadResult> call, Throwable t) {
                 // Log error here since request failed
-                Log.e("openloadResult", t.toString());
+                Log.e("TAG: error ", t.toString());
+
             }
         });
 
@@ -331,7 +319,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 OpenloadThumbnail open = response.body();
                 openload_thumbnail_url = open.getResult();
             }
-
             @Override
             public void onFailure(Call<OpenloadThumbnail> call, Throwable t) {
                 // Log error here since request failed
@@ -354,16 +341,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 .setCancelable(true);
         alertadd.setNeutralButton("Submit", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dlg, int sumthin) {
-                captcha_text = captcha_edit_text.getText().toString();
-                retrofit_2();
+                String captcha_text = captcha_edit_text.getText().toString();
+                String full_url = "https://api.openload.co/1/file/dl?file=" + file_id + "&ticket=" + ticket + "&captcha_response=" + captcha_text;
+                retrofit_2(full_url);
             }
         });
         alertadd.show();
     }
 
-    private void retrofit_2() {
+    private void retrofit_2(String full_url) {
 
-        String full_url = "https://api.openload.co/1/file/dl?file=" + file_id + "&ticket=" + ticket + "&captcha_response=" + captcha_text;
 
         ApiInterface apiService =
                 ApiClient.getClient(mContext).create(ApiInterface.class);
@@ -373,7 +360,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             public void onResponse(Call<OpenloadResult> call, Response<OpenloadResult> response) {
                 OpenloadResult open = response.body();
                 if (open.getOpenload() != null) {
-                    Log.i("openload :: url = ", open.getOpenload().getUrl());
+                    //Log.i("openload :: url = ", open.getOpenload().getUrl());
                     View view = getActivity().getCurrentFocus();
                     if (view != null) {
                         InputMethodManager imm = (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -382,17 +369,42 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                     watchActivity(open.getOpenload().getUrl());
 
                 } else {
-                    retrofit_1();
+                    retrofit_3();
+                    //Log.e("TAG","open load = NULL");
                 }
-
             }
-
             @Override
             public void onFailure(Call<OpenloadResult> call, Throwable t) {
                 Log.e("openloadResult", t.toString());
             }
         });
 
+    }
+
+    private void retrofit_3() {
+        String full_url = "https://api.openload.co/1/file/dlticket?file=" + file_id + "&login=" + OPENLOAD_API_Login + "&key=" + OPENLOAD_API_KEY;
+
+        //Log.e("TAG","retrofit_3");
+        ApiInterface apiService =
+                ApiClient.getClient(mContext).create(ApiInterface.class);
+        Call<OpenloadResult2> call_slider = apiService.getOpenload2(full_url);
+        call_slider.enqueue(new Callback<OpenloadResult2>() {
+            @Override
+            public void onResponse(Call<OpenloadResult2> call, Response<OpenloadResult2> response) {
+                OpenloadResult2 open = response.body();
+                ticket = open.getOpenload().getTicket();
+                AlertDialog(open.getOpenload().getCaptchaUrl());
+                //Log.i("TAG: ", open.getOpenload().getCaptchaUrl());
+                String url = "https://api.openload.co/1/file/dl?file=" + file_id + "&ticket=" + ticket + "&captcha_response="+open.getOpenload().getCaptchaUrl();
+            }
+
+            @Override
+            public void onFailure(Call<OpenloadResult2> call, Throwable t) {
+                // Log error here since request failed
+                Log.e("TAG: error ", t.toString());
+
+            }
+        });
     }
 
 

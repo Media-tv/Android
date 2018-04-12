@@ -10,7 +10,7 @@
         android:orientation="vertical"
         tools:ignore="MissingPrefix"
         android:gravity="center"
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="60dp"
         android:background="#e2e2e2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

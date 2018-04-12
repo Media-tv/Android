@@ -17,6 +17,8 @@ import com.vacuum.app.cinema.R;
 
 import java.util.List;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 /**
  * Created by Home on 2/24/2018.
  */
@@ -60,7 +62,10 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
         holder.trailerTitle.setText(trailer.get(position).getName());
         holder.site.setText(trailer.get(position).getSite());
 
-        Glide.with(mContext).load("https://img.youtube.com/vi/"+trailer.get(position).getKey()+"/hqdefault.jpg").into(holder.thumbnail);
+        Glide.with(mContext)
+                .load("https://img.youtube.com/vi/"+trailer.get(position).getKey()+"/hqdefault.jpg")
+                .transition(withCrossFade())
+                .into(holder.thumbnail);
 
         //onClick
         //==================================================================

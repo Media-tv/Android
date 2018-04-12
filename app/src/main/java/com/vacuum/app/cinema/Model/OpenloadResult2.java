@@ -3,11 +3,7 @@ package com.vacuum.app.cinema.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Home on 3/23/2018.
- */
-
-public class OpenloadResult {
+public class OpenloadResult2 {
     @SerializedName("status")
     @Expose
     private Integer status;
@@ -16,7 +12,7 @@ public class OpenloadResult {
     private String msg;
     @SerializedName("result")
     @Expose
-    private Openload openload;
+    private Openload2 openload2;
 
 
     public Integer getStatus() {
@@ -35,11 +31,11 @@ public class OpenloadResult {
         this.msg = msg;
     }
 
-    public Openload getOpenload() {
-        return openload;
+    public Openload2 getOpenload() {
+        return openload2;
     }
 
-    public void setOpenload(Openload openload) {
-        this.openload = openload;
+    public void setOpenload(Openload2 openload) {
+        this.openload2 = openload;
     }
 }

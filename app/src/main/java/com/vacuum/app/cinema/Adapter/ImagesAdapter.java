@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -33,6 +35,7 @@ import java.io.OutputStream;
 import java.util.List;
 
 import static cn.jzvd.JZVideoPlayer.TAG;
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * Created by Home on 2/24/2018.
@@ -71,8 +74,10 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.TrailerVie
     @Override
     public void onBindViewHolder(ImagesAdapter.TrailerViewHolder holder, final int position) {
 
-        final String url = "http://image.tmdb.org/t/p/w500"+posters.get(position).getFilePath();
-        Glide.with(mContext).load(url).into(holder.thumbnail);
+        String url = "http://image.tmdb.org/t/p/w500"+posters.get(position).getFilePath();
+        Glide.with(mContext).load(url)
+                .transition(withCrossFade())
+                .into(holder.thumbnail);
 
         //onClick
         //==================================================================
@@ -80,17 +85,20 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.TrailerVie
         holder.thumbnail.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
+                isStoragePermissionGranted();
+                Vibrator vibe = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+                vibe.vibrate(150);
+                Toast.makeText(mContext, "downloading...", Toast.LENGTH_SHORT).show();
                 Glide.with(mContext)
                         .asBitmap()
-                        .load(url)
+                        .load("http://image.tmdb.org/t/p/original"+posters.get(position).getFilePath())
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                 saveImage(resource,position);
                             }
                         });
-                isStoragePermissionGranted();
+
                 return true;
             }
         });

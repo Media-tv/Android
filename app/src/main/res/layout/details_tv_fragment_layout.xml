@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/cover"
+                    android:background="@color/colorPrimary"
                     android:id="@+id/cover"
                     />
                 <ImageView
@@ -121,6 +121,14 @@
                                 android:textColor="@color/textcolor"
                                 android:id="@+id/voteCount"
                                 />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ID: 25548"
+                                android:layout_gravity="center"
+                                android:textColor="@color/textcolor"
+                                android:id="@+id/id_number"
+                                />
                         </LinearLayout>
 
                         <TextView
@@ -193,7 +201,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="adventure"
+                        android:text="adventure dsf"
                         android:textSize="12sp"
                         android:textStyle="normal"
                         android:paddingLeft="8dp"

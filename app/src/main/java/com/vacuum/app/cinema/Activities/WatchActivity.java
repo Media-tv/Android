@@ -88,10 +88,6 @@ public class WatchActivity extends AppCompatActivity {
         Glide(thumbnail,jzVideoPlayerStandard.thumbImageView);
         jzVideoPlayerStandard.startButton.performClick();
 
-
-
-        /*VideoView videoView =  view.findViewById(R.id.videoplayer);
-        videoView.setVideoPath(slider.getStreamlink()).getPlayer().start();*/
     }
 
     private void Glide(String url, ImageView imageView) {

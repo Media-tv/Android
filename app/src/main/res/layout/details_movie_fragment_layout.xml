@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/cover"
+                android:background="@color/colorPrimary"
                 android:id="@+id/cover"
                 />
             <ImageView
@@ -149,15 +149,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
                 app:srcCompat="@drawable/if_access_time_326483"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2h 33min"
+                android:layout_marginLeft="8dp"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
                 android:textColor="@color/white"
                 android:id="@+id/runtime"
                 />

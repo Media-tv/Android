@@ -3,6 +3,7 @@ package com.vacuum.app.cinema.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.vacuum.app.cinema.Activities.WatchActivity;
 import com.vacuum.app.cinema.Adapter.CreditsAdapter;
 import com.vacuum.app.cinema.Adapter.CrewAdapter;
@@ -46,6 +48,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 /**
  * Created by Home on 3/3/2018.
  */
@@ -65,6 +69,9 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     ImageView like,watch;
     int x;
     Movie movie;
+    Handler mHandler;
+    Runnable myRunnable;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -116,10 +123,16 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             ratingBar.setRating(movie.getVoteAverage().floatValue()/2);
             voteCount.setText(movie.getVoteCount().toString());
             x= movie.getId();
-            id_number.setText("id:" + String.valueOf(x));
-
+            id_number.setText("ID:" + String.valueOf(x));
+            String cover_string_link ;
+            if(movie.getBackdropPath() == null){
+                cover_string_link = "http://image.tmdb.org/t/p/w780"+movie.getPosterPath().toString();
+            }else {
+                cover_string_link = "http://image.tmdb.org/t/p/w780"+movie.getBackdropPath().toString();
+            }
             Glide.with(this)
-                    .load("http://image.tmdb.org/t/p/w500"+movie.getBackdropPath().toString())
+                    .load(cover_string_link)
+                    .transition(withCrossFade())
                     .into(cover);
         }catch (Exception e){
             Log.i("TAG :",e.toString());
@@ -182,7 +195,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                 recyclerView_images.setLayoutManager(new LinearLayoutManager(mContext,
                         LinearLayoutManager.HORIZONTAL, false));
                 recyclerView_images.setAdapter(new ImagesAdapter(posters, mContext));
-
+                change_backdrop(posters);
             }
 
             @Override
@@ -279,6 +292,28 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
 
     }
 
+    private void change_backdrop(final List<Backdrop> imageArray) {
+        mHandler=  new Handler();
+        myRunnable = new Runnable() {
+            int i = 0;
+
+            public void run() {
+                Glide.with(mContext)
+                        .load("http://image.tmdb.org/t/p/w500"+imageArray.get(i).getFilePath())
+                        .transition(withCrossFade())
+                        .apply(new RequestOptions().placeholder(cover.getDrawable()))
+                        .into(cover);
+                Log.e("TAG","change image bacrfull");
+                i++;
+                if (i > imageArray.size() - 1) {
+                    i = 0;
+                }
+                mHandler.postDelayed(this, 4000);
+            }
+        };
+        mHandler.postDelayed(myRunnable, 2000);
+    }
+
     public void setgenre(List<Genre> names, int size){
 
         //Log.e("size",String.valueOf(size));
@@ -337,5 +372,15 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         Intent inent = new Intent(mContext, WatchActivity.class);
         inent.putExtra("url", intArray);
         mContext.startActivity(inent);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e("TAG","Stop handler ");
+        if(myRunnable != null){
+            mHandler.removeCallbacksAndMessages(null);
+        }
+
     }
 }

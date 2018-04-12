@@ -5,11 +5,13 @@ import com.vacuum.app.cinema.Model.Images_tmdb;
 import com.vacuum.app.cinema.Model.MovieDetails;
 import com.vacuum.app.cinema.Model.MoviesResponse;
 import com.vacuum.app.cinema.Model.OpenloadResult;
+import com.vacuum.app.cinema.Model.OpenloadResult2;
 import com.vacuum.app.cinema.Model.OpenloadThumbnail;
 import com.vacuum.app.cinema.Model.SeasonDetails;
 import com.vacuum.app.cinema.Model.Slider;
 import com.vacuum.app.cinema.Model.TVDetails;
 import com.vacuum.app.cinema.Model.TrailerResponse;
+import com.vacuum.app.cinema.Model.Update;
 
 import java.util.List;
 
@@ -77,7 +79,8 @@ public interface ApiInterface {
 
     @GET
     Call<OpenloadResult> getOpenload(@Url String url);
-
+    @GET
+    Call<OpenloadResult2> getOpenload2(@Url String url);
     @GET
     Call<OpenloadThumbnail> getOpenloadThumbnail(@Url String url);
 
@@ -86,4 +89,7 @@ public interface ApiInterface {
     @POST("cimaclub/request.php")
     Call<ResponseBody> requestMovie(@Field("movie_id") String movie_id,
                                    @Field("title") String title);
+
+    @GET
+    Call<Update> getUpdateVersion(@Url String url);
 }

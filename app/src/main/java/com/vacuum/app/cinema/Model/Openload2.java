@@ -1,27 +1,9 @@
 package com.vacuum.app.cinema.Model;
 
-import android.text.TextUtils;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-
-import retrofit2.Converter;
-
-/**
- * Created by Home on 3/23/2018.
- */
-
-public class Openload {
+public class Openload2 {
 
 
     @SerializedName("ticket")
@@ -57,8 +39,6 @@ public class Openload {
     }
 
 
-
-
     public String getUrl() {
         return url;
     }
@@ -66,7 +46,6 @@ public class Openload {
     public void setUrl(String url) {
         this.url = url;
     }
-
 
 
     public String getTicket() {
@@ -80,8 +59,8 @@ public class Openload {
 
     @SerializedName("captcha_url")
     @Expose
-    private boolean captchaUrlboolen;
     private String captchaUrl;
+    private boolean captchaUrlboolen;
 
     public String getCaptchaUrl() {
         return captchaUrl;
