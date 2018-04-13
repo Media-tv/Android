@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     AlertDialog.Builder alertadd;
     private ApiInterface apiService;
     ProgressDialog mProgressDialog;
+    String link;
 
 
     @Override
@@ -197,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
               int  versioncode = c.getVersioncode();
               String message =c.getMessage();
               String title =c.getTitle();
+              link = c.getDownload_link();
                 if(version_number() == versioncode){
                     AlertDialog(true,versioncode,title,message);
               }else {
@@ -260,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 // execute this when the downloader must be fired
         final DownloadTask downloadTask = new DownloadTask(MainActivity.this);
-        downloadTask.execute("https://raw.githubusercontent.com/mohamedebrahim96/CimaClubWeb/master/README.txt");
+        downloadTask.execute(link);
 
         mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override

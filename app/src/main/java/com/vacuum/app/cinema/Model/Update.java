@@ -20,6 +20,10 @@ public class Update {
     @Expose
     private String message;
 
+    @SerializedName("download_link")
+    @Expose
+    private String download_link;
+
     public Integer getVersioncode() {
         return versioncode;
     }
@@ -50,5 +54,13 @@ public class Update {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDownload_link() {
+        return download_link;
+    }
+
+    public void setDownload_link(String download_link) {
+        this.download_link = download_link;
     }
 }
