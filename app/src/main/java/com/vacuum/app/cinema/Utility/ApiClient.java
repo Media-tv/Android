@@ -2,6 +2,9 @@ package com.vacuum.app.cinema.Utility;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -36,10 +39,16 @@ public class ApiClient {
                     .cache(cache)
                     .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
                     .build();
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
 
             /*retrofit = new Retrofit.Builder()

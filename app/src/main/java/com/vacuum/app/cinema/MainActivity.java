@@ -189,26 +189,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         apiService =
                 ApiClient.getClient(mContext).create(ApiInterface.class);
 
-        Call<Update> call_UpComing = apiService.getUpdateVersion("https://mohamedebrahim.000webhostapp.com/cimaclub/update.php");
+        String webhost00free = "https://mohamedebrahim.000webhostapp.com/cimaclub/update.php" ;
+
+        Call<Update> call_UpComing = apiService.getUpdateVersion(webhost00free);
         call_UpComing.enqueue(new Callback<Update>() {
             @Override
             public void onResponse(Call<Update>call, Response<Update> response) {
-              Update c = response.body();
-              String versionname = c.getVersionname();
-              int  versioncode = c.getVersioncode();
-              String message =c.getMessage();
-              String title =c.getTitle();
-              link = c.getDownload_link();
-                if(version_number() == versioncode){
-                    AlertDialog(true,versioncode,title,message);
-              }else {
-                    AlertDialog(false,versioncode,title,message);
+
+                try{
+                    Update c = response.body();
+                    //Log.e("TAG : ",c);
+                    String versionname = c.getVersionname();
+                    int  versioncode = c.getVersioncode();
+                    String message =c.getMessage();
+                    String title =c.getTitle();
+                    link = c.getDownloadLink();
+                    if(version_number() == versioncode){
+                        AlertDialog(true,versioncode,title,message);
+                    }else {
+                        AlertDialog(false,versioncode,title,message);
+                    }
+                }catch (Exception e){
+                    Log.e("TAG : Expetion :: ",e.toString());
                 }
+
             }
             @Override
             public void onFailure(Call<Update>call, Throwable t) {
                 // Log error here since request failed
-                Log.e("TAG", t.toString());
+                Log.e("TAG : onFailure", t.toString());
             }
         });
     }
