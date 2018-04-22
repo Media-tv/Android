@@ -1,8 +1,9 @@
 package com.vacuum.app.cinema.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.vacuum.app.cinema.Model.Poster;
+import com.vacuum.app.cinema.Fragments.YoutubeDialogFragment;
 import com.vacuum.app.cinema.Model.Trailer;
 import com.vacuum.app.cinema.R;
 
 import java.util.List;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static com.vacuum.app.cinema.Fragments.YoutubeDialogFragment.TAG_YOUTUBE_FRAGMENT;
 
 /**
  * Created by Home on 2/24/2018.
@@ -73,10 +75,18 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+trailer.get(position).getKey()));
+
+                YoutubeDialogFragment dialogFragment = new YoutubeDialogFragment ();
+                Bundle bundle = new Bundle();
+                bundle.putString("movie", trailer.get(position).getKey());
+                dialogFragment.setArguments(bundle);
+                FragmentTransaction fm = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
+                dialogFragment.show(fm, TAG_YOUTUBE_FRAGMENT);
+
+                /*Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+trailer.get(position).getKey()));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setPackage("com.google.android.youtube");
-                mContext.startActivity(intent);
+                mContext.startActivity(intent);*/
             }
         });
     }

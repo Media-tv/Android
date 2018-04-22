@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/movies_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -20,6 +21,8 @@
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view55"
+            android:elevation="0dp"
+            app:cardElevation="0dp"
             android:foreground="@drawable/ripple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,15 +43,26 @@
                 android:src="@drawable/dark_gradient"
                 android:layout_gravity="bottom"
                 />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Zom3aa"
                 android:textStyle="bold"
                 android:textSize="9sp"
+                android:layout_marginBottom="20dp"
                 android:layout_gravity="bottom|center_horizontal"
                 android:textColor="@color/lightYellow"
                 />
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="110dp"
+                android:layout_height="3dp"
+                android:max="100"
+                android:layout_gravity="bottom|center_horizontal"
+                android:progress="70"
+                android:progressDrawable="@drawable/progress_background"
+                android:id="@+id/notnow" />
         </android.support.v7.widget.CardView>
 
         <TextView

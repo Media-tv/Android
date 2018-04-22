@@ -10,12 +10,13 @@
     <ImageView
         android:id="@+id/captcha"
         android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="250dp"
+        android:layout_height="100dp" />
     <EditText
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/captcha_edit_text"
+        android:inputType="textVisiblePassword"
         android:hint="****"
         />
 

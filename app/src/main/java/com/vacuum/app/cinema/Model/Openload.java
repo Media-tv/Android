@@ -80,7 +80,6 @@ public class Openload {
 
     @SerializedName("captcha_url")
     @Expose
-    private boolean captchaUrlboolen;
     private String captchaUrl;
 
     public String getCaptchaUrl() {
@@ -91,12 +90,4 @@ public class Openload {
         this.captchaUrl = captchaUrl;
     }
 
-
-    public boolean getcaptchaUrlboolen() {
-        return captchaUrlboolen;
-    }
-
-    public void setcaptchaUrlboolen(boolean captchaUrl) {
-        this.captchaUrlboolen = captchaUrlboolen;
-    }
 }

@@ -29,7 +29,21 @@
                 android:layout_marginTop="69dp"
                 android:foregroundGravity="center"
                 android:id="@+id/watch"
+                android:visibility="visible"
                 app:srcCompat="@drawable/if_play_circle_fill_326581"
+                />
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="69dp"
+                android:foregroundGravity="center"
+                android:id="@+id/progresssbar_watch"
+                android:visibility="gone"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_gravity="center"
+                android:layout_centerHorizontal="true"
+                android:indeterminateDrawable="@drawable/progress"
                 />
 
             <ImageView

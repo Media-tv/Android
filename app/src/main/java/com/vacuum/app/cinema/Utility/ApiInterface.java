@@ -1,11 +1,11 @@
 package com.vacuum.app.cinema.Utility;
 
 import com.vacuum.app.cinema.Model.Credits;
+import com.vacuum.app.cinema.Model.DoneMovies;
 import com.vacuum.app.cinema.Model.Images_tmdb;
 import com.vacuum.app.cinema.Model.MovieDetails;
 import com.vacuum.app.cinema.Model.MoviesResponse;
 import com.vacuum.app.cinema.Model.OpenloadResult;
-import com.vacuum.app.cinema.Model.OpenloadResult2;
 import com.vacuum.app.cinema.Model.OpenloadThumbnail;
 import com.vacuum.app.cinema.Model.SeasonDetails;
 import com.vacuum.app.cinema.Model.Slider;
@@ -79,8 +79,7 @@ public interface ApiInterface {
 
     @GET
     Call<OpenloadResult> getOpenload(@Url String url);
-    @GET
-    Call<OpenloadResult2> getOpenload2(@Url String url);
+
     @GET
     Call<OpenloadThumbnail> getOpenloadThumbnail(@Url String url);
 
@@ -92,4 +91,12 @@ public interface ApiInterface {
 
     @GET
     Call<Update> getUpdateVersion(@Url String url);
+
+
+    @GET
+    Call<String> getMovie_openload_id(@Url String url);
+
+
+    @GET
+    Call<DoneMovies> getDoneMovies(@Url String url);
 }

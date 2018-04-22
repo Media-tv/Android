@@ -179,8 +179,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         bundle.putSerializable("movie", movie);
         fragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                android.R.anim.fade_out);
+        /*fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                android.R.anim.fade_out);*/
         fragmentTransaction.replace(R.id.frame, fragment,TAG );
         fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
         fragmentTransaction.commit();

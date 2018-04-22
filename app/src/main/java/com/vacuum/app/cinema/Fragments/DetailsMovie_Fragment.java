@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -41,6 +42,7 @@ import com.vacuum.app.cinema.Model.TrailerResponse;
 import com.vacuum.app.cinema.R;
 import com.vacuum.app.cinema.Utility.ApiClient;
 import com.vacuum.app.cinema.Utility.ApiInterface;
+import com.vacuum.app.cinema.Utility.GetOpenload;
 
 import java.util.List;
 
@@ -62,6 +64,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     TextView title,year,rating,overview,runtime,voteCount,genre1,genre2,genre3,id_number;
     ImageView cover;
     Context mContext;
+    ProgressBar progresssbar_watch;
     RecyclerView recyclerView_trailers,recyclerView_actors,recyclerView_crew,recyclerView_images;
     RelativeLayout layout_genre1,layout_genre2,layout_genre3;
     LinearLayout trailer_layout,actors_layout,crew_layout,image_layout;
@@ -71,6 +74,8 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     Movie movie;
     Handler mHandler;
     Runnable myRunnable;
+    ApiInterface apiService;
+    String API_KEY;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,6 +105,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         trailer_layout = view.findViewById(R.id.trailer_layout);
         actors_layout = view.findViewById(R.id.actors_layout);
         image_layout = view.findViewById(R.id.image_layout);
+        progresssbar_watch = view.findViewById(R.id.progresssbar_watch);
 
         recyclerView_trailers = view.findViewById(R.id.recyclerView_trailers);
         recyclerView_actors = view.findViewById(R.id.recyclerView_actors);
@@ -145,8 +151,8 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     }
 
     private void retrofit() {
-        String API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
-        ApiInterface apiService =
+        API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
+        apiService =
                 ApiClient.getClient(mContext).create(ApiInterface.class);
 
         Call<MovieDetails> call_details = apiService.getMovieDetails(x,API_KEY);
@@ -182,28 +188,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                 Log.e("tag", t.toString());
             }
         });
-        //setRecyclerView_images
-        //==================================================================
-        Call<Images_tmdb> call_RecyclerView_images = apiService.getImages("movie",x,API_KEY);
-        call_RecyclerView_images.enqueue(new Callback<Images_tmdb>() {
-            @Override
-            public void onResponse(Call<Images_tmdb> call, Response<Images_tmdb> response) {
-                //List<Poster> posters;
-                List<Backdrop> posters;
-                posters = response.body().getBackdrops();
-                image_layout.setVisibility(View.VISIBLE);
-                recyclerView_images.setLayoutManager(new LinearLayoutManager(mContext,
-                        LinearLayoutManager.HORIZONTAL, false));
-                recyclerView_images.setAdapter(new ImagesAdapter(posters, mContext));
-                change_backdrop(posters);
-            }
 
-            @Override
-            public void onFailure(Call<Images_tmdb> call, Throwable t) {
-                // Log error here since request failed
-                Log.e("tag", t.toString());
-            }
-        });
         //setRecyclerView_trailers
         //==================================================================
         Call<TrailerResponse> call_RecyclerView_trailers = apiService.gettrailers("movie",x,API_KEY);
@@ -290,7 +275,34 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             }
         });
 
+        call_Retrofit_images();
     }
+
+    private void call_Retrofit_images() {
+        //setRecyclerView_images
+        //==================================================================
+        Call<Images_tmdb> call_RecyclerView_images = apiService.getImages("movie",x,API_KEY);
+        call_RecyclerView_images.enqueue(new Callback<Images_tmdb>() {
+            @Override
+            public void onResponse(Call<Images_tmdb> call, Response<Images_tmdb> response) {
+                //List<Poster> posters;
+                List<Backdrop> posters;
+                posters = response.body().getBackdrops();
+                image_layout.setVisibility(View.VISIBLE);
+                recyclerView_images.setLayoutManager(new LinearLayoutManager(mContext,
+                        LinearLayoutManager.HORIZONTAL, false));
+                recyclerView_images.setAdapter(new ImagesAdapter(posters, mContext));
+                change_backdrop(posters);
+            }
+
+            @Override
+            public void onFailure(Call<Images_tmdb> call, Throwable t) {
+                // Log error here since request failed
+                Log.e("tag", t.toString());
+            }
+        });
+    }
+
 
     private void change_backdrop(final List<Backdrop> imageArray) {
         mHandler=  new Handler();
@@ -357,22 +369,44 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                 }
                     break;
             case  R.id.watch:
-                watchActivity();
+                retrofit_getfile_openload_id();
+
                 break;
         }
     }
 
+    private void retrofit_getfile_openload_id() {
 
 
-    private void watchActivity() {
-        String url = "";
-        String openload_thumbnail_url = "";
-        String title = "";
-        String intArray[] = {url,title,openload_thumbnail_url};
-        Intent inent = new Intent(mContext, WatchActivity.class);
-        inent.putExtra("url", intArray);
-        mContext.startActivity(inent);
+        progresssbar_watch.setVisibility(View.VISIBLE);
+        watch.setVisibility(View.GONE);
+
+        apiService =ApiClient.getClient(mContext).create(ApiInterface.class);
+
+        String url = "https://mohamedebrahim.000webhostapp.com/cimaclub/getfileid.php?id="+x ;
+        Call<String> call_details = apiService.getMovie_openload_id(url);
+        call_details.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String m = response.body();
+                if(m == null){
+                    Toast.makeText(mContext,"you can't watch", Toast.LENGTH_SHORT).show();
+                }else {
+                    new GetOpenload(mContext,m.toString(),movie.getOriginalTitle());
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                // Log error here since request failed
+                Log.e("tag", t.toString());
+            }
+        });
+
     }
+
 
     @Override
     public void onPause() {
@@ -382,5 +416,13 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             mHandler.removeCallbacksAndMessages(null);
         }
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        progresssbar_watch.setVisibility(View.GONE);
+        watch.setVisibility(View.VISIBLE);
+        call_Retrofit_images();
     }
 }

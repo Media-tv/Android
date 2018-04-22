@@ -13,16 +13,27 @@
         android:id="@+id/Layout_videoplayer"
         >
 
-        <!--<tcking.github.com.giraffeplayer2.VideoView
-            android:id="@+id/videoplayer"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_margin="8dp"
-            />-->
+
+
         <cn.jzvd.JZVideoPlayerStandard
             android:id="@+id/videoplayer"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+
+        <TextView
+            android:id="@+id/txtDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:gravity="center"
+            fontPath="fonts/GE_SS_Two_Medium.ttf"
+            android:text="hello world for the first time ever " />
 
 
     </RelativeLayout>

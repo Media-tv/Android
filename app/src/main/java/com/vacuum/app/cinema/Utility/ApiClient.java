@@ -65,7 +65,7 @@ public class ApiClient {
         public okhttp3.Response intercept(Chain chain) throws IOException {
             okhttp3.Response originalResponse = chain.proceed(chain.request());
             if (Utils.isNetworkAvailable(mContext)) {
-                int maxAge = 60; // read from cache for 1 minute
+                int maxAge = 10*60; // read from cache for 1 minute
                 return originalResponse.newBuilder()
                         .header("Cache-Control", "public, max-age=" + maxAge)
                         .build();

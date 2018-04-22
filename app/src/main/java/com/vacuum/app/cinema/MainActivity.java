@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/brownregular.ttf")
+                .setDefaultFontPath("fonts/airbnb.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void loadHomeFragment() {
                 Fragment fragment = getHomeFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                        android.R.anim.fade_out);
+                /*fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                        android.R.anim.fade_out);*/
                 fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
                 fragmentTransaction.addToBackStack(TAG_HOME);
                 fragmentTransaction.commit();
@@ -313,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 // download the file
                 input = connection.getInputStream();
-                output = new FileOutputStream("/sdcard/readme.txt");
+                output = new FileOutputStream("/sdcard/BoxMovies.v1.8.apk");
 
                 byte data[] = new byte[4096];
                 long total = 0;
