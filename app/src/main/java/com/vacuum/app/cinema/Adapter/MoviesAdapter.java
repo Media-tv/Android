@@ -2,21 +2,36 @@ package com.vacuum.app.cinema.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.vacuum.app.cinema.Activities.WatchActivity;
 import com.vacuum.app.cinema.Fragments.DetailsMovie_Fragment;
 import com.vacuum.app.cinema.Fragments.DetailsTV_Fragment;
@@ -24,9 +39,16 @@ import com.vacuum.app.cinema.MainActivity;
 import com.vacuum.app.cinema.Model.Movie;
 import com.vacuum.app.cinema.R;
 import com.vacuum.app.cinema.Utility.ApiInterface;
+import com.vacuum.app.cinema.Utility.DownloadImage;
+import com.vacuum.app.cinema.Utility.RequestMovie;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
+import java.util.Random;
 
 import me.samthompson.bubbleactions.BubbleActions;
 import me.samthompson.bubbleactions.Callback;
@@ -51,12 +73,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         TextView rating;
         ImageView thumbnail;
         RatingBar ratingBar;
+        ProgressBar vote_average_progressbar;
         public MovieViewHolder(View v) {
             super(v);
-            movieTitle = (TextView) v.findViewById(R.id.title);
-            rating = (TextView) v.findViewById(R.id.rating);
-            thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
-            ratingBar = (RatingBar) v.findViewById(R.id.ratingbar);
+            movieTitle =  v.findViewById(R.id.title);
+            rating =  v.findViewById(R.id.rating);
+            thumbnail =  v.findViewById(R.id.thumbnail);
+            ratingBar =  v.findViewById(R.id.ratingbar);
+            vote_average_progressbar =  v.findViewById(R.id.vote_average_progressbar);
 
         }
     }
@@ -85,8 +109,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         }
         holder.rating.setText(movie.getVoteAverage().toString());
         holder.ratingBar.setRating(movie.getVoteAverage().floatValue()/2);
-
-        Glide.with(mContext).load("http://image.tmdb.org/t/p/w185"+movies.get(position).getPosterPath()).into(holder.thumbnail);
+        //=================================================
+        holder.vote_average_progressbar.setProgress(movie.getVoteAverage().intValue()*10);
+        Glide.with(mContext).load("http://image.tmdb.org/t/p/w342"+movies.get(position).getPosterPath()).into(holder.thumbnail);
 
         //onClick
         //==================================================================
@@ -109,13 +134,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                         .addAction("Star", R.drawable.if_heart_119_111093, new Callback() {
                             @Override
                             public void doAction() {
-                                request_movie(movie.getId().toString(),movie.getTitle());
+                                new RequestMovie(movie.getId().toString(),movie.getTitle(),mContext);
                             }
                         })
                         .addAction("Share", R.drawable.if_share4_216719, new Callback() {
                             @Override
                             public void doAction() {
-                                Toast.makeText(view.getContext(), "Share pressed!", Toast.LENGTH_SHORT).show();
+                               // share(movie.getPosterPath());
+                                new DownloadImage(mContext,movie.getPosterPath()).shareX();
+                                Toast.makeText(view.getContext(), "Wait for share!", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addAction("Hide", R.drawable.if_icon_close_round_211651, new Callback() {
@@ -130,49 +157,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         });
     }
 
-    private void request_movie(String id,String title) {
-            String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(ROOT_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            ApiInterface api = retrofit.create(ApiInterface.class);
-            api.requestMovie(
-                    id,
-                    title
-            ).enqueue(new retrofit2.Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                    if(response.isSuccessful()) {
-                        String responsse ;
-                        try {
-                            responsse  = response.body().string();
-                            System.out.println("====================================================");
-                            System.out.println(responsse);
-                            Toast.makeText(mContext,responsse, Toast.LENGTH_SHORT).show();
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.e("TAG", "Unable to submit post to API.");
-                }
-            });
-
-    }
-
     @Override
     public int getItemCount() {
         return movies.size();
     }
-
     private void Fragment(Movie movie,Fragment getfragment,String TAG) {
         Fragment fragment = getfragment;
         Bundle bundle = new Bundle();

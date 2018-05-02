@@ -2,8 +2,11 @@ package com.vacuum.app.cinema.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,6 +46,7 @@ import com.vacuum.app.cinema.R;
 import com.vacuum.app.cinema.Utility.ApiClient;
 import com.vacuum.app.cinema.Utility.ApiInterface;
 import com.vacuum.app.cinema.Utility.GetOpenload;
+import com.vacuum.app.cinema.Utility.RequestMovie;
 
 import java.util.List;
 
@@ -292,7 +296,8 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                 recyclerView_images.setLayoutManager(new LinearLayoutManager(mContext,
                         LinearLayoutManager.HORIZONTAL, false));
                 recyclerView_images.setAdapter(new ImagesAdapter(posters, mContext));
-                change_backdrop(posters);
+                if(posters.size()>0){change_backdrop(posters);}
+
             }
 
             @Override
@@ -390,7 +395,17 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             public void onResponse(Call<String> call, Response<String> response) {
                 String m = response.body();
                 if(m == null){
-                    Toast.makeText(mContext,"you can't watch", Toast.LENGTH_SHORT).show();
+                    new RequestMovie(movie.getId().toString(),movie.getTitle(),mContext);
+                    progresssbar_watch.setVisibility(View.GONE);
+                    watch.setVisibility(View.VISIBLE);
+                    Toast.makeText(mContext,"Go Premium!", Toast.LENGTH_SHORT).show();
+                    Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        v.vibrate(VibrationEffect.createOneShot(100,VibrationEffect.DEFAULT_AMPLITUDE));
+                    }else{
+                        v.vibrate(100);
+                    }
+                    //===============================================
                 }else {
                     new GetOpenload(mContext,m.toString(),movie.getOriginalTitle());
                 }

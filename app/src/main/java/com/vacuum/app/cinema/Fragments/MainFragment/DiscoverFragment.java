@@ -37,7 +37,7 @@ public class DiscoverFragment extends Fragment {
     public static final String TAG_DISCVER_FRAGMENT = "TAG_DISCVER_FRAGMENT";
     RecyclerView discover_fragment_recylerview;
     private LinearLayoutManager mLayoutManager;
-    List<Movie> movies = new ArrayList<>();
+    List<Movie> movies ;
 
     MoviesAdapter moviesAdapter;
     String API_KEY;
@@ -49,6 +49,7 @@ public class DiscoverFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.discoverfragment, container, false);
         mContext = this.getActivity();
+        movies = new ArrayList<>();
 
         discover_fragment_recylerview=  view.findViewById(R.id.discover_fragment_recylerview);
         API_KEY = getString(R.string.TMBDB_API_KEY);

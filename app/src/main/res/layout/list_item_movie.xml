@@ -62,7 +62,7 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:progress="70"
                 android:progressDrawable="@drawable/progress_background"
-                android:id="@+id/notnow" />
+                android:id="@+id/vote_average_progressbar" />
         </android.support.v7.widget.CardView>
 
         <TextView
@@ -74,7 +74,8 @@
             android:textStyle="normal"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="hiertertetert"
+            android:text="Title movie"
+            fontPath="fonts/brownregular.ttf"
             android:textColor="@color/white"
             android:textSize="12sp" />
 
@@ -88,6 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" 8.5"
+                fontPath="fonts/brownregular.ttf"
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:id="@+id/rating"

@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="UPDATE SUCCESSFUL fdsfdsfsdf"
+                android:text="UPDATE SUCCESSFUL "
                 android:layout_marginTop="140dp"
                 android:layout_centerHorizontal="true"
                 android:gravity="center_horizontal"

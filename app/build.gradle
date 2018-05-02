@@ -64,7 +64,7 @@ dependencies {
     implementation 'me.samthompson:bubble-actions:1.3.0'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
-
+    implementation 'com.github.halilozercan:BetterVideoPlayer:1.1.0'
 
 }
 
