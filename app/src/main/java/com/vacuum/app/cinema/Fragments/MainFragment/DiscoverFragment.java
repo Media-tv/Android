@@ -1,6 +1,8 @@
 package com.vacuum.app.cinema.Fragments.MainFragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -41,7 +43,7 @@ public class DiscoverFragment extends Fragment {
     List<Movie> movies ;
     TextView error;
     MoviesAdapter moviesAdapter;
-    String API_KEY;
+    String TMBDB_API_KEY;
 
 
     @Override
@@ -53,7 +55,9 @@ public class DiscoverFragment extends Fragment {
         movies = new ArrayList<>();
         error=  view.findViewById(R.id.error);
         discover_fragment_recylerview=  view.findViewById(R.id.discover_fragment_recylerview);
-        API_KEY = getString(R.string.TMBDB_API_KEY);
+        //API_KEY = getString(R.string.TMBDB_API_KEY);
+        SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
 
         retrofit();
         return view;
@@ -95,7 +99,7 @@ public class DiscoverFragment extends Fragment {
                 ApiClient.getClient(mContext).create(ApiInterface.class);
 
 
-        Call<MovieDetails> call = apiService.getMovieDetails(id,API_KEY);
+        Call<MovieDetails> call = apiService.getMovieDetails(id,TMBDB_API_KEY);
         call.enqueue(new Callback<MovieDetails>() {
             @Override
             public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {

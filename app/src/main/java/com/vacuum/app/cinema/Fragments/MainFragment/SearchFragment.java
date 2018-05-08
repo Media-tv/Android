@@ -1,6 +1,8 @@
 package com.vacuum.app.cinema.Fragments.MainFragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,6 +49,7 @@ public class SearchFragment extends Fragment {
     RecyclerView recyclerView_search;
     LinearLayout layout_search;
     EditText edit_query;
+    String  TMBDB_API_KEY;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,12 +87,23 @@ public class SearchFragment extends Fragment {
                 }
             }
         });
+        edit_query.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    edit_query.setHint("");
 
+            }
+        });
+
+        hide_keyboard();
         return view;
     }
 
+
+
     private void getDate(CharSequence Char) {
-        String API_KEY = getString(R.string.TMBDB_API_KEY);
+        SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
         String query = Char.toString();
 
         ApiInterface apiService =
@@ -97,7 +112,7 @@ public class SearchFragment extends Fragment {
 
         //setRecyclerView_search
         //==================================================================
-        Call<MoviesResponse> call_RecyclerView_search = apiService.getMovieSearch(query,API_KEY);
+        Call<MoviesResponse> call_RecyclerView_search = apiService.getMovieSearch(query,TMBDB_API_KEY);
         call_RecyclerView_search.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
@@ -125,6 +140,20 @@ public class SearchFragment extends Fragment {
             public void onFailure(Call<MoviesResponse> call, Throwable t) {
                 // Log error here since request failed
                 Log.e("tag", t.toString());
+            }
+        });
+    }
+    private void hide_keyboard() {
+        recyclerView_search.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                View view = getActivity().getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
             }
         });
     }

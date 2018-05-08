@@ -41,7 +41,7 @@
             android:background="@color/lightcolor"
             custom:indicator_visibility="visible"
             custom:pager_animation_span="1100"
-            android:layout_height="230dp"/>
+            android:layout_height="250dp"/>
 
         <LinearLayout
             android:orientation="vertical"

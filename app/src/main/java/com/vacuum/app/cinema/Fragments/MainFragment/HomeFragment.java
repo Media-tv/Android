@@ -1,8 +1,10 @@
 package com.vacuum.app.cinema.Fragments.MainFragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -54,7 +56,7 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
-    private static String API_KEY;
+    private static String TMBDB_API_KEY;
     RecyclerView movies_recycler1_UpComing,movies_recycler2_popular,movies_recycler3_top_rated;
     private Context mContext;
     AlertDialog.Builder alertadd;
@@ -74,7 +76,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         mContext = this.getActivity();
 
-        API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
+        SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
+
         movies_recycler1_UpComing=  view.findViewById(R.id.movies_recycler1_UpComing);
         movies_recycler2_popular=  view.findViewById(R.id.movies_recycler2_popular);
         movies_recycler3_top_rated=  view.findViewById(R.id.movies_recycler3_top_rated);
@@ -158,7 +162,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         apiService =
                 ApiClient.getClient(mContext).create(ApiInterface.class);
 
-        Call<MoviesResponse> call_UpComing = apiService.getupcomingMovies(API_KEY,1);
+        Call<MoviesResponse> call_UpComing = apiService.getupcomingMovies(TMBDB_API_KEY,1);
         call_UpComing.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
@@ -175,7 +179,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         //====================================================================================
         //====================================================================================
         //====================================================================================
-        Call<MoviesResponse> call_popular = apiService.getpopularMovies(API_KEY,1);
+        Call<MoviesResponse> call_popular = apiService.getpopularMovies(TMBDB_API_KEY,1);
         call_popular.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
@@ -192,7 +196,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         //====================================================================================
         //====================================================================================
         //====================================================================================
-        Call<MoviesResponse> call_top_rated = apiService.getTopRatedMovies(API_KEY,1);
+        Call<MoviesResponse> call_top_rated = apiService.getTopRatedMovies(TMBDB_API_KEY,1);
         call_top_rated.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {

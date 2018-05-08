@@ -18,7 +18,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
+                android:layout_height="300dp"
                 android:scaleType="centerCrop"
                 android:background="@color/colorPrimary"
                 android:id="@+id/cover"

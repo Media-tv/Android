@@ -82,7 +82,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
         holder.overview.setText(movie.getOverview());
 
-        Glide.with(mContext).load("http://image.tmdb.org/t/p/w185" + movies.get(position).getPosterPath()).into(holder.thumbnail);
+        Glide.with(mContext).load("http://image.tmdb.org/t/p/w500" + movies.get(position).getPosterPath()).into(holder.thumbnail);
 
         //onClick
         //==================================================================

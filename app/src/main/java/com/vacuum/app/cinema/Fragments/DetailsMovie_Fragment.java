@@ -1,8 +1,10 @@
 package com.vacuum.app.cinema.Fragments;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -82,7 +84,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     Handler mHandler;
     Runnable myRunnable;
     ApiInterface apiService;
-    String API_KEY;
+    String TMBDB_API_KEY;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -123,6 +125,9 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         watch.setOnClickListener(this);
 
 
+        SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
+
 
         movie = (Movie)getArguments().getSerializable("movie");
 
@@ -155,11 +160,11 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     }
 
     private void retrofit() {
-        API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
+
         apiService =
                 ApiClient.getClient(mContext).create(ApiInterface.class);
 
-        Call<MovieDetails> call_details = apiService.getMovieDetails(x,API_KEY);
+        Call<MovieDetails> call_details = apiService.getMovieDetails(x,TMBDB_API_KEY);
         call_details.enqueue(new Callback<MovieDetails>() {
             @Override
             public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
@@ -195,7 +200,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
 
         //setRecyclerView_trailers
         //==================================================================
-        Call<TrailerResponse> call_RecyclerView_trailers = apiService.gettrailers("movie",x,API_KEY);
+        Call<TrailerResponse> call_RecyclerView_trailers = apiService.gettrailers("movie",x,TMBDB_API_KEY);
         call_RecyclerView_trailers.enqueue(new Callback<TrailerResponse>() {
             @Override
             public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
@@ -224,7 +229,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
 
         //setRecyclerView_actors
         //==================================================================
-        Call<Credits> call_recyclerView_actors = apiService.getMovieCredits(x,API_KEY);
+        Call<Credits> call_recyclerView_actors = apiService.getMovieCredits(x,TMBDB_API_KEY);
         call_recyclerView_actors.enqueue(new Callback<Credits>() {
             @Override
             public void onResponse(Call<Credits> call, Response<Credits> response) {
@@ -253,7 +258,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
 
         //setRecyclerView_actors
         //==================================================================
-        Call<Credits> call_recyclerView_crew = apiService.getMovieCredits(x,API_KEY);
+        Call<Credits> call_recyclerView_crew = apiService.getMovieCredits(x,TMBDB_API_KEY);
         call_recyclerView_crew.enqueue(new Callback<Credits>() {
             @Override
             public void onResponse(Call<Credits> call, Response<Credits> response) {
@@ -285,7 +290,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     private void call_Retrofit_images() {
         //setRecyclerView_images
         //==================================================================
-        Call<Images_tmdb> call_RecyclerView_images = apiService.getImages("movie",x,API_KEY);
+        Call<Images_tmdb> call_RecyclerView_images = apiService.getImages("movie",x,TMBDB_API_KEY);
         call_RecyclerView_images.enqueue(new Callback<Images_tmdb>() {
             @Override
             public void onResponse(Call<Images_tmdb> call, Response<Images_tmdb> response) {
@@ -316,7 +321,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
 
             public void run() {
                 Glide.with(mContext)
-                        .load("http://image.tmdb.org/t/p/w500"+imageArray.get(i).getFilePath())
+                        .load("http://image.tmdb.org/t/p/w780"+imageArray.get(i).getFilePath())
                         .transition(withCrossFade())
                         .apply(new RequestOptions().placeholder(cover.getDrawable()))
                         .into(cover);
@@ -402,7 +407,6 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                     }else{
                         v.vibrate(100);
                     }
-                    //redirect_google_chrome();
                     //===============================================
                 }else {
                     new GetOpenload(mContext,m.toString(),movie.getOriginalTitle());
@@ -420,19 +424,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
 
     }
 
-    private void redirect_google_chrome() {
-        String urlString="https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+movie.getId()+"&tmdb=1";
-        Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setPackage("com.android.chrome");
-        try {
-            mContext.startActivity(intent);
-        } catch (ActivityNotFoundException ex) {
-            // Chrome browser presumably not installed and open Kindle Browser
-            intent.setPackage("com.amazon.cloud9");
-            mContext.startActivity(intent);
-        }
-    }
+
 
 
     @Override

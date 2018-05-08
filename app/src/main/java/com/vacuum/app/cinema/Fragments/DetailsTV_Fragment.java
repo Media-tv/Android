@@ -1,6 +1,8 @@
 package com.vacuum.app.cinema.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -73,6 +75,7 @@ public class DetailsTV_Fragment extends Fragment {
     LinearLayout layout;
     Spinner spinner;
     int x;
+    String TMBDB_API_KEY;
     Movie movie;
     Handler mHandler;
     Runnable myRunnable;
@@ -124,7 +127,8 @@ public class DetailsTV_Fragment extends Fragment {
         progressBar =  view.findViewById(R.id.progressBar_tv);
         layout =  view.findViewById(R.id.layout_tv);
 
-
+        SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
 
 
         movie = (Movie)getArguments().getSerializable("movie");
@@ -144,11 +148,10 @@ public class DetailsTV_Fragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         layout.setVisibility(View.GONE);
 
-        final String API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
         final ApiInterface apiService =
                 ApiClient.getClient(mContext).create(ApiInterface.class);
 
-        Call<TVDetails> call_TV_details = apiService.getTVDetails(x,API_KEY);
+        Call<TVDetails> call_TV_details = apiService.getTVDetails(x,TMBDB_API_KEY);
         call_TV_details.enqueue(new Callback<TVDetails>() {
             @Override
             public void onResponse(Call<TVDetails> call, Response<TVDetails> response) {
@@ -215,7 +218,7 @@ public class DetailsTV_Fragment extends Fragment {
 
         //setRecyclerView_actors
         //==================================================================
-        Call<Credits> call_recyclerView_actors = apiService.getTVCredits(x,API_KEY);
+        Call<Credits> call_recyclerView_actors = apiService.getTVCredits(x,TMBDB_API_KEY);
         call_recyclerView_actors.enqueue(new Callback<Credits>() {
             @Override
             public void onResponse(Call<Credits> call, Response<Credits> response) {
@@ -243,7 +246,7 @@ public class DetailsTV_Fragment extends Fragment {
 
         //call_recyclerView_crew
         //==================================================================
-        Call<Credits> call_recyclerView_crew = apiService.getTVCredits(x,API_KEY);
+        Call<Credits> call_recyclerView_crew = apiService.getTVCredits(x,TMBDB_API_KEY);
         call_recyclerView_crew.enqueue(new Callback<Credits>() {
             @Override
             public void onResponse(Call<Credits> call, Response<Credits> response) {
@@ -267,7 +270,7 @@ public class DetailsTV_Fragment extends Fragment {
 
         //setRecyclerView_images
         //==================================================================
-        Call<Images_tmdb> call_RecyclerView_images = apiService.getImages("tv",x,API_KEY);
+        Call<Images_tmdb> call_RecyclerView_images = apiService.getImages("tv",x,TMBDB_API_KEY);
         call_RecyclerView_images.enqueue(new Callback<Images_tmdb>() {
             @Override
             public void onResponse(Call<Images_tmdb> call, Response<Images_tmdb> response) {
@@ -291,7 +294,7 @@ public class DetailsTV_Fragment extends Fragment {
         });
         //setRecyclerView_trailers
         //==================================================================
-        Call<TrailerResponse> call_RecyclerView_trailers = apiService.gettrailers("tv",x,API_KEY);
+        Call<TrailerResponse> call_RecyclerView_trailers = apiService.gettrailers("tv",x,TMBDB_API_KEY);
         call_RecyclerView_trailers.enqueue(new Callback<TrailerResponse>() {
             @Override
             public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
@@ -361,10 +364,9 @@ public class DetailsTV_Fragment extends Fragment {
     }
 
     private void episodes(int number) {
-        final String API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
         final ApiInterface apiService =
                 ApiClient.getClient(mContext).create(ApiInterface.class);
-        Call<SeasonDetails> call_RecyclerView_episodes = apiService.getepisodes(x,number,API_KEY);
+        Call<SeasonDetails> call_RecyclerView_episodes = apiService.getepisodes(x,number,TMBDB_API_KEY);
                                    call_RecyclerView_episodes.enqueue(new Callback<SeasonDetails>() {
                                        @Override
                                        public void onResponse(Call<SeasonDetails> call, Response<SeasonDetails> response) {
@@ -394,7 +396,7 @@ public class DetailsTV_Fragment extends Fragment {
 
             public void run() {
                 Glide.with(mContext)
-                        .load("http://image.tmdb.org/t/p/w500"+imageArray.get(i).getFilePath())
+                        .load("http://image.tmdb.org/t/p/w780"+imageArray.get(i).getFilePath())
                         .transition(withCrossFade())
                         .apply(new RequestOptions().placeholder(cover.getDrawable()))
                         .into(cover);

@@ -1,15 +1,18 @@
 package com.vacuum.app.cinema;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.PowerManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -21,17 +24,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.vacuum.app.cinema.Fragments.MainFragment.HomeFragment;
 import com.vacuum.app.cinema.Fragments.MainFragment.TvShowsFragment;
 import com.vacuum.app.cinema.Fragments.MainFragment.DiscoverFragment;
 import com.vacuum.app.cinema.Fragments.MainFragment.SearchFragment;
 import com.vacuum.app.cinema.Fragments.MainFragment.ProfileFragment;
+import com.vacuum.app.cinema.Model.API_KEY;
 import com.vacuum.app.cinema.Model.Update;
 import com.vacuum.app.cinema.Utility.ApiClient;
 import com.vacuum.app.cinema.Utility.ApiInterface;
@@ -66,11 +72,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ApiInterface apiService;
     ProgressDialog mProgressDialog;
     String link;
-
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
         setContentView(R.layout.activity_main);
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
@@ -78,6 +89,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+
+        prefs = getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        editor = prefs.edit();
+
+
+
+
         mContext = this.getApplicationContext();
         btn_one =  findViewById(R.id.btn_one);
         btn_two =  findViewById(R.id.btn_two);
@@ -94,7 +112,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         loadHomeFragment();
         upadate_retrofit();
+        get_API_keys();
     }
+
+
 
     private void loadHomeFragment() {
                 Fragment fragment = getHomeFragment();
@@ -378,5 +399,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(context, "File downloaded", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void get_API_keys() {
+
+
+        prefs = getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        String TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
+
+        if(TMBDB_API_KEY != null){
+            Toast.makeText(mContext, "TMBDB_API_KEY = "+TMBDB_API_KEY, Toast.LENGTH_SHORT).show();
+        }else {
+            apiService =
+                    ApiClient.getClient(mContext).create(ApiInterface.class);
+
+            String webhost00free = "https://mohamedebrahim.000webhostapp.com/cimaclub/getAPIkey.php";
+
+            Call<API_KEY> call_UpComing = apiService.getApiKEY(webhost00free);
+            call_UpComing.enqueue(new Callback<API_KEY>() {
+                @Override
+                public void onResponse(Call<API_KEY> call, Response<API_KEY> response) {
+                    editor.putString("TMBDB_API_KEY", response.body().getTMBDBAPIKEY());
+                    editor.putString("OPENLOAD_API_Login", response.body().getOPENLOADAPILogin());
+                    editor.putString("OPENLOAD_API_KEY", response.body().getOPENLOADAPIKEY());
+                    editor.commit();
+                }
+
+                @Override
+                public void onFailure(Call<API_KEY> call, Throwable t) {
+                    // Log error here since request failed
+                    Log.e("TAG : onFailure", t.toString());
+                }
+            });
+
+        }
+    }
+
+
+
+
+
+
+
+
+
 }
 

@@ -1,6 +1,8 @@
 package com.vacuum.app.cinema.Utility;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -37,8 +39,9 @@ public class UploadOpenload {
 
         String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
 
-        OPENLOAD_API_Login = mContext.getResources().getString(R.string.OPENLOAD_API_Login);
-        OPENLOAD_API_KEY = mContext.getResources().getString(R.string.OPENLOAD_API_KEY);
+        SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        OPENLOAD_API_Login = prefs.getString("OPENLOAD_API_Login",null);
+        OPENLOAD_API_KEY = prefs.getString("OPENLOAD_API_KEY",null);
 
 
         Gson gson = new GsonBuilder()

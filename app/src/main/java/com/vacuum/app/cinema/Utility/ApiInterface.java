@@ -1,5 +1,6 @@
 package com.vacuum.app.cinema.Utility;
 
+import com.vacuum.app.cinema.Model.API_KEY;
 import com.vacuum.app.cinema.Model.Credits;
 import com.vacuum.app.cinema.Model.DoneMovies;
 import com.vacuum.app.cinema.Model.Images_tmdb;
@@ -99,6 +100,8 @@ public interface ApiInterface {
     @GET
     Call<Update> getUpdateVersion(@Url String url);
 
+    @GET
+    Call<API_KEY> getApiKEY(@Url String url);
 
     @GET
     Call<String> getMovie_openload_id(@Url String url);

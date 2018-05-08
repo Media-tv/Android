@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,8 +41,12 @@ public class GetOpenload {
 
     private void retrofit_1() {
 
-        OPENLOAD_API_Login = mContext.getResources().getString(R.string.OPENLOAD_API_Login);
-        OPENLOAD_API_KEY = mContext.getResources().getString(R.string.OPENLOAD_API_KEY);
+        SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        OPENLOAD_API_Login = prefs.getString("OPENLOAD_API_Login",null);
+        OPENLOAD_API_KEY = prefs.getString("OPENLOAD_API_KEY",null);
+
+        //OPENLOAD_API_Login = mContext.getResources().getString(R.string.OPENLOAD_API_Login);
+       // OPENLOAD_API_KEY = mContext.getResources().getString(R.string.OPENLOAD_API_KEY);
         String full_url = "https://api.openload.co/1/file/dlticket?file=" + file_id + "&login=" + OPENLOAD_API_Login + "&key=" + OPENLOAD_API_KEY;
 
         Log.e("TAG","retrofit_1");

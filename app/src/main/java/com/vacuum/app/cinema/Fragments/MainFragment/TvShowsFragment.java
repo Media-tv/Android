@@ -1,6 +1,8 @@
 package com.vacuum.app.cinema.Fragments.MainFragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -40,6 +42,7 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
     ProgressBar progressBar;
     Context mContext;
     LinearLayout layout;
+    String TMBDB_API_KEY;
     TextView more_Popular_tv,more_top_rated_tv;
 
     @Override
@@ -63,13 +66,15 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         movies_recycler4_tv_popular.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         movies_recycler5_tv_toprated.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
 
+        SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
         retrofit();
         return view;
     }
 
     private void retrofit() {
 
-        String API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
+        //String API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
         //progressBar.setVisibility(View.VISIBLE);
         //layout.setVisibility(View.GONE);
         apiService =
@@ -78,7 +83,7 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         //====================================================================================
         //====================================================================================
         //====================================================================================
-        Call<MoviesResponse> call_popularTV = apiService.getpopularTV(API_KEY,1);
+        Call<MoviesResponse> call_popularTV = apiService.getpopularTV(TMBDB_API_KEY,1);
         call_popularTV.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
@@ -100,7 +105,7 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         //====================================================================================
         //====================================================================================
         //====================================================================================
-        Call<MoviesResponse> call_getTopRatedTV = apiService.getTopRatedTV(API_KEY,1);
+        Call<MoviesResponse> call_getTopRatedTV = apiService.getTopRatedTV(TMBDB_API_KEY,1);
         call_getTopRatedTV.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {

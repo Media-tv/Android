@@ -1,6 +1,8 @@
 package com.vacuum.app.cinema.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -47,7 +49,7 @@ public class MoreFragment extends Fragment {
     MoviesAdapter moviesAdapter;
     List<Movie> movies = new ArrayList<>();
     List<Movie> movies2 = new ArrayList<>();
-    String API_KEY;
+    String TMBDB_API_KEY;
     Handler mHandler;
     Runnable myRunnable;
     @Override
@@ -62,7 +64,8 @@ public class MoreFragment extends Fragment {
         fragment_grid_recylerview.setLayoutManager(mLayoutManager);
         pageIndex = 1;
 
-        API_KEY = getString(R.string.TMBDB_API_KEY);
+        SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
         Bundle bundle = this.getArguments();
         value = bundle.getString("value");
 
@@ -205,19 +208,19 @@ public class MoreFragment extends Fragment {
         Call<MoviesResponse> calll = null;
         switch (value){
             case "more_Popular_tv":
-                calll = apiService.getpopularTV(API_KEY,pageIndex);
+                calll = apiService.getpopularTV(TMBDB_API_KEY,pageIndex);
                 break;
             case "more_top_rated_tv":
-                calll = apiService.getTopRatedTV(API_KEY,pageIndex);
+                calll = apiService.getTopRatedTV(TMBDB_API_KEY,pageIndex);
                 break;
             case "more_upcoming":
-                calll = apiService.getupcomingMovies(API_KEY,pageIndex);
+                calll = apiService.getupcomingMovies(TMBDB_API_KEY,pageIndex);
                 break;
             case "more_top_rated":
-                calll = apiService.getTopRatedMovies(API_KEY,pageIndex);
+                calll = apiService.getTopRatedMovies(TMBDB_API_KEY,pageIndex);
                 break;
             case "more_Popular":
-                calll = apiService.getpopularMovies(API_KEY,pageIndex);
+                calll = apiService.getpopularMovies(TMBDB_API_KEY,pageIndex);
                 break;
         }
         return calll;
