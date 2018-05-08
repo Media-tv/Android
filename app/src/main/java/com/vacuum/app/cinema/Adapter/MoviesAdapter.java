@@ -134,7 +134,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                         .addAction("Star", R.drawable.if_heart_119_111093, new Callback() {
                             @Override
                             public void doAction() {
-                                new RequestMovie(movie.getId().toString(),movie.getTitle(),mContext);
+                                new RequestMovie(movie.getId().toString(),movie.getTitle()+" : "+movie.getReleaseDate().substring(0, 4),mContext);
                             }
                         })
                         .addAction("Share", R.drawable.if_share4_216719, new Callback() {

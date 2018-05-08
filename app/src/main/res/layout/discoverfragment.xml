@@ -6,6 +6,17 @@
     android:background="@color/colorPrimary"
     >
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Error"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:visibility="gone"
+        android:id="@+id/error"
+        fontPath="fonts/airbnb.ttf"
+        android:textColor="@color/lightYellow"
+        />
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

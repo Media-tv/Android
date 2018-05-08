@@ -14,6 +14,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.Map;
 
 import retrofit2.Converter;
 
@@ -38,6 +39,14 @@ public class Openload {
     @SerializedName("url")
     @Expose
     private String url;
+
+
+    @SerializedName("id")
+    @Expose
+    private String id;
+
+
+
 
 
     public String getName() {
@@ -88,6 +97,14 @@ public class Openload {
 
     public void setCaptchaUrl(String captchaUrl) {
         this.captchaUrl = captchaUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 }

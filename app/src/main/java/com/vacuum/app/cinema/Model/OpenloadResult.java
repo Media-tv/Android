@@ -3,6 +3,8 @@ package com.vacuum.app.cinema.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Map;
+
 /**
  * Created by Home on 3/23/2018.
  */
@@ -14,9 +16,11 @@ public class OpenloadResult {
     @SerializedName("msg")
     @Expose
     private String msg;
+
     @SerializedName("result")
     @Expose
     private Openload openload;
+
 
 
     public Integer getStatus() {

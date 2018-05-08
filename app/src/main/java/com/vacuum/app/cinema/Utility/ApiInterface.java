@@ -89,6 +89,13 @@ public interface ApiInterface {
     Call<ResponseBody> requestMovie(@Field("movie_id") String movie_id,
                                    @Field("title") String title);
 
+    @FormUrlEncoded
+    @POST("cimaclub/addmovie.php")
+    Call<ResponseBody> addMovie(@Field("id") String movie_id,
+                                    @Field("title") String title,
+                                @Field("file_id") String file_id
+    );
+
     @GET
     Call<Update> getUpdateVersion(@Url String url);
 
@@ -99,4 +106,15 @@ public interface ApiInterface {
 
     @GET
     Call<DoneMovies> getDoneMovies(@Url String url);
+
+    @GET
+    Call<String> getSend(@Url String url);
+
+    @GET
+    Call<OpenloadResult> uploadOpenload(@Url String url);
+    @GET
+    Call<ResponseBody> uploadOpenload_id(@Url String url);
+
+
+
 }

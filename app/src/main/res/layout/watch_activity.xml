@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimaryDark"
-    tools:context=".Activities.WatchActivity"
-    >
+    tools:context=".Activities.WatchActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,6 +12,8 @@
         <com.halilibo.bettervideoplayer.BetterVideoPlayer
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/player"
+            app:bvp_loadingStyle="Circle"
+            app:bvp_showBottomProgressBar="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </RelativeLayout>

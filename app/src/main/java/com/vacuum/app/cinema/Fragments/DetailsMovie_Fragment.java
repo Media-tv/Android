@@ -1,7 +1,9 @@
 package com.vacuum.app.cinema.Fragments;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,6 +49,7 @@ import com.vacuum.app.cinema.Utility.ApiClient;
 import com.vacuum.app.cinema.Utility.ApiInterface;
 import com.vacuum.app.cinema.Utility.GetOpenload;
 import com.vacuum.app.cinema.Utility.RequestMovie;
+import com.vacuum.app.cinema.Utility.UploadOpenload;
 
 import java.util.List;
 
@@ -147,9 +150,6 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         }catch (Exception e){
             Log.i("TAG :",e.toString());
         }
-
-
-
         retrofit();
         return view;
     }
@@ -375,14 +375,11 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                     break;
             case  R.id.watch:
                 retrofit_getfile_openload_id();
-
                 break;
         }
     }
 
     private void retrofit_getfile_openload_id() {
-
-
         progresssbar_watch.setVisibility(View.VISIBLE);
         watch.setVisibility(View.GONE);
 
@@ -395,7 +392,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             public void onResponse(Call<String> call, Response<String> response) {
                 String m = response.body();
                 if(m == null){
-                    new RequestMovie(movie.getId().toString(),movie.getTitle(),mContext);
+                    new UploadOpenload(mContext,movie.getId().toString(),movie.getTitle()+" : "+movie.getReleaseDate().substring(0, 4));
                     progresssbar_watch.setVisibility(View.GONE);
                     watch.setVisibility(View.VISIBLE);
                     Toast.makeText(mContext,"Go Premium!", Toast.LENGTH_SHORT).show();
@@ -405,6 +402,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                     }else{
                         v.vibrate(100);
                     }
+                    //redirect_google_chrome();
                     //===============================================
                 }else {
                     new GetOpenload(mContext,m.toString(),movie.getOriginalTitle());
@@ -420,6 +418,20 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             }
         });
 
+    }
+
+    private void redirect_google_chrome() {
+        String urlString="https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+movie.getId()+"&tmdb=1";
+        Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setPackage("com.android.chrome");
+        try {
+            mContext.startActivity(intent);
+        } catch (ActivityNotFoundException ex) {
+            // Chrome browser presumably not installed and open Kindle Browser
+            intent.setPackage("com.amazon.cloud9");
+            mContext.startActivity(intent);
+        }
     }
 
 

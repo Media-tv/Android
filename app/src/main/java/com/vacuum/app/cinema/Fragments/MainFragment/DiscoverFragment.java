@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.vacuum.app.cinema.Adapter.MoviesAdapter;
 import com.vacuum.app.cinema.Model.DoneMovies;
@@ -38,7 +39,7 @@ public class DiscoverFragment extends Fragment {
     RecyclerView discover_fragment_recylerview;
     private LinearLayoutManager mLayoutManager;
     List<Movie> movies ;
-
+    TextView error;
     MoviesAdapter moviesAdapter;
     String API_KEY;
 
@@ -50,7 +51,7 @@ public class DiscoverFragment extends Fragment {
         View view = inflater.inflate(R.layout.discoverfragment, container, false);
         mContext = this.getActivity();
         movies = new ArrayList<>();
-
+        error=  view.findViewById(R.id.error);
         discover_fragment_recylerview=  view.findViewById(R.id.discover_fragment_recylerview);
         API_KEY = getString(R.string.TMBDB_API_KEY);
 
@@ -71,9 +72,14 @@ public class DiscoverFragment extends Fragment {
         call.enqueue(new Callback<DoneMovies>() {
             @Override
             public void onResponse(Call<DoneMovies> call, Response<DoneMovies> response) {
+                if(response.body() != null){
                     for(Movie m : response.body().getMovie()){
                         setup_gridMovie(m.getId());
                     }
+                }else {
+                    error.setVisibility(View.VISIBLE);
+                }
+
             }
 
             @Override

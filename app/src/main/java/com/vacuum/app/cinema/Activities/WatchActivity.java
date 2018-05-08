@@ -3,6 +3,7 @@ package com.vacuum.app.cinema.Activities;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -158,6 +159,9 @@ public class WatchActivity extends AppCompatActivity implements BetterVideoCallb
                 switch (item.getItemId()) {
                     case 0:
                         Toast.makeText(mContext, "EN"+player.getCurrentPosition(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Stream));
+                        intent.setDataAndType(Uri.parse(Stream), "video/*");
+                        startActivity(intent);
                         break;
                     case 1:
                         Toast.makeText(mContext, "ES", Toast.LENGTH_SHORT).show();
@@ -188,6 +192,8 @@ public class WatchActivity extends AppCompatActivity implements BetterVideoCallb
         if (player != null) {
             position = player.getCurrentPosition();
             player.pause();
+            //player.stop();
+            //player.release();
         }
     }
 
@@ -230,7 +236,9 @@ public class WatchActivity extends AppCompatActivity implements BetterVideoCallb
     public void onPrepared(BetterVideoPlayer player) { }
 
     @Override
-    public void onBuffering(int percent) { }
+    public void onBuffering(int percent) {
+        Log.e("TAG","onBuffering");
+    }
 
     @Override
     public void onError(BetterVideoPlayer player, Exception e) {
