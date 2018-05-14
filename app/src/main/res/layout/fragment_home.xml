@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     android:layout_height="match_parent">
@@ -33,15 +35,28 @@
         android:visibility="visible"
         >
 
-        <com.daimajia.slider.library.SliderLayout
-            android:id="@+id/slider"
+        <RelativeLayout
             android:layout_width="match_parent"
-            custom:pager_animation="Accordion"
-            custom:auto_cycle="true"
-            android:background="@color/lightcolor"
-            custom:indicator_visibility="visible"
-            custom:pager_animation_span="1100"
-            android:layout_height="250dp"/>
+            android:layout_height="wrap_content">
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                custom:pager_animation="Accordion"
+                custom:auto_cycle="true"
+                android:background="@color/lightcolor"
+                custom:indicator_visibility="invisible"
+                custom:pager_animation_span="1100"
+                android:layout_height="270dp"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:rotation="180"
+                android:src="@drawable/dark_gradient"
+                android:layout_alignParentBottom="true"
+                />
+        </RelativeLayout>
+
 
         <LinearLayout
             android:orientation="vertical"
@@ -54,8 +69,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="10dp"
-
                 >
+
                 <TextView
                     android:text="Up Coming"
                     android:paddingLeft="10dp"
@@ -89,6 +104,7 @@
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,6 +140,8 @@
                 android:id="@+id/movies_recycler2_popular"
                 />
         </LinearLayout>
+
+
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/card_view3"
@@ -164,7 +182,17 @@
                 android:id="@+id/movies_recycler3_top_rated"
                 />
         </LinearLayout>
+        <!--END OF BOTTOM VIEW-->
 
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            ads:adSize="BANNER"
+            android:layout_gravity="center"
+            ads:adUnitId="@string/banner_ad_unit_id">
+        </com.google.android.gms.ads.AdView>
     </LinearLayout>
 
 

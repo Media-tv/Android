@@ -30,6 +30,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.vacuum.app.cinema.Activities.WatchActivity;
 import com.vacuum.app.cinema.Adapter.CreditsAdapter;
 import com.vacuum.app.cinema.Adapter.CrewAdapter;
@@ -84,8 +88,8 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     Handler mHandler;
     Runnable myRunnable;
     ApiInterface apiService;
-    String TMBDB_API_KEY;
-
+    String TMBDB_API_KEY,gener1_analistc;
+    AdView adView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -121,6 +125,9 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         recyclerView_images = view.findViewById(R.id.recyclerView_images);
         recyclerView_crew = view.findViewById(R.id.recyclerView_crew);
         crew_layout = view.findViewById(R.id.crew_layout);
+
+        adView = view.findViewById(R.id.adView_details_fragment);
+
         like.setOnClickListener(this);
         watch.setOnClickListener(this);
 
@@ -156,7 +163,22 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             Log.i("TAG :",e.toString());
         }
         retrofit();
+        Ads();
         return view;
+    }
+
+    private void analistcs() {
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), TAG_DetailsMovie_Fragment, null );
+
+        Bundle bundle = new Bundle();
+        bundle.putString("id", movie.getId().toString());
+        bundle.putString("Movie", movie.getTitle());
+        bundle.putString("Year", movie.getReleaseDate().substring(0,4));
+        bundle.putString("Genre",gener1_analistc);
+
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
     }
 
     private void retrofit() {
@@ -176,7 +198,11 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                         int hours = t / 60; //since both are ints, you get an int
                         int minutes = t % 60;
                         System.out.printf("%d:%02d", hours, minutes);
-                        runtime.setText(String.valueOf(hours)+"h "+String.valueOf(minutes)+"min");
+                        if(hours != 0)
+                            runtime.setText(String.valueOf(hours)+"h "+String.valueOf(minutes)+"min");
+                        else
+                            runtime.setText(String.valueOf(minutes)+"min");
+
                         setgenre(m.getGenres(),m.getGenres().size());
                     }catch (Exception e){
                         Log.i("TAG :",e.toString());
@@ -286,7 +312,10 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
 
         call_Retrofit_images();
     }
-
+    private void Ads() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+    }
     private void call_Retrofit_images() {
         //setRecyclerView_images
         //==================================================================
@@ -343,6 +372,8 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         if (size==1){
             genre1.setText(String.valueOf(names.get(0).getName()));
             layout_genre1.setVisibility(View.VISIBLE);
+            gener1_analistc = names.get(0).getName();
+            analistcs();
 
         }else if(size ==2){
             genre1.setText(String.valueOf(names.get(0).getName()));
@@ -433,6 +464,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         Log.e("TAG","Stop handler ");
         if(myRunnable != null){
             mHandler.removeCallbacksAndMessages(null);
+            mHandler.removeCallbacks(myRunnable);
         }
 
     }

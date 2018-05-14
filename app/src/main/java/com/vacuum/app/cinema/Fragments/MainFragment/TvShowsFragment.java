@@ -16,6 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.vacuum.app.cinema.Adapter.MoviesAdapter;
 import com.vacuum.app.cinema.Fragments.MoreFragment;
 import com.vacuum.app.cinema.MainActivity;
@@ -44,18 +48,26 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
     LinearLayout layout;
     String TMBDB_API_KEY;
     TextView more_Popular_tv,more_top_rated_tv;
-
+    FirebaseAnalytics mFirebaseAnalytics;
+    public static final String TAG_TVSHOWS_FRAGMENT = "TAG_TVSHOWS_FRAGMENT";
+    AdView adView_tvshow_fragment;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.tvshowsfragment, container, false);
         mContext = this.getContext();
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), TAG_TVSHOWS_FRAGMENT, null );
+
         movies_recycler4_tv_popular=  view.findViewById(R.id.movies_recycler4_tv_popular);
         movies_recycler5_tv_toprated=  view.findViewById(R.id.movies_recycler5_tv_toprated);
 
         more_Popular_tv=  view.findViewById(R.id.more_Popular_tv);
         more_top_rated_tv=  view.findViewById(R.id.more_top_rated_tv);
+
+        adView_tvshow_fragment=  view.findViewById(R.id.adView_tvshow_fragment);
 
         more_Popular_tv.setOnClickListener(this);
         more_top_rated_tv.setOnClickListener(this);
@@ -69,11 +81,16 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
         TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
         retrofit();
+        Ads();
         return view;
     }
+    private void Ads() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView_tvshow_fragment.loadAd(adRequest);
+    }
+
 
     private void retrofit() {
-
         //String API_KEY = getResources().getString(R.string.TMBDB_API_KEY);
         //progressBar.setVisibility(View.VISIBLE);
         //layout.setVisibility(View.GONE);

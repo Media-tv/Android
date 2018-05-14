@@ -6,25 +6,47 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
-    <EditText
-
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:padding="10dp"
-        android:background="@drawable/rounded_edittext"
-        android:id="@+id/edit_query"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
-        android:drawableLeft="@drawable/if_67_111124"
-        android:drawableRight="@drawable/if_icon_close_circled_small"
-        android:hint="Search..."
-        android:textColorHint="@color/white"
-        fontPath="fonts/airbnb.ttf"
-        android:textColor="@color/white"
-        />
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+           android:layout_marginLeft="30dp"
+            android:padding="10dp"
+            android:background="@drawable/rounded_edittext"
+            android:id="@+id/edit_query"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:hint="Search..."
+            android:textColorHint="@color/white"
+            fontPath="fonts/airbnb.ttf"
+            android:textColor="@color/white"
+            />
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/if_67_111124"
+            />
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:visibility="gone"
+            android:id="@+id/clear_search"
+            app:srcCompat="@drawable/if_icon_close_circled_small"
+            />
+
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

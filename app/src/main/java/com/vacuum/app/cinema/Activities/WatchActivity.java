@@ -145,6 +145,7 @@ public class WatchActivity extends AppCompatActivity implements BetterVideoCallb
 
 
         List<String> limits = new ArrayList<>();
+        limits.add("Open With");
         limits.add("En");
         limits.add("ES");
         limits.add("DE");
@@ -158,20 +159,23 @@ public class WatchActivity extends AppCompatActivity implements BetterVideoCallb
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case 0:
-                        Toast.makeText(mContext, "EN"+player.getCurrentPosition(), Toast.LENGTH_SHORT).show();
+                        player.pause();
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Stream));
                         intent.setDataAndType(Uri.parse(Stream), "video/*");
                         startActivity(intent);
                         break;
                     case 1:
-                        Toast.makeText(mContext, "ES", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "null", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        Toast.makeText(mContext, "DE", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "ES", Toast.LENGTH_SHORT).show();
                         player.setCaptions(Uri.parse("https://mohamedebrahim.000webhostapp.com/cimaclub/Subtitles/Fight.Club.1999.BluRay.1080p.DTS.x264.dxva-EuReKA.ger.srt")
                                 , CaptionsView.CMime.SUBRIP);
                         break;
                     case 3:
+                        Toast.makeText(mContext, "DE", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
                         Toast.makeText(mContext, "AR", Toast.LENGTH_SHORT).show();
                         break;
                 }

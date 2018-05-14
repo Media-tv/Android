@@ -60,8 +60,17 @@ public class UploadOpenload {
         call_details.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                Log.e("TAG","response.raw().request().url();"+response.raw().request().url());
-                UploadOpenload2(response.raw().request().url().toString());
+                String openload_url = response.raw().request().url().toString();
+                Log.e("TAG","response.raw().request().url();"+openload_url);
+
+
+                String word = ".co";
+                String full_url = "https://openloed.co/embed/RoZzZ3TcXQ0";
+                Log.e("TAG : index of / == ",String.valueOf(openload_url.lastIndexOf(word)));
+                int index = openload_url.lastIndexOf(word); //16
+                String right_url ="https://openload"+openload_url.substring(index,openload_url.length()) ;
+
+                UploadOpenload2(right_url);
 
             }
             @Override
@@ -106,8 +115,11 @@ public class UploadOpenload {
                     JSONObject result = response2.getJSONObject("result");
                     JSONObject arr = result.getJSONObject(id);
                     String file_id = arr.getString("extid");
-                    new AddMovie(mContext,id_,title,file_id);
-
+                    if(file_id == "false"){
+                        Toast.makeText(mContext, "no Movies", Toast.LENGTH_SHORT).show();
+                    }else {
+                        new AddMovie(mContext,id_,title,file_id);
+                    }
                 } catch (JSONException e) {
                     Log.e("TAG:forecast", e.toString());
                     e.printStackTrace();

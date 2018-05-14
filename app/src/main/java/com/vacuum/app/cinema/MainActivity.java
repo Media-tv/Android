@@ -17,6 +17,7 @@ import android.os.PowerManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.JsonObject;
 import com.vacuum.app.cinema.Fragments.MainFragment.HomeFragment;
 import com.vacuum.app.cinema.Fragments.MainFragment.TvShowsFragment;
@@ -49,6 +57,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,6 +83,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String link;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +93,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            w.setStatusBarColor(ContextCompat.getColor(this,R.color.transparent));
+
         }
         setContentView(R.layout.activity_main);
 
+
+        MobileAds.initialize(this, "ca-app-pub-3341550634619945~1422870532");
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/brownregular.ttf")
                 .setFontAttrId(R.attr.fontPath)
@@ -110,18 +127,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_four.setOnClickListener(this);
         btn_five.setOnClickListener(this);
 
-        loadHomeFragment();
+
         upadate_retrofit();
         get_API_keys();
+        analytics();
     }
 
+
+    private void analytics() {
+
+        final Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(true)           // Enables Crashlytics debugger
+                .build();
+        Fabric.with(fabric);
+
+
+
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setCurrentScreen(this, "MainActivity", null );
+
+        /*Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "new changes");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);*/
+    }
 
 
     private void loadHomeFragment() {
                 Fragment fragment = getHomeFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                /*fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                        android.R.anim.fade_out);*/
                 fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
                 fragmentTransaction.addToBackStack(TAG_HOME);
                 fragmentTransaction.commit();
@@ -407,7 +442,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
 
         if(TMBDB_API_KEY != null){
-            Toast.makeText(mContext, "TMBDB_API_KEY = "+TMBDB_API_KEY, Toast.LENGTH_SHORT).show();
+            loadHomeFragment();
         }else {
             apiService =
                     ApiClient.getClient(mContext).create(ApiInterface.class);
@@ -422,6 +457,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     editor.putString("OPENLOAD_API_Login", response.body().getOPENLOADAPILogin());
                     editor.putString("OPENLOAD_API_KEY", response.body().getOPENLOADAPIKEY());
                     editor.commit();
+                    loadHomeFragment();
                 }
 
                 @Override

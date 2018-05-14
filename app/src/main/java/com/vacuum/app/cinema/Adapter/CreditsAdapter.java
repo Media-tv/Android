@@ -1,6 +1,10 @@
 package com.vacuum.app.cinema.Adapter;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +14,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.vacuum.app.cinema.Fragments.ActorFragment;
+import com.vacuum.app.cinema.Fragments.DetailsTV_Fragment;
+import com.vacuum.app.cinema.MainActivity;
 import com.vacuum.app.cinema.Model.Cast;
 import com.vacuum.app.cinema.Model.Trailer;
 import com.vacuum.app.cinema.R;
 
 import java.util.List;
+
+import static com.vacuum.app.cinema.Fragments.ActorFragment.TAG_ACTOR_FRAGMENT;
 
 /**
  * Created by Home on 3/1/2018.
@@ -69,6 +78,14 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.CreditsV
             @Override
             public void onClick(View view) {
 
+                Fragment fragment = new ActorFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("person_id", casts.get(position).getId());
+                fragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame, fragment,TAG_ACTOR_FRAGMENT);
+                fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
+                fragmentTransaction.commit();
             }
         });
     }

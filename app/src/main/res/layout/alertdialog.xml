@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:layout_marginBottom="80dp"
     android:layout_height="wrap_content">
 
 
@@ -18,6 +19,15 @@
         android:id="@+id/captcha_edit_text"
         android:inputType="textVisiblePassword"
         android:hint="****"
+        />
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:id="@+id/OKButton"
+        android:text="Submit"
+        android:elevation="0dp"
+        android:textColor="@color/black"
+        android:background="@drawable/oval"
         />
 
 </LinearLayout>

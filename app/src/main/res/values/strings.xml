@@ -6,6 +6,12 @@
     <string name="openDrawer">open_drawer</string>
     <string name="closeDrawer">close_drawer</string>
 
+
+    <string name="banner_ad_unit_id">ca-app-pub-3341550634619945/5482245486</string>
+    <string name="banner2_ad_unit_id">ca-app-pub-3341550634619945/9033621459</string>
+
+
+
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>
     <string name="nav_photos">Photos</string>

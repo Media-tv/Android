@@ -17,9 +17,12 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.vacuum.app.cinema.Adapter.MoviesAdapter;
 import com.vacuum.app.cinema.Adapter.SearchAdapter;
 import com.vacuum.app.cinema.Adapter.TrailerAdapter;
@@ -49,7 +52,11 @@ public class SearchFragment extends Fragment {
     RecyclerView recyclerView_search;
     LinearLayout layout_search;
     EditText edit_query;
+    ImageView clear_search;
     String  TMBDB_API_KEY;
+    FirebaseAnalytics mFirebaseAnalytics;
+    public static final String TAG_SEARCH_FRAGMENT = "TAG_SEARCH_FRAGMENT";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,8 +64,14 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.search_fragment, container, false);
         recyclerView_search = view.findViewById(R.id.recyclerView_search);
         layout_search = view.findViewById(R.id.layout_search);
+        clear_search = view.findViewById(R.id.clear_search);
 
         mContext = this.getActivity();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), TAG_SEARCH_FRAGMENT, null );
+
+
+
         edit_query = view.findViewById(R.id.edit_query);
         edit_query.addTextChangedListener(new TextWatcher() {
             @Override
@@ -80,10 +93,12 @@ public class SearchFragment extends Fragment {
                     //EditText is empty
                     recyclerView_search.setVisibility(View.GONE);
                     layout_search.setVisibility(View.VISIBLE);
+                    clear_search.setVisibility(View.GONE);
                 }
                 else
                 {
                     //EditText is not empty
+                    clear_search.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -91,10 +106,15 @@ public class SearchFragment extends Fragment {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus)
                     edit_query.setHint("");
-
+                    clear_search.setVisibility(View.VISIBLE);
             }
         });
-
+        clear_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_query.setText("");
+            }
+        });
         hide_keyboard();
         return view;
     }

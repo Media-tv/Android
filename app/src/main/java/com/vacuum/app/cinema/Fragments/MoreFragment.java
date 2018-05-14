@@ -42,7 +42,6 @@ public class MoreFragment extends Fragment {
     String value;
     private boolean userScrolled = true;
     private static int  pageIndex ;
-
     private LinearLayoutManager mLayoutManager;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     private  RelativeLayout bottomLayout;

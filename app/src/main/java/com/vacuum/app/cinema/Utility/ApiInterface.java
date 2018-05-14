@@ -1,6 +1,8 @@
 package com.vacuum.app.cinema.Utility;
 
 import com.vacuum.app.cinema.Model.API_KEY;
+import com.vacuum.app.cinema.Model.Actor;
+import com.vacuum.app.cinema.Model.ActorMovies;
 import com.vacuum.app.cinema.Model.Credits;
 import com.vacuum.app.cinema.Model.DoneMovies;
 import com.vacuum.app.cinema.Model.Images_tmdb;
@@ -75,6 +77,11 @@ public interface ApiInterface {
     Call<Images_tmdb> getImages(@Path("type") String type,@Path("id") int id, @Query("api_key") String apiKey);
 
 
+    @GET("person/{id}")
+    Call<Actor> getActorDetails(@Path("id") int id, @Query("api_key") String apiKey);
+
+    @GET("person/{id}/movie_credits")
+    Call<ActorMovies> getActorMovies(@Path("id") int id, @Query("api_key") String apiKey);
     @GET
     Call<List<Slider>> getSlider(@Url String url);
 
@@ -115,6 +122,7 @@ public interface ApiInterface {
 
     @GET
     Call<OpenloadResult> uploadOpenload(@Url String url);
+
     @GET
     Call<ResponseBody> uploadOpenload_id(@Url String url);
 

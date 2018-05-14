@@ -32,6 +32,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.vacuum.app.cinema.Activities.WatchActivity;
 import com.vacuum.app.cinema.Fragments.DetailsMovie_Fragment;
 import com.vacuum.app.cinema.Fragments.DetailsTV_Fragment;
@@ -57,6 +60,9 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.vacuum.app.cinema.Fragments.MainFragment.HomeFragment.mInterstitialAd;
+
 
 /**
  * Created by Home on 2/20/2018.
@@ -88,6 +94,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     public MoviesAdapter(List<Movie> movies, Context mContext) {
         this.movies = movies;
         this.mContext = mContext;
+
     }
 
     @Override
@@ -119,8 +126,16 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             @Override
             public void onClick(View view) {
                 if(movie.getTitle() == null){
+
                     Fragment(movie,new  DetailsTV_Fragment(),DetailsTV_Fragment.TAG_DetailsTV_Fragment);
                 }else {
+
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        Toast.makeText(mContext, "The interstitial wasn't loaded yet.", Toast.LENGTH_SHORT).show();
+                    }
+
                     Fragment(movie,new DetailsMovie_Fragment(),DetailsMovie_Fragment.TAG_DetailsMovie_Fragment);
                 }
 

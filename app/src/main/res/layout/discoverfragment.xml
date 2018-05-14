@@ -6,10 +6,21 @@
     android:background="@color/colorPrimary"
     >
 
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:foregroundGravity="center"
+        android:id="@+id/progresssbar_watch"
+        android:visibility="visible"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:indeterminateDrawable="@drawable/progress"
+        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Error"
+        android:text="Offline"
         android:gravity="center"
         android:textSize="40sp"
         android:visibility="gone"

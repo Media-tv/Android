@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "83874020234",
+    "firebase_url": "https://plex-9ea39.firebaseio.com",
+    "project_id": "plex-9ea39",
+    "storage_bucket": "plex-9ea39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83874020234:android:090fbd323c799e3d",
+        "android_client_info": {
+          "package_name": "com.vacuum.app.cinema"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "83874020234-tamt7m543gnqvcrhh5pd1mucrrpkevo8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vacuum.app.cinema",
+            "certificate_hash": "62e381003f55082aab0255c8ea2021d884ebfea0"
+          }
+        },
+        {
+          "client_id": "83874020234-qcr8i5h5ph7m0d1jfljj73seh1lkq6jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtCu_sjnLt16X5VxNMan29V_arsB7kVGc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "83874020234-qcr8i5h5ph7m0d1jfljj73seh1lkq6jk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

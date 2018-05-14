@@ -27,6 +27,11 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.vacuum.app.cinema.Activities.WatchActivity;
 import com.vacuum.app.cinema.Adapter.MoviesAdapter;
 import com.vacuum.app.cinema.Fragments.MoreFragment;
@@ -63,11 +68,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     SliderLayout mDemoSlider;
     public static  ProgressBar progressBar;
     public static  ApiInterface apiService;
-
     TextView more_upcoming,more_Popular,more_top_rated;
     public  static  LinearLayout layout;
-    EditText captcha_edit_text;
-    String OPENLOAD_API_Login,OPENLOAD_API_KEY,ticket,file_id,openload_thumbnail_url,title;
+    public static InterstitialAd mInterstitialAd;
+    AdView adView;
+    String file_id,title;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,6 +87,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         movies_recycler1_UpComing=  view.findViewById(R.id.movies_recycler1_UpComing);
         movies_recycler2_popular=  view.findViewById(R.id.movies_recycler2_popular);
         movies_recycler3_top_rated=  view.findViewById(R.id.movies_recycler3_top_rated);
+        adView = view.findViewById(R.id.adView);
 
         progressBar =  view.findViewById(R.id.progressBar);
         layout =  view.findViewById(R.id.layout);
@@ -109,25 +115,39 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
 
         retrofit();
+        Ads();
         return view;
     }
 
+    private void Ads() {
+
+
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId("ca-app-pub-3341550634619945/9102050005");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+    }
 
 
     private void setupslider(final List<Slider> sliders) {
-
-        final HashMap<String,String> url_maps = new HashMap<>();
-        for(int i=0;i<sliders.size();i++){
-            url_maps.put(sliders.get(i).getTitle(),sliders.get(i).getPosterPath());
-        }
-
 
 
         for(final Slider s : sliders){
             TextSliderView textSliderView = new TextSliderView(mContext);
             // initialize a SliderLayout
             textSliderView
-                    .description(s.getTitle())
+                    //.description(s.getTitle())
                     .image(s.getPosterPath())
                     .setScaleType(BaseSliderView.ScaleType.CenterCrop);
 
@@ -148,7 +168,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             mDemoSlider.addSlider(textSliderView);
         }
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        //mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(4000);
 
@@ -264,8 +284,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         fragment.setArguments(bundle);
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                android.R.anim.fade_out);
         fragmentTransaction.replace(R.id.frame, fragment, MoreFragment.TAG_MORE_FRAGMENT);
         fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
         fragmentTransaction.commit();

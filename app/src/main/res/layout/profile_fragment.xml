@@ -94,7 +94,7 @@
         android:layout_height="54dp"
         android:orientation="horizontal"
         android:background="@color/colorPrimaryDark"
-        android:id="@+id/layout3"
+        android:id="@+id/layout3_points"
         android:gravity="right"
         android:padding="10dp"
         >

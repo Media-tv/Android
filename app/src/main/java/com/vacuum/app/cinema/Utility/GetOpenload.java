@@ -1,6 +1,7 @@
 package com.vacuum.app.cinema.Utility;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -28,10 +30,9 @@ public class GetOpenload {
 
     Context mContext;
     String OPENLOAD_API_Login,OPENLOAD_API_KEY,file_id,ticket,openload_thumbnail_url,title;
-    AlertDialog.Builder alertadd;
     Boolean found_captcha = false;
-
-   public GetOpenload(Context mContext,String file_id,String title){
+    Dialog dialog;
+    public GetOpenload(Context mContext,String file_id,String title){
         this.file_id = file_id;
         this.title = title;
         this.mContext = mContext;
@@ -93,26 +94,31 @@ public class GetOpenload {
         });
     }
     private void AlertDialog(String url) {
-        alertadd = new AlertDialog.Builder(mContext);
-        LayoutInflater factory = LayoutInflater.from(mContext);
-        final View view2 = factory.inflate(R.layout.alertdialog, null);
-        ImageView captcha = view2.findViewById(R.id.captcha);
-        final EditText captcha_edit_text= view2.findViewById(R.id.captcha_edit_text);
+        dialog = new Dialog(mContext);
+        dialog.setContentView(R.layout.alertdialog);
+        dialog.setTitle("Test Capcha");
+        ImageView captcha = dialog.findViewById(R.id.captcha);
+        final EditText captcha_edit_text= dialog.findViewById(R.id.captcha_edit_text);
         captcha_edit_text.requestFocus();
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(mContext.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
         Glide.with(mContext)
                 .load(url).into(captcha);
-        alertadd.setView(view2)
-                .setCancelable(true);
-        alertadd.setNeutralButton("Submit", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dlg, int sumthin) {
+
+        Button okButton =  dialog.findViewById(R.id.OKButton);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
                 String captcha_text = captcha_edit_text.getText().toString();
                 String full_url = "https://api.openload.co/1/file/dl?file=" + file_id + "&ticket=" + ticket + "&captcha_response=" + captcha_text;
                 retrofit_2(full_url);
+                dialog.dismiss();
             }
         });
-        alertadd.show();
+
+        //dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        dialog.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        dialog.show();
     }
 
     private void retrofit_2(String full_url) {
@@ -127,7 +133,7 @@ public class GetOpenload {
                 OpenloadResult open = response.body();
                 if (open.getOpenload() != null) {
                     watchActivity(open.getOpenload().getUrl());
-
+                    dialog.dismiss();
                 } else {
                     found_captcha = true;
                     retrofit_1();

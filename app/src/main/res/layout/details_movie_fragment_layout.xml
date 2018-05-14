@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimaryDark"
     android:layout_height="match_parent">
     <LinearLayout
@@ -77,6 +78,7 @@
                 android:paddingLeft="10dp"
                 android:layout_marginTop="170dp"
                 android:orientation="horizontal" >
+
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -153,7 +155,17 @@
 
         </RelativeLayout>
 
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
 
+            android:id="@+id/adView_details_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            ads:adSize="BANNER"
+            android:layout_gravity="center"
+            ads:adUnitId="@string/banner_ad_unit_id">
+        </com.google.android.gms.ads.AdView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -169,7 +181,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2h 33min"
+                android:text="1h 33min"
                 android:layout_marginLeft="8dp"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
