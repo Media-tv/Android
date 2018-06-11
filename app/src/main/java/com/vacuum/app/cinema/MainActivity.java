@@ -148,9 +148,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setCurrentScreen(this, "MainActivity", null );
 
-        /*Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "new changes");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);*/
     }
 
 

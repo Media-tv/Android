@@ -166,19 +166,9 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         Ads();
         return view;
     }
-
     private void analistcs() {
         FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
-        mFirebaseAnalytics.setCurrentScreen(getActivity(), TAG_DetailsMovie_Fragment, null );
-
-        Bundle bundle = new Bundle();
-        bundle.putString("id", movie.getId().toString());
-        bundle.putString("Movie", movie.getTitle());
-        bundle.putString("Year", movie.getReleaseDate().substring(0,4));
-        bundle.putString("Genre",gener1_analistc);
-
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), "DetailsMovie_Fragment", null );
     }
 
     private void retrofit() {
@@ -208,19 +198,14 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                         Log.i("TAG :",e.toString());
                     }
 
-
-
-
                 //============================++++++++++++++++++++++++++
-
-
 
             }
 
             @Override
             public void onFailure(Call<MovieDetails> call, Throwable t) {
                 // Log error here since request failed
-                Log.e("tag", t.toString());
+                Log.e("TAG", t.toString());
             }
         });
 
@@ -249,7 +234,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             @Override
             public void onFailure(Call<TrailerResponse> call, Throwable t) {
                 // Log error here since request failed
-                Log.e("tag", t.toString());
+                Log.e("TAG", t.toString());
             }
         });
 
@@ -337,7 +322,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             @Override
             public void onFailure(Call<Images_tmdb> call, Throwable t) {
                 // Log error here since request failed
-                Log.e("tag", t.toString());
+                Log.e("TAG", t.toString());
             }
         });
     }

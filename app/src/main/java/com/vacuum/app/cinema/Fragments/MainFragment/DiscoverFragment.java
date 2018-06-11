@@ -55,8 +55,6 @@ public class DiscoverFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.discoverfragment, container, false);
         mContext = this.getActivity();
-         mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
-        mFirebaseAnalytics.setCurrentScreen(getActivity(), TAG_DISCVER_FRAGMENT, null );
 
         movies = new ArrayList<>();
         error=  view.findViewById(R.id.error);
@@ -71,6 +69,9 @@ public class DiscoverFragment extends Fragment {
     }
 
     private void retrofit() {
+
+        FirebaseAnalytics  mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), "DiscoverFragment", null );
         //====================================================================================
         //====================================================================================
         //====================================================================================
@@ -112,7 +113,7 @@ public class DiscoverFragment extends Fragment {
             @Override
             public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
 
-                if(response !=null){
+                try {
                     Movie e = new Movie();
                     e.setTitle(response.body().getTitle());
                     e.setPosterPath(response.body().getPosterPath());
@@ -126,11 +127,13 @@ public class DiscoverFragment extends Fragment {
                     e.setOriginalTitle(response.body().getOriginalTitle());
 
                     movies.add(e);
-                    mLayoutManager = new GridLayoutManager(mContext,3);
+                    mLayoutManager = new GridLayoutManager(mContext, 3);
                     discover_fragment_recylerview.setLayoutManager(mLayoutManager);
                     progresssbar_watch.setVisibility(View.GONE);
                     moviesAdapter = new MoviesAdapter(movies, mContext);
                     discover_fragment_recylerview.setAdapter(moviesAdapter);
+                }catch (Exception e){
+
                 }
 
             }

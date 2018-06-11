@@ -124,7 +124,21 @@
             android:layout_margin="3dp"
             android:layout_weight="1"
             android:textSize="18sp"
-
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:text="Add Points"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_margin="3dp"
+            android:layout_weight="0.7"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:background="@drawable/oval"
+            android:layout_gravity="center"
+            android:id="@+id/more_points"
             />
 
     </LinearLayout>

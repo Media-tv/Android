@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -24,7 +25,8 @@ import com.vacuum.app.cinema.R;
  */
 
 public class ProfileFragment extends Fragment implements View.OnClickListener,RewardedVideoAdListener{
-    LinearLayout layout_settings,layout3_points;
+    LinearLayout layout_settings;
+    Button more_points;
     Context mContext;
     RewardedVideoAd mRewardedVideoAd;
 
@@ -34,15 +36,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Re
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
         layout_settings = view.findViewById(R.id.layout_settings);
-        layout3_points = view.findViewById(R.id.layout3_points);
+        more_points = view.findViewById(R.id.more_points);
 
         mContext = this.getContext();
 
         layout_settings.setOnClickListener(this);
-        layout3_points.setOnClickListener(this);
+        more_points.setOnClickListener(this);
 
 
-        MobileAds.initialize(getActivity(), "ca-app-pub-3341550634619945~1422870532");
+        MobileAds.initialize(mContext, "ca-app-pub-3341550634619945~1422870532");
 
         // Use an activity context to get the rewarded video instance.
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
@@ -63,7 +65,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Re
                 fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
                 fragmentTransaction.commit();
                 break;
-            case R.id.layout3_points:
+            case R.id.more_points:
 
                 if (mRewardedVideoAd.isLoaded()) {
                     mRewardedVideoAd.show();
@@ -76,7 +78,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Re
     }
 
     private void loadRewardedVideoAd() {
-        mRewardedVideoAd.loadAd("ca-app-pub-3341550634619945/4093367533",
+        mRewardedVideoAd.loadAd("ca-app-pub-3341550634619945/4895005821"/*"ca-app-pub-3341550634619945/4093367533"*/,
                 new AdRequest.Builder().build());
     }
 

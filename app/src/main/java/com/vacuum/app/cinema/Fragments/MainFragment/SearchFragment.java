@@ -54,7 +54,6 @@ public class SearchFragment extends Fragment {
     EditText edit_query;
     ImageView clear_search;
     String  TMBDB_API_KEY;
-    FirebaseAnalytics mFirebaseAnalytics;
     public static final String TAG_SEARCH_FRAGMENT = "TAG_SEARCH_FRAGMENT";
 
     @Override
@@ -67,8 +66,8 @@ public class SearchFragment extends Fragment {
         clear_search = view.findViewById(R.id.clear_search);
 
         mContext = this.getActivity();
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
-        mFirebaseAnalytics.setCurrentScreen(getActivity(), TAG_SEARCH_FRAGMENT, null );
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), "SearchFragment", null );
 
 
 

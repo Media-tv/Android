@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.vacuum.app.cinema.Adapter.CreditsAdapter;
 import com.vacuum.app.cinema.Adapter.CrewAdapter;
 import com.vacuum.app.cinema.Adapter.EpisodesAdapter;
@@ -145,6 +146,8 @@ public class DetailsTV_Fragment extends Fragment {
 
     private void retrofit() {
 
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), "DetailsTV_Fragment", null );
         progressBar.setVisibility(View.VISIBLE);
         layout.setVisibility(View.GONE);
 

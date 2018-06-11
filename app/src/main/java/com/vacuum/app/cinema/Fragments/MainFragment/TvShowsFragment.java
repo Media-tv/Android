@@ -50,7 +50,7 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
     TextView more_Popular_tv,more_top_rated_tv;
     FirebaseAnalytics mFirebaseAnalytics;
     public static final String TAG_TVSHOWS_FRAGMENT = "TAG_TVSHOWS_FRAGMENT";
-    AdView adView_tvshow_fragment;
+    AdView adView_tvshow_fragment,adView_tvshow_fragment2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         mContext = this.getContext();
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
-        mFirebaseAnalytics.setCurrentScreen(getActivity(), TAG_TVSHOWS_FRAGMENT, null );
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), "TvShowsFragment", null );
 
         movies_recycler4_tv_popular=  view.findViewById(R.id.movies_recycler4_tv_popular);
         movies_recycler5_tv_toprated=  view.findViewById(R.id.movies_recycler5_tv_toprated);
@@ -68,7 +68,7 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         more_top_rated_tv=  view.findViewById(R.id.more_top_rated_tv);
 
         adView_tvshow_fragment=  view.findViewById(R.id.adView_tvshow_fragment);
-
+        adView_tvshow_fragment2=  view.findViewById(R.id.adView_tvshow_fragment2);
         more_Popular_tv.setOnClickListener(this);
         more_top_rated_tv.setOnClickListener(this);
 
@@ -87,6 +87,7 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
     private void Ads() {
         AdRequest adRequest = new AdRequest.Builder().build();
         adView_tvshow_fragment.loadAd(adRequest);
+        adView_tvshow_fragment2.loadAd(adRequest);
     }
 
 

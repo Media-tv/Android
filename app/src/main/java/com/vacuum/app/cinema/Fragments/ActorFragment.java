@@ -74,7 +74,8 @@ public class ActorFragment extends Fragment {
 
 
     private void Retrofit_call() {
-
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), "ActorFragment", null );
         SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
         TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
 
@@ -102,7 +103,6 @@ public class ActorFragment extends Fragment {
 
                     Bundle bundle = new Bundle();
                     bundle.putString("actor", response.body().getName());
-                    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
                 }catch (Exception e){
                     Log.e("TAG", "Unable to submit post to API.");
                 }

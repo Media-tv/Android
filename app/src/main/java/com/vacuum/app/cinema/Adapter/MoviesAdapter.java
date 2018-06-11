@@ -133,7 +133,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                     if (mInterstitialAd.isLoaded()) {
                         mInterstitialAd.show();
                     } else {
-                        Toast.makeText(mContext, "The interstitial wasn't loaded yet.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, "The interstitial wasn't loaded yet.", Toast.LENGTH_SHORT).show();
                     }
 
                     Fragment(movie,new DetailsMovie_Fragment(),DetailsMovie_Fragment.TAG_DetailsMovie_Fragment);

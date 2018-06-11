@@ -17,6 +17,7 @@ import android.widget.AbsListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.vacuum.app.cinema.Adapter.MoviesAdapter;
 import com.vacuum.app.cinema.Model.Movie;
 import com.vacuum.app.cinema.Model.MoviesResponse;
@@ -68,11 +69,13 @@ public class MoreFragment extends Fragment {
         Bundle bundle = this.getArguments();
         value = bundle.getString("value");
 
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), "MoreFragment", null );
+
         if(myRunnable != null){
             mHandler.removeCallbacks(myRunnable);
 
         }
-
         retrofit();
         Pagination();
         return view;
@@ -80,7 +83,6 @@ public class MoreFragment extends Fragment {
 
     private void Pagination() {
         fragment_grid_recylerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
                     @Override
                     public void onScrollStateChanged(RecyclerView recyclerView,
                                                      int newState) {
@@ -93,9 +95,7 @@ public class MoreFragment extends Fragment {
                             userScrolled = true;
 
                         }
-
                     }
-
                     @Override
                     public void onScrolled(RecyclerView recyclerView, int dx,
                                            int dy) {
@@ -126,30 +126,7 @@ public class MoreFragment extends Fragment {
 
     private void updateRecyclerView() {
 
-            bottomLayout.setVisibility(View.VISIBLE);
-
-             /*mHandler = new Handler();
-             mHandler.postDelayed(new Runnable() {
-                 @Override
-                 public void run() {
-                     retrofit();
-                     Toast.makeText(mContext, "Items Updated.",
-                             Toast.LENGTH_SHORT).show();
-                     bottomLayout.setVisibility(View.GONE);
-                 }
-             },2000);*/
-            /*new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    retrofit();
-                    Toast.makeText(getActivity(), "Items Updated.",
-                            Toast.LENGTH_SHORT).show();
-                    bottomLayout.setVisibility(View.GONE);
-
-                }
-            }, 3000);*/
-
+        bottomLayout.setVisibility(View.VISIBLE);
         mHandler=  new Handler();
         myRunnable = new Runnable() {
             public void run() {
@@ -231,7 +208,6 @@ public class MoreFragment extends Fragment {
         if(myRunnable != null){
             mHandler.removeCallbacksAndMessages(myRunnable);
         }
-        Log.i("TAG : Fragment", "onPause");
     }
 }
 

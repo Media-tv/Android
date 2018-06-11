@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -32,6 +33,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.vacuum.app.cinema.Activities.WatchActivity;
 import com.vacuum.app.cinema.Adapter.MoviesAdapter;
 import com.vacuum.app.cinema.Fragments.MoreFragment;
@@ -71,6 +73,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     TextView more_upcoming,more_Popular,more_top_rated;
     public  static  LinearLayout layout;
     public static InterstitialAd mInterstitialAd;
+    AdRequest adRequest;
     AdView adView;
     String file_id,title;
     @Override
@@ -113,14 +116,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
 
 
-
+        FirebaseAnalytics  mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), "HomeFragment", null );
         retrofit();
         Ads();
         return view;
     }
 
     private void Ads() {
-
 
         mInterstitialAd = new InterstitialAd(getActivity());
         mInterstitialAd.setAdUnitId("ca-app-pub-3341550634619945/9102050005");
@@ -130,12 +133,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onAdClosed() {
                 // Load the next interstitial.
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                //AdRequest adRequest = new AdRequest.Builder().addTestDevice(AD_UNIT_ID).build();
+
+               // mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                Ads();
             }
 
         });
-        AdRequest adRequest = new AdRequest.Builder().build();
+        adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener() {
+             @Override
+             public void onAdClosed() {
+                 super.onAdClosed();
+                 Ads();
+                 Toast.makeText(mContext, " Banner loading", Toast.LENGTH_SHORT).show();
+             }
+         }
+        );
 
     }
 
