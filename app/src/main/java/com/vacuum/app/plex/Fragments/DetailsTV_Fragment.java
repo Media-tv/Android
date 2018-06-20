@@ -37,6 +37,7 @@ import com.vacuum.app.plex.Model.Crew;
 import com.vacuum.app.plex.Model.Episode;
 import com.vacuum.app.plex.Model.Genre;
 import com.vacuum.app.plex.Model.Images_tmdb;
+import com.vacuum.app.plex.Model.Link;
 import com.vacuum.app.plex.Model.Movie;
 import com.vacuum.app.plex.Model.SeasonDetails;
 import com.vacuum.app.plex.Model.TVDetails;
@@ -80,6 +81,8 @@ public class DetailsTV_Fragment extends Fragment {
     Movie movie;
     Handler mHandler;
     Runnable myRunnable;
+    Link l = new Link();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -172,6 +175,10 @@ public class DetailsTV_Fragment extends Fragment {
 
                         number_of_episodes.setText("Number of episodes: "+m.getNumberOfEpisodes().toString());
                         number_of_seasons.setText("Number of seasons: "+m.getNumberOfSeasons().toString());
+
+                        l.setTitle(m.getOriginalName());
+                        l.setYear(m.getLastAirDate().substring(0,4));
+
                         setgenre(m.getGenres(),m.getGenres().size());
                         String cover_string_link ;
                         if(movie.getBackdropPath() == null){
@@ -378,7 +385,9 @@ public class DetailsTV_Fragment extends Fragment {
                                            episodes_layout.setVisibility(View.VISIBLE);
                                            recyclerView_episodes.setLayoutManager(new LinearLayoutManager(mContext,
                                                    LinearLayoutManager.VERTICAL, false));
-                                           recyclerView_episodes.setAdapter(new EpisodesAdapter(episodes,x,Season_number, mContext));
+                                           l.setId(String.valueOf(x));
+                                           l.setSeason_number(String.valueOf(Season_number));
+                                           recyclerView_episodes.setAdapter(new EpisodesAdapter(episodes,l, mContext));
                                            recyclerView_episodes.setNestedScrollingEnabled(false);
 
 

@@ -1,6 +1,7 @@
 package com.vacuum.app.plex.Fragments;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -45,6 +53,7 @@ import com.vacuum.app.plex.Model.Credits;
 import com.vacuum.app.plex.Model.Crew;
 import com.vacuum.app.plex.Model.Genre;
 import com.vacuum.app.plex.Model.Images_tmdb;
+import com.vacuum.app.plex.Model.Link;
 import com.vacuum.app.plex.Model.Movie;
 import com.vacuum.app.plex.Model.MovieDetails;
 import com.vacuum.app.plex.Model.Poster;
@@ -90,6 +99,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     ApiInterface apiService;
     String TMBDB_API_KEY,gener1_analistc;
     AdView adView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -400,6 +410,36 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         }
     }
 
+    private void notRobotCapcha() {
+        WebView webView = null;
+        String cv = "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+movie.getId().toString()+"&tmdb=1";
+        final Dialog dialoge = new Dialog(mContext);
+        dialoge.setContentView(R.layout.robotcapcha);
+        webView = (WebView) dialoge.findViewById(R.id.webview2);
+
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.loadUrl(cv);
+
+
+        webView.setWebViewClient(new WebViewClient() {
+                 @Override
+                 public boolean shouldOverrideUrlLoading(WebView view, String openload_url) {
+                     Log.e("TAG", openload_url);
+                     String word = ".co";
+                     String full_url = "https://openloed.co/embed/RoZzZ3TcXQ0";
+                     int index = openload_url.lastIndexOf(word); //16
+                     String right_url ="https://openload"+openload_url.substring(index,openload_url.length()) ;
+                     openload_upload(right_url);
+                     dialoge.dismiss();
+                     return true;
+                 }
+             }
+        );
+        dialoge.show();
+    }
+
     private void retrofit_getfile_openload_id() {
         progresssbar_watch.setVisibility(View.VISIBLE);
         watch.setVisibility(View.GONE);
@@ -413,16 +453,8 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             public void onResponse(Call<String> call, Response<String> response) {
                 String m = response.body();
                 if(m == null){
-                    new UploadOpenload(mContext,movie.getId().toString(),movie.getTitle()+" : "+movie.getReleaseDate().substring(0, 4));
-                    progresssbar_watch.setVisibility(View.GONE);
-                    watch.setVisibility(View.VISIBLE);
-                    Toast.makeText(mContext,"Go Premium!", Toast.LENGTH_SHORT).show();
-                    Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        v.vibrate(VibrationEffect.createOneShot(100,VibrationEffect.DEFAULT_AMPLITUDE));
-                    }else{
-                        v.vibrate(100);
-                    }
+                    notRobotCapcha();
+
                     //===============================================
                 }else {
                     new GetOpenload(mContext,m.toString(),movie.getOriginalTitle());
@@ -438,7 +470,24 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
 
     }
 
+    private void openload_upload(String right_url) {
+        Link l = new Link();
+        l.setUrl(right_url);
+        l.setId(movie.getId().toString());
+        l.setTitle(movie.getTitle());
+        l.setYear(movie.getReleaseDate().substring(0,4));
 
+        new UploadOpenload(mContext,l);
+        progresssbar_watch.setVisibility(View.GONE);
+        watch.setVisibility(View.VISIBLE);
+        Toast.makeText(mContext,"Go Premium!", Toast.LENGTH_SHORT).show();
+        Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(100,VibrationEffect.DEFAULT_AMPLITUDE));
+        }else{
+            v.vibrate(100);
+        }
+    }
 
 
     @Override

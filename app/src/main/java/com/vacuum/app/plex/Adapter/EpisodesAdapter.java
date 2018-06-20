@@ -1,5 +1,6 @@
 package com.vacuum.app.plex.Adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,8 +25,10 @@ import com.vacuum.app.plex.Fragments.DetailsMovie_Fragment;
 import com.vacuum.app.plex.Fragments.DetailsTV_Fragment;
 import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.Model.Episode;
+import com.vacuum.app.plex.Model.Link;
 import com.vacuum.app.plex.Model.Movie;
 import com.vacuum.app.plex.R;
+import com.vacuum.app.plex.Utility.UploadOpenload;
 
 import java.util.List;
 
@@ -33,10 +40,8 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
 
     private List<Episode> episodes;
     private Context mContext;
-    int tmdb_id,Season_number;
-
-    static int position_item ;
-
+    private Link l;
+    private int mCurrentPlayingPosition = -1;
 
     public  class SearchViewHolder extends RecyclerView.ViewHolder {
         TextView Title;
@@ -61,11 +66,10 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
         }
     }
 
-    public EpisodesAdapter(List<Episode> episodes,int tmdb_id, int Season_number,Context mContext) {
+    public EpisodesAdapter(List<Episode> episodes,Link l,Context mContext) {
         this.episodes = episodes;
         this.mContext = mContext;
-        this.tmdb_id = tmdb_id;
-        this.Season_number = Season_number;
+        this.l = l;
 
     }
 
@@ -90,25 +94,95 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
         //==================================================================
 
 
+        if(mCurrentPlayingPosition == position ){
+            holder.progresssbar_watch_eposides.setVisibility(View.VISIBLE);
+            holder.play_eposides.setVisibility(View.GONE);
+            // display stop icon
+        } else {
+            holder.progresssbar_watch_eposides.setVisibility(View.GONE);
+            holder.play_eposides.setVisibility(View.VISIBLE);
+            // display play icon
+        }
+
+
         holder.play_eposides.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                position_item = position;
                 holder.progresssbar_watch_eposides.setVisibility(View.VISIBLE);
                 holder.play_eposides.setVisibility(View.GONE);
-                openload(position+1);
-                refreshBlockOverlay(holder,position_item);
+
+                notRobotCapcha(position+1);
+
+                int PlayStopButtonState = (holder.play_eposides.getTag() == null) ? 1 : (Integer) holder.play_eposides.getTag();
+                //int PlayStopButtonState = (Integer) holder.play_eposides.getTag();
+
+                int previousPosition = mCurrentPlayingPosition;
+                if (PlayStopButtonState == 1) {
+
+                    mCurrentPlayingPosition = position;
+                    holder.play_eposides.setTag(2);
+
+                } else {
+                    mCurrentPlayingPosition = -1; // nothing wil be played after hitting stop
+                    holder.play_eposides.setTag(1);
+                }
+
+                if(previousPosition != -1)
+                    notifyItemChanged(previousPosition);
+
+
+
             }
+
+
 
         });
 
 
     }
-    private void openload(int EPISODE_NUMBER) {
 
-        String url = "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+tmdb_id+"&tmdb=1&tv=1&s="+Season_number+"&e="+EPISODE_NUMBER;
-        Toast.makeText(mContext,  url, Toast.LENGTH_SHORT).show();
-        Log.e("TAG",url);
+    private void notRobotCapcha(final int EPISODE_NUMBER) {
+        WebView webView = null;
+        String cv = "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+l.getId()+"&tmdb=1&tv=1&s="+l.getSeason_number()+"&e="+EPISODE_NUMBER;
+        final Dialog dialoge = new Dialog(mContext);
+        dialoge.setContentView(R.layout.robotcapcha);
+        webView = (WebView) dialoge.findViewById(R.id.webview2);
+
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.loadUrl(cv);
+
+
+        webView.setWebViewClient(new WebViewClient() {
+                                     @Override
+                                     public boolean shouldOverrideUrlLoading(WebView view, String openload_url) {
+                                         Log.e("TAG", openload_url);
+                                         String word = ".co";
+                                         String full_url = "https://openloed.co/embed/RoZzZ3TcXQ0";
+                                         int index = openload_url.lastIndexOf(word); //16
+                                         String right_url ="https://openload"+openload_url.substring(index,openload_url.length()) ;
+                                         //openload_upload(right_url);
+                                         openload(EPISODE_NUMBER,right_url);
+
+                                         dialoge.dismiss();
+                                         return true;
+                                     }
+                                 }
+        );
+        dialoge.show();
+    }
+
+    private void openload(int EPISODE_NUMBER,String right_url) {
+        //String url = "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+l.getId()+"&tmdb=1&tv=1&s="+l.getSeason_number()+"&e="+EPISODE_NUMBER;
+        Link l2 = new Link();
+        l2.setUrl(right_url);
+        l2.setId(l.getId());
+        l2.setYear(l.getYear());
+        l2.setTitle(l.getTitle());
+        l2.setSeason_number(l.getSeason_number());
+        l2.setEpisodes_number(String.valueOf(EPISODE_NUMBER));
+        new UploadOpenload(mContext,l2);
     }
 
 
@@ -130,13 +204,6 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
         fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
         fragmentTransaction.commit();
     }
-    public void refreshBlockOverlay(EpisodesAdapter.SearchViewHolder holder,int position) {
-        if(position != position_item)
-        {
-            holder.progresssbar_watch_eposides.setVisibility(View.GONE);
-            holder.play_eposides.setVisibility(View.VISIBLE);
-        }
-        notifyItemChanged(position);
-    }
+
 
 }

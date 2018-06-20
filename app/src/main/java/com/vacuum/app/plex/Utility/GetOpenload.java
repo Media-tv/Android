@@ -123,7 +123,6 @@ public class GetOpenload {
 
     private void retrofit_2(String full_url) {
 
-
         ApiInterface apiService =
                 ApiClient.getClient(mContext).create(ApiInterface.class);
         Call<OpenloadResult> call_slider = apiService.getOpenload(full_url);
@@ -133,7 +132,8 @@ public class GetOpenload {
                 OpenloadResult open = response.body();
                 if (open.getOpenload() != null) {
                     watchActivity(open.getOpenload().getUrl());
-                    dialog.dismiss();
+                    if(dialog != null)
+                        dialog.dismiss();
                 } else {
                     found_captcha = true;
                     retrofit_1();

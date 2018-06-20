@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.vacuum.app.plex.Model.Link;
 import com.vacuum.app.plex.Model.OpenloadResult;
 import com.vacuum.app.plex.R;
 
@@ -30,12 +31,25 @@ public class UploadOpenload {
     Retrofit retrofit;
     ApiInterface api;
     Context mContext;
-    String id_,title;
-    public UploadOpenload(Context mContext,String id,String title){
+    String url,title,id_,year;
+    public UploadOpenload(final Context mContext, Link l){
 
         this.mContext = mContext;
-        this.id_ = id;
-        this.title = title;
+        this.url = l.getUrl();
+        this.title = l.getTitle();
+        this.year = l.getYear();
+        this.id_ = l.getId();
+
+        Log.e("TAG: id ",l.getId());
+        Log.e("TAG: title",l.getTitle());
+        Log.e("TAG: year",l.getYear());
+//        Log.e("TAG: season number ",l.getSeason_number());
+//        Log.e("TAG: episode",l.getEpisodes_number());
+        Log.e("TAG: url ",l.getUrl());
+
+
+
+
 
         String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
 
@@ -55,8 +69,7 @@ public class UploadOpenload {
 
         api = retrofit.create(ApiInterface.class);
 
-
-        Call<String> call_details = api.getSend("https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+id+"&tmdb=1");
+        /*Call<String> call_details = api.getSend(url);
         call_details.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -64,18 +77,25 @@ public class UploadOpenload {
                 Log.e("TAG","response.raw().request().url();"+openload_url);
 
 
-                String word = ".co";
-                String full_url = "https://openloed.co/embed/RoZzZ3TcXQ0";
-                Log.e("TAG : index of / == ",String.valueOf(openload_url.lastIndexOf(word)));
-                int index = openload_url.lastIndexOf(word); //16
-                String right_url ="https://openload"+openload_url.substring(index,openload_url.length()) ;
-                UploadOpenload2(right_url);
+                if(!openload_url.contains("https://videospider")){
+                    String word = ".co";
+                    String full_url = "https://openloed.co/embed/RoZzZ3TcXQ0";
+                    Log.e("TAG : index of / == ",String.valueOf(openload_url.lastIndexOf(word)));
+                    int index = openload_url.lastIndexOf(word); //16
+                    String right_url ="https://openload"+openload_url.substring(index,openload_url.length()) ;
+                    UploadOpenload2(right_url);
+                }
+                Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Log.e("TAG", t.toString());
             }
-        });
+        });*/
+
+        UploadOpenload2(url);
+
+
     }
 
     private void UploadOpenload2(String raw) {
@@ -116,7 +136,7 @@ public class UploadOpenload {
                     if(file_id == "false"){
                         Toast.makeText(mContext, "no Movies", Toast.LENGTH_SHORT).show();
                     }else {
-                        new AddMovie(mContext,id_,title,file_id);
+                        new AddMovie(mContext,id_,title+" : "+year,file_id);
                     }
                 } catch (JSONException e) {
                     Log.e("TAG:forecast", e.toString());
