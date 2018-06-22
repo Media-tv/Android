@@ -34,13 +34,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public static class SearchViewHolder extends RecyclerView.ViewHolder {
         TextView Title;
         TextView year,overview;
-        ImageView thumbnail,tv;
+        ImageView thumbnail,tv,play_eposides,download_icon;
         public SearchViewHolder(View v) {
             super(v);
             Title = (TextView) v.findViewById(R.id.Title);
             year = (TextView) v.findViewById(R.id.year);
             overview = (TextView) v.findViewById(R.id.overview);
             thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
+            play_eposides = (ImageView) v.findViewById(R.id.play_eposides);
+            download_icon = (ImageView) v.findViewById(R.id.download_icon);
             tv = (ImageView) v.findViewById(R.id.tv);
 
         }
@@ -63,6 +65,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public void onBindViewHolder(SearchAdapter.SearchViewHolder holder, final int position) {
 
         final Movie movie = movies.get(position);
+        holder.play_eposides.setVisibility(View.GONE);
+        holder.download_icon.setVisibility(View.GONE);
 
 
         if (movie.getTitle() == null) {

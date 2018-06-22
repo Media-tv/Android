@@ -90,12 +90,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             w.setStatusBarColor(ContextCompat.getColor(this,R.color.transparent));
-        }
+        }*/
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_main);
 
 
@@ -453,6 +457,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     editor.putString("OPENLOAD_API_Login", response.body().getOPENLOADAPILogin());
                     editor.putString("OPENLOAD_API_KEY", response.body().getOPENLOADAPIKEY());
                     editor.commit();
+                    Log.e("TAG : ",response.body().getTMBDBAPIKEY());
+
                     loadHomeFragment();
                 }
 

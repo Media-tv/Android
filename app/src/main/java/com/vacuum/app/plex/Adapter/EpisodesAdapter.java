@@ -150,7 +150,6 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webView.getSettings().setLoadWithOverviewMode(true);
         webView.loadUrl(cv);
 
 
@@ -161,10 +160,12 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
                                          String word = ".co";
                                          String full_url = "https://openloed.co/embed/RoZzZ3TcXQ0";
                                          int index = openload_url.lastIndexOf(word); //16
-                                         String right_url ="https://openload"+openload_url.substring(index,openload_url.length()) ;
-                                         //openload_upload(right_url);
-                                         openload(EPISODE_NUMBER,right_url);
-
+                                         Log.e("TAG: index == ", String.valueOf(index));
+                                         if (index != 0) {
+                                             String right_url = "https://openload" + openload_url.substring(index, openload_url.length());
+                                             openload(EPISODE_NUMBER, right_url);
+                                             Toast.makeText(mContext, "404 not found", Toast.LENGTH_SHORT).show();
+                                         }
                                          dialoge.dismiss();
                                          return true;
                                      }
@@ -174,7 +175,6 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
     }
 
     private void openload(int EPISODE_NUMBER,String right_url) {
-        //String url = "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+l.getId()+"&tmdb=1&tv=1&s="+l.getSeason_number()+"&e="+EPISODE_NUMBER;
         Link l2 = new Link();
         l2.setUrl(right_url);
         l2.setId(l.getId());

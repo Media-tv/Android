@@ -58,10 +58,7 @@
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="0dp"
             app:cardElevation="5dp"
-            android:layout_alignParentBottom="true"
-            app:cardUseCompatPadding="false"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="8dp">
+            android:layout_alignParentBottom="true">
 
             <LinearLayout
                 android:id="@+id/bottom_container"

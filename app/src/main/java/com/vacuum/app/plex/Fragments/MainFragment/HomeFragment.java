@@ -201,14 +201,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         call_UpComing.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
-                List<Movie> movies = response.body().getResults();
-                movies_recycler1_UpComing.setAdapter(new MoviesAdapter(movies, mContext));
+                    List<Movie> movies = response.body().getResults();
+                    movies_recycler1_UpComing.setAdapter(new MoviesAdapter(movies, mContext));
+                    Log.e("TAG", "null array");
             }
 
             @Override
             public void onFailure(Call<MoviesResponse>call, Throwable t) {
                 // Log error here since request failed
-                Log.e("tag", t.toString());
+                Log.e("TAG", t.toString());
             }
         });
         //====================================================================================
@@ -218,8 +219,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         call_popular.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
-                List<Movie> movies = response.body().getResults();
-                movies_recycler2_popular.setAdapter(new MoviesAdapter(movies, mContext));
+
+                try{
+                    List<Movie> movies = response.body().getResults();
+                    movies_recycler2_popular.setAdapter(new MoviesAdapter(movies, mContext));
+                }catch (Exception e)
+                {
+                    Log.e("TAG", e.toString());
+                }
             }
 
             @Override
@@ -235,8 +242,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         call_top_rated.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
-                List<Movie> movies = response.body().getResults();
-                movies_recycler3_top_rated.setAdapter(new MoviesAdapter(movies, mContext));
+
+
+                try{
+                    List<Movie> movies = response.body().getResults();
+                    movies_recycler3_top_rated.setAdapter(new MoviesAdapter(movies, mContext));
+                }catch (Exception e)
+                {
+                    Log.e("TAG", e.toString());
+                }
             }
 
             @Override
@@ -297,7 +311,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         Bundle bundle = new Bundle();
         bundle.putString("value", value);
         fragment.setArguments(bundle);
-
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame, fragment, MoreFragment.TAG_MORE_FRAGMENT);
         fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);

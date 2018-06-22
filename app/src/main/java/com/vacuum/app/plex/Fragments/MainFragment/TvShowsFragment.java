@@ -158,8 +158,8 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         fragment.setArguments(bundle);
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                android.R.anim.fade_out);
+        /*fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                android.R.anim.fade_out);*/
         fragmentTransaction.replace(R.id.frame, fragment, MoreFragment.TAG_MORE_FRAGMENT);
         fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
         fragmentTransaction.commit();
