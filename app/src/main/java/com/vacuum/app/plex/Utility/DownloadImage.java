@@ -61,7 +61,7 @@ public class DownloadImage {
         String imageFileName = "JPEG_" + poster_url.substring(10,15).toString() + ".jpg";
         File storageDir = new File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                        + "/Zom3a");
+                        + "/Plex Media");
         boolean success = true;
         if (!storageDir.exists()) {
             success = storageDir.mkdirs();

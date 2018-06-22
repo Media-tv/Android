@@ -1,6 +1,7 @@
 package com.vacuum.app.plex;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -15,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.PowerManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -63,6 +65,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import static cn.jzvd.JZVideoPlayer.TAG;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -320,21 +324,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 // instantiate it within the onCreate method
         mProgressDialog = new ProgressDialog(MainActivity.this);
-        mProgressDialog.setMessage("A message");
+        mProgressDialog.setMessage("A downloading");
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mProgressDialog.setCancelable(true);
 
 // execute this when the downloader must be fired
-        final DownloadTask downloadTask = new DownloadTask(MainActivity.this);
-        downloadTask.execute(link);
+        if(isStoragePermissionGranted()){
+            final DownloadTask downloadTask = new DownloadTask(MainActivity.this);
+            downloadTask.execute(link);
 
-        mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                downloadTask.cancel(true);
-            }
-        });
+            mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    downloadTask.cancel(true);
+                }
+            });
+        }
+
     }
 
     private class DownloadTask extends AsyncTask<String, Integer, String> {
@@ -369,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 // download the file
                 input = connection.getInputStream();
-                output = new FileOutputStream("/sdcard/BoxMovies.v1.8.apk");
+                output = new FileOutputStream("/sdcard/Download/Plexmedia.apk");
 
                 byte data[] = new byte[4096];
                 long total = 0;
@@ -434,6 +441,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(context, "File downloaded", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    private  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ContextCompat.checkSelfPermission(mContext, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG,"Permission is granted");
+                return true;
+            } else {
+                Log.v(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                final DownloadTask downloadTask = new DownloadTask(MainActivity.this);
+                downloadTask.execute(link);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG,"Permission is granted");
+            return true;
+        }
+    }
+
 
     private void get_API_keys() {
 
