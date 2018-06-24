@@ -385,8 +385,10 @@ public class DetailsTV_Fragment extends Fragment {
                                            episodes_layout.setVisibility(View.VISIBLE);
                                            recyclerView_episodes.setLayoutManager(new LinearLayoutManager(mContext,
                                                    LinearLayoutManager.VERTICAL, false));
-                                           l.setId(String.valueOf(x));
-                                           l.setSeason_number(String.valueOf(Season_number));
+                                           l.setId_tvseries_tmdb(x);
+                                           l.setSeason_number(Season_number);
+                                           l.setName_tv_series(movie.getOriginal_name());
+
                                            recyclerView_episodes.setAdapter(new EpisodesAdapter(episodes,l, mContext));
                                            recyclerView_episodes.setNestedScrollingEnabled(false);
 

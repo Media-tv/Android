@@ -84,11 +84,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     AlertDialog.Builder alertadd;
     private ApiInterface apiService;
     ProgressDialog mProgressDialog;
-    String link;
+    String link,versionName;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     private FirebaseAnalytics mFirebaseAnalytics;
-
     private AdView mAdView;
 
     @Override
@@ -235,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int versionCode = 0;
         try {
             pInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
-            String versionName = pInfo.versionName;
+            versionName = pInfo.versionName;
             versionCode = pInfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -249,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         apiService =
                 ApiClient.getClient(mContext).create(ApiInterface.class);
 
-        String webhost00free = "https://mohamedebrahim.000webhostapp.com/cimaclub/update.php" ;
+        String webhost00free = "https://mohamedebrahim.000webhostapp.com/plex/update.php" ;
 
         Call<Update> call_UpComing = apiService.getUpdateVersion(webhost00free);
         call_UpComing.enqueue(new Callback<Update>() {
@@ -324,10 +323,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 // instantiate it within the onCreate method
         mProgressDialog = new ProgressDialog(MainActivity.this);
-        mProgressDialog.setMessage("A downloading");
+        mProgressDialog.setMessage("downloading: v"+versionName);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        mProgressDialog.setCancelable(true);
+        mProgressDialog.setCancelable(false);
 
 // execute this when the downloader must be fired
         if(isStoragePermissionGranted()){
@@ -337,7 +336,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
-                    downloadTask.cancel(true);
+                    //downloadTask.cancel(true);
+                    Toast.makeText(mContext, "you can't skip Update", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -376,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 // download the file
                 input = connection.getInputStream();
-                output = new FileOutputStream("/sdcard/Download/Plexmedia.apk");
+                output = new FileOutputStream("/sdcard/Download/Plexmedia_v"+versionName+".apk");
 
                 byte data[] = new byte[4096];
                 long total = 0;
@@ -476,7 +476,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             apiService =
                     ApiClient.getClient(mContext).create(ApiInterface.class);
 
-            String webhost00free = "https://mohamedebrahim.000webhostapp.com/cimaclub/getAPIkey.php";
+            String webhost00free = "https://mohamedebrahim.000webhostapp.com/plex/getAPIkey.php";
 
             Call<API_KEY> call_UpComing = apiService.getApiKEY(webhost00free);
             call_UpComing.enqueue(new Callback<API_KEY>() {

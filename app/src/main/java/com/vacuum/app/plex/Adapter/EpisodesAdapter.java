@@ -111,7 +111,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
                 holder.progresssbar_watch_eposides.setVisibility(View.VISIBLE);
                 holder.play_eposides.setVisibility(View.GONE);
 
-                notRobotCapcha(position+1);
+                notRobotCapcha(position);
 
                 int PlayStopButtonState = (holder.play_eposides.getTag() == null) ? 1 : (Integer) holder.play_eposides.getTag();
                 //int PlayStopButtonState = (Integer) holder.play_eposides.getTag();
@@ -130,20 +130,15 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
                 if(previousPosition != -1)
                     notifyItemChanged(previousPosition);
 
-
-
             }
-
-
-
         });
 
 
     }
 
-    private void notRobotCapcha(final int EPISODE_NUMBER) {
+    private void notRobotCapcha(final int Position) {
         WebView webView = null;
-        String cv = "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+l.getId()+"&tmdb=1&tv=1&s="+l.getSeason_number()+"&e="+EPISODE_NUMBER;
+        String cv = "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+l.getId_tvseries_tmdb()+"&tmdb=1&tv=1&s="+l.getSeason_number()+"&e="+(episodes.get(Position).getEpisodeNumber()+1);
         final Dialog dialoge = new Dialog(mContext);
         dialoge.setContentView(R.layout.robotcapcha);
         webView = (WebView) dialoge.findViewById(R.id.webview2);
@@ -163,7 +158,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
                                          Log.e("TAG: index == ", String.valueOf(index));
                                          if (index != 0) {
                                              String right_url = "https://openload" + openload_url.substring(index, openload_url.length());
-                                             openload(EPISODE_NUMBER, right_url);
+                                             openload(Position, right_url);
                                              Toast.makeText(mContext, "404 not found", Toast.LENGTH_SHORT).show();
                                          }
                                          dialoge.dismiss();
@@ -174,14 +169,15 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
         dialoge.show();
     }
 
-    private void openload(int EPISODE_NUMBER,String right_url) {
+    private void openload(int Position,String right_url) {
         Link l2 = new Link();
         l2.setUrl(right_url);
-        l2.setId(l.getId());
-        l2.setYear(l.getYear());
-        l2.setTitle(l.getTitle());
+        l2.setId_tvseries_tmdb(l.getId_tvseries_tmdb());
+        l2.setName_tv_series(l.getName_tv_series());
         l2.setSeason_number(l.getSeason_number());
-        l2.setEpisodes_number(String.valueOf(EPISODE_NUMBER));
+        l2.setEpisode_number(episodes.get(Position).getEpisodeNumber());
+        l2.setEpisode_id_tmdb(episodes.get(Position).getId());
+        l2.setEpisode_name(episodes.get(Position).getName());
         new UploadOpenload(mContext,l2);
     }
 

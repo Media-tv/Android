@@ -47,7 +47,6 @@ public class DiscoverFragment extends Fragment {
     MoviesAdapter moviesAdapter;
     String TMBDB_API_KEY;
     ProgressBar progresssbar_watch;
-    FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,7 +79,7 @@ public class DiscoverFragment extends Fragment {
                 ApiClient.getClient(mContext).create(ApiInterface.class);
 
 
-        Call<DoneMovies> call = apiService.getDoneMovies("https://mohamedebrahim.000webhostapp.com/cimaclub/getDoneMovies.php");
+        Call<DoneMovies> call = apiService.getDoneMovies("https://mohamedebrahim.000webhostapp.com/plex/getDoneMovies.php");
         call.enqueue(new Callback<DoneMovies>() {
             @Override
             public void onResponse(Call<DoneMovies> call, Response<DoneMovies> response) {

@@ -95,16 +95,28 @@ public interface ApiInterface {
 
 
     @FormUrlEncoded
-    @POST("cimaclub/request.php")
+    @POST("plex/request.php")
     Call<ResponseBody> requestMovie(@Field("movie_id") String movie_id,
                                    @Field("title") String title);
 
     @FormUrlEncoded
-    @POST("cimaclub/addmovie.php")
+    @POST("plex/addmovie.php")
     Call<ResponseBody> addMovie(@Field("id") String movie_id,
                                     @Field("title") String title,
-                                @Field("file_id") String file_id
+                                @Field("file_id") String file_id,
+
+                                @Field("id_tvseries_tmdb") int id_tvseries_tmdb,
+                                @Field("name_tv_series") String name_tv_series,
+                                @Field("season_number") int season_number,
+                                @Field("episode_name") String episode_name,
+                                @Field("episode_number") int  episode_number,
+                                @Field("episode_id_tmdb") int episode_id_tmdb
     );
+
+
+
+
+
 
     @GET
     Call<Update> getUpdateVersion(@Url String url);

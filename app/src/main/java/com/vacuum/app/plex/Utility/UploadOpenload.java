@@ -32,20 +32,23 @@ public class UploadOpenload {
     ApiInterface api;
     Context mContext;
     String url,title,id_,year;
+    Link l;
     public UploadOpenload(final Context mContext, Link l){
 
         this.mContext = mContext;
+        this.l = l;
+
         this.url = l.getUrl();
         this.title = l.getTitle();
         this.year = l.getYear();
         this.id_ = l.getId();
 
-        Log.e("TAG: id ",l.getId());
-        Log.e("TAG: title",l.getTitle());
-        Log.e("TAG: year",l.getYear());
+        //Log.e("TAG: id ",l.getId());
+        //Log.e("TAG: title",l.getTitle());
+        //Log.e("TAG: year",l.getYear());
 //        Log.e("TAG: season number ",l.getSeason_number());
 //        Log.e("TAG: episode",l.getEpisodes_number());
-        Log.e("TAG: url ",l.getUrl());
+        //Log.e("TAG: url ",l.getUrl());
 
 
 
@@ -69,29 +72,6 @@ public class UploadOpenload {
 
         api = retrofit.create(ApiInterface.class);
 
-        /*Call<String> call_details = api.getSend(url);
-        call_details.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                String openload_url = response.raw().request().url().toString();
-                Log.e("TAG","response.raw().request().url();"+openload_url);
-
-
-                if(!openload_url.contains("https://videospider")){
-                    String word = ".co";
-                    String full_url = "https://openloed.co/embed/RoZzZ3TcXQ0";
-                    Log.e("TAG : index of / == ",String.valueOf(openload_url.lastIndexOf(word)));
-                    int index = openload_url.lastIndexOf(word); //16
-                    String right_url ="https://openload"+openload_url.substring(index,openload_url.length()) ;
-                    UploadOpenload2(right_url);
-                }
-                Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.e("TAG", t.toString());
-            }
-        });*/
 
         UploadOpenload2(url);
 
@@ -136,7 +116,16 @@ public class UploadOpenload {
                     if(file_id == "false"){
                         Toast.makeText(mContext, "no Movies", Toast.LENGTH_SHORT).show();
                     }else {
-                        new AddMovie(mContext,id_,title+" : "+year,file_id);
+                        new AddMovie(mContext,id_,
+                                title+" : "+year,
+                                file_id,
+                                //========================================
+                                l.getId_tvseries_tmdb(),
+                                l.getName_tv_series(),
+                                l.getSeason_number(),
+                                l.getEpisode_name(),
+                                l.getEpisode_number(),
+                                l.getEpisode_id_tmdb());
                     }
                 } catch (JSONException e) {
                     Log.e("TAG:forecast", e.toString());

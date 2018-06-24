@@ -19,8 +19,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AddMovie {
     String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
 
-    public AddMovie(final Context mContext, String id, final String title, final String file_id)
+    public AddMovie(final Context mContext,
+                    String id,
+                    final String title,
+                    final String file_id,
+//======================================================
+                    int id_tvseries_tmdb,
+                    String name_tv_series,
+                    int season_number,
+                    String episode_name,
+                    int Episode_number,
+                    int episode_id_tmdb)
     {
+
+
+
 
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -35,7 +48,14 @@ public class AddMovie {
         api.addMovie(
                 id,
                 title,
-                file_id
+                file_id,
+//===============================================
+                id_tvseries_tmdb,
+                name_tv_series,
+                season_number,
+                episode_name,
+                Episode_number,
+                episode_id_tmdb
         ).enqueue(new retrofit2.Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

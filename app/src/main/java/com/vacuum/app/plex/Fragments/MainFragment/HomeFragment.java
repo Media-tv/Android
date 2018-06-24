@@ -264,7 +264,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         //====================================================================================
         //====================================================================================
 
-        Call<List<Slider>> call_slider = apiService.getSlider("https://mohamedebrahim.000webhostapp.com/cimaclub/slider.php");
+        Call<List<Slider>> call_slider = apiService.getSlider("https://mohamedebrahim.000webhostapp.com/plex/slider.php");
         call_slider.enqueue(new Callback<List<Slider>>() {
             @Override
             public void onResponse(Call<List<Slider>>call, Response<List<Slider>> response) {
