@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:background="@color/lightcolor">
+
+       <RelativeLayout
+           android:layout_width="150dp"
+           android:layout_height="150dp"
+           android:gravity="center"
+           android:layout_gravity="center"
+           >
+           <ImageView
+               android:layout_width="200dp"
+               android:layout_height="200dp"
+               app:srcCompat="@drawable/if_sed_10_2232321"
+               />
+           <Button
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:src="@drawable/round_background"
+               android:background="@drawable/if_icon_camera_211634"
+               android:layout_alignParentBottom="true"
+               android:layout_alignParentRight="true"
+               android:layout_marginBottom="20dp"
+               android:layout_marginRight="10dp"
+               />
+
+       </RelativeLayout>
+        <TextView
+            android:text="Full Name"
+            fontPath="fonts/brownregular.ttf"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/full_name"
+            android:inputType="text"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="Email"
+            fontPath="fonts/brownregular.ttf"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <EditText
+            android:id="@+id/email"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_width="match_parent"
+            android:inputType="textEmailAddress"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            fontPath="fonts/brownregular.ttf"
+            android:textColor="@color/white"
+            android:text="Password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <EditText
+            android:id="@+id/password"
+            android:textColor="@color/colorPrimaryDark"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:textColor="@color/white"
+            android:text="Phone Number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <EditText
+            android:id="@+id/phone"
+            fontPath="fonts/brownregular.ttf"
+            android:textColor="@color/colorPrimaryDark"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_margin="5dp"
+               >
+               <RelativeLayout
+                   android:layout_width="60dp"
+                   android:layout_gravity="center"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+
+                   <com.vacuum.app.plex.Utility.CustomSpinner
+                       android:id="@+id/spinner_days"
+                       android:background="@android:color/transparent"
+                       android:verticalScrollbarPosition="left"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_centerHorizontal="true"
+                       android:layout_centerVertical="true"/>
+
+                   <ImageView
+                       android:layout_width="25dp"
+                       android:layout_height="25dp"
+                       android:layout_alignParentRight="true"
+                       android:layout_centerVertical="true"
+                       android:layout_gravity="center"
+                       app:srcCompat="@drawable/if_arrow_down"
+                       tools:ignore="VectorDrawableCompat" />
+
+               </RelativeLayout>
+               <RelativeLayout
+                   android:layout_width="100dp"
+                   android:layout_gravity="center"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+                   <Spinner
+                       android:id="@+id/spinner_months"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:background="@android:color/transparent"
+                       android:gravity="center"
+                       android:spinnerMode="dropdown" />
+
+                   <ImageView
+                       android:layout_width="25dp"
+                       android:layout_height="25dp"
+                       android:layout_alignParentRight="true"
+                       android:layout_centerVertical="true"
+                       android:layout_gravity="center"
+                       app:srcCompat="@drawable/if_arrow_down"
+                       tools:ignore="VectorDrawableCompat" />
+
+               </RelativeLayout>
+               <RelativeLayout
+                   android:layout_width="80dp"
+                   android:layout_gravity="center"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+                   <Spinner
+                       android:id="@+id/spinner_years"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:background="@android:color/transparent"
+                       android:gravity="center"
+                       android:spinnerMode="dropdown" />
+
+                   <ImageView
+                       android:layout_width="25dp"
+                       android:layout_height="25dp"
+                       android:layout_alignParentRight="true"
+                       android:layout_centerVertical="true"
+                       android:layout_gravity="center"
+                       app:srcCompat="@drawable/if_arrow_down"
+                       tools:ignore="VectorDrawableCompat" />
+
+               </RelativeLayout>
+           </LinearLayout>
+            <Button
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:text="Determine Location"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:background="@drawable/oval"
+                android:layout_gravity="center"
+                android:id="@+id/determine_location"
+                />
+
+
+            <Button
+                android:id="@+id/buttonRegister"
+                android:text="Register"
+                android:layout_marginTop="200dp"
+                android:textColor="@color/duskYellow"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</ScrollView>

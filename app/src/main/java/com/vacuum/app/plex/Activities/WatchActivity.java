@@ -124,23 +124,24 @@ public class WatchActivity extends AppCompatActivity implements BetterVideoCallb
                 switch (item.getItemId()) {
                     case 0:
                         player.pause();
+                        player.stop();
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Stream));
                         intent.setDataAndType(Uri.parse(Stream), "video/*");
                         startActivity(intent);
                         break;
                     case 1:
-                        Toast.makeText(mContext, "null", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Premium Only", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        Toast.makeText(mContext, "ES", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Premium Only", Toast.LENGTH_SHORT).show();
                         player.setCaptions(Uri.parse("https://mohamedebrahim.000webhostapp.com/cimaclub/Subtitles/Fight.Club.1999.BluRay.1080p.DTS.x264.dxva-EuReKA.ger.srt")
                                 , CaptionsView.CMime.SUBRIP);
                         break;
                     case 3:
-                        Toast.makeText(mContext, "DE", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Premium Only", Toast.LENGTH_SHORT).show();
                         break;
                     case 4:
-                        Toast.makeText(mContext, "AR", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Premium Only", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return false;
@@ -156,13 +157,19 @@ public class WatchActivity extends AppCompatActivity implements BetterVideoCallb
     @Override
     protected void onPause() {
         super.onPause();
-        //this.finish();
+
         if (player != null) {
             position = player.getCurrentPosition();
             player.pause();
             //player.stop();
             //player.release();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 
     @Override

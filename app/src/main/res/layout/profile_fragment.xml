@@ -229,26 +229,13 @@
     android:layout_height="1dp"
     android:background="@color/medium_grey"
     />
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:text="Determine Location"
-        android:padding="5dp"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:layout_margin="3dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:background="@drawable/oval"
-        android:layout_gravity="center"
-        android:id="@+id/determine_location"
-        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:orientation="horizontal"
         android:background="@color/lightYellow"
-        android:id="@+id/layou6"
+        android:id="@+id/layout_logout"
         android:gravity="right"
         android:padding="10dp"
         android:layout_marginTop="190dp"

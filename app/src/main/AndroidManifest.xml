@@ -24,14 +24,16 @@
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
-            >
+            android:name=".MainActivity">
+            <!--android:windowSoftInputMode="adjustPan|stateAlwaysHidden"-->
+        </activity>
+        <activity android:name=".Splash.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
         <activity android:name=".Fragments.AboutUsActivity"/>
         <activity

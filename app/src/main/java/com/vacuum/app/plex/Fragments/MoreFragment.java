@@ -47,8 +47,8 @@ public class MoreFragment extends Fragment {
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     private  RelativeLayout bottomLayout;
     MoviesAdapter moviesAdapter;
-    List<Movie> movies = new ArrayList<>();
-    List<Movie> movies2 = new ArrayList<>();
+    private List<Movie> movies = new ArrayList<Movie>();
+    private List<Movie> movies2 = new ArrayList<Movie>();
     String TMBDB_API_KEY;
     Handler mHandler;
     Runnable myRunnable;

@@ -55,21 +55,7 @@ public class SingleShotLocationProvider {
                     Log.e("TAG :getLatitude", String.valueOf(location.getLatitude()));
                     Log.e("TAG :getLongitude", String.valueOf(location.getLongitude()));
 
-                    try{
-                        Geocoder geo = new Geocoder(mContext, Locale.getDefault());
-                        List<Address> addresses = geo.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                        if (addresses.isEmpty()) {
-                            Toast.makeText(context, "Waiting for Location", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            if (addresses.size() > 0) {
-                                Log.e("TAG",addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() +", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName());
-                            }
-                        }
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
+
 
                 }
 

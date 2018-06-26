@@ -263,13 +263,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String message =c.getMessage();
                     String title =c.getTitle();
                     link = c.getDownloadLink();
-                    if(version_number() == versioncode){
-                        AlertDialog(true,versioncode,title,message);
-                    }else {
-                        AlertDialog(false,versioncode,title,message);
-                    }
+                    AlertDialog(versioncode,title,message);
+
                 }catch (Exception e){
                     Log.e("TAG : Expetion :: ",e.toString());
+                    AlertDialog(0,"Temporary Sleeping","This app will sleep just for 1 hour everyday for Free members");
                 }
 
             }
@@ -281,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    private void AlertDialog(Boolean x,int versioncode,String title,String message) {
+    private void AlertDialog(int versioncode,String title,String message) {
 
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -294,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView message_update = dialog.findViewById(R.id.message_update);
         ImageView background_image = dialog.findViewById(R.id.background_image);
 
-        if(!x) {
+        if(version_number() != versioncode){
             title_view.setText(title);
             message_update.setText(message);
             update_btn.setText("UPDATE");
@@ -307,13 +305,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             });
-        }else {
-
+        }else if(versioncode == 0){
+            title_view.setText(title);
+            message_update.setText(message);
+            background_image.setImageResource(R.drawable.update_sleep);
             update_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialog.cancel();
-                    //Log.e("TAG","Button clicked");
+                }
+            });
+
+        }else {
+            update_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.cancel();
                 }
             });
         }

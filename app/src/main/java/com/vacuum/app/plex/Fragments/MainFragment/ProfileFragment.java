@@ -3,6 +3,8 @@ package com.vacuum.app.plex.Fragments.MainFragment;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -28,22 +30,24 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.vacuum.app.plex.Fragments.SettingFragment;
 import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.R;
+import com.vacuum.app.plex.Splash.SplashScreen;
 import com.vacuum.app.plex.Utility.SingleShotLocationProvider;
 
 import java.util.List;
 
 import static android.content.Context.LOCATION_SERVICE;
+import static android.content.Context.MODE_PRIVATE;
+import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
 
 /**
  * Created by Home on 2/19/2018.
  */
 
 public class ProfileFragment extends Fragment implements View.OnClickListener, RewardedVideoAdListener {
-    LinearLayout layout_settings;
-    Button more_points, determine_location;
+    LinearLayout layout_settings,layout_logout;
+    Button more_points;
     Context mContext;
     RewardedVideoAd mRewardedVideoAd;
-    static final Integer LOCATION = 0x1;
 
 
     @Override
@@ -52,14 +56,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
         layout_settings = view.findViewById(R.id.layout_settings);
+        layout_logout = view.findViewById(R.id.layout_logout);
+
         more_points = view.findViewById(R.id.more_points);
-        determine_location = view.findViewById(R.id.determine_location);
 
         mContext = this.getActivity();
 
         layout_settings.setOnClickListener(this);
         more_points.setOnClickListener(this);
-        determine_location.setOnClickListener(this);
+        layout_logout.setOnClickListener(this);
 
 
         MobileAds.initialize(mContext, "ca-app-pub-3341550634619945~1422870532");
@@ -91,52 +96,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                     Toast.makeText(mContext, "not loaded yet!", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.determine_location:
-
-
-                askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, LOCATION);
-                break;
-
-
+                case R.id.layout_logout:
+                    SharedPreferences preferences = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+                    preferences.edit().remove("email").commit();
+                    startActivity(new Intent(mContext, SplashScreen.class));
+                    break;
             default:
         }
     }
 
 
-    public void getGPS() {
-        // when you need location
-        // if inside activity context = this;
 
-        SingleShotLocationProvider.requestSingleUpdate(mContext,
-                new SingleShotLocationProvider.LocationCallback() {
-                    @Override public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
-                        Log.e("TAG Location", "my location is " + location);
-                    }
-                });
-    }
-
-
-
-
-
-
-    private void askForPermission(String permission, Integer requestCode) {
-        if (ContextCompat.checkSelfPermission(mContext, permission) != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(), permission)) {
-
-                //This is called if user has denied the permission before
-                //In this case I am just asking the permission again
-                ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
-
-            } else {
-                ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
-            }
-        } else {
-            getGPS();
-        }
-    }
 
 
 

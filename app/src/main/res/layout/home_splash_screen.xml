@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark">
+
+
+    <VideoView
+        android:id="@+id/videoview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        >
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/logo"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plex Media"
+            android:textColor="@color/lightYellow"
+            android:layout_gravity="center"
+            android:textSize="40sp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            fontPath="fonts/brownregular.ttf"
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Plex_Media"
+            android:textColor="@color/lightYellow"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="LOGIN"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/login_fragment"
+            fontPath="fonts/brownregular.ttf"
+
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="SIGN UP"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@color/lightYellow"
+            android:layout_gravity="center"
+            android:id="@+id/signup_fragment"
+            fontPath="fonts/brownregular.ttf"
+
+            />
+    </LinearLayout>
+</RelativeLayout>

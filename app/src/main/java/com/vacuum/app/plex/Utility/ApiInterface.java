@@ -15,6 +15,7 @@ import com.vacuum.app.plex.Model.Slider;
 import com.vacuum.app.plex.Model.TVDetails;
 import com.vacuum.app.plex.Model.TrailerResponse;
 import com.vacuum.app.plex.Model.Update;
+import com.vacuum.app.plex.Model.User;
 
 import java.util.List;
 
@@ -113,8 +114,26 @@ public interface ApiInterface {
                                 @Field("episode_id_tmdb") int episode_id_tmdb
     );
 
+    @FormUrlEncoded
+    @POST("plex/registration.php")
+    Call<User> registration(
+                                @Field("full_name") String full_name,
+                                @Field("email") String email,
+                                @Field("password") String password,
+                                @Field("phone") String phone,
+                                @Field("points") int points,
+                                @Field("age") String age,
+                                @Field("location") String loation,
+                                @Field("address") String  address
+    );
 
 
+    @FormUrlEncoded
+    @POST("plex/login.php")
+    Call<User> loging_user(
+            @Field("email") String email,
+            @Field("password") String password
+    );
 
 
 
