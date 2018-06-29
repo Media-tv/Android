@@ -20,4 +20,7 @@
     <color name="transparent">#00ffffff</color>
     <color name="transparenjjt">#b8000000</color>
 
+    <color name="red">#ff0000</color>
+    <color name="blue">#1a00dd</color>
+
 </resources>

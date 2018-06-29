@@ -1,14 +1,23 @@
 package com.vacuum.app.plex.Splash;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -18,8 +27,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -27,17 +39,16 @@ import com.google.gson.GsonBuilder;
 import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.Model.User;
 import com.vacuum.app.plex.R;
-import com.vacuum.app.plex.Utility.ApiClient;
 import com.vacuum.app.plex.Utility.ApiInterface;
-import com.vacuum.app.plex.Utility.CustomSpinner;
 import com.vacuum.app.plex.Utility.SingleShotLocationProvider;
 
-import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,17 +58,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.content.Context.MODE_PRIVATE;
 import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
 
-public class SignupFragment extends Fragment implements View.OnClickListener{
+public class SignupFragment extends Fragment implements View.OnClickListener {
 
     final static String SIGNUP_FRAGMENT_TAG = "SIGNUP_FRAGMENT_TAG";
     private EditText full_name,email,password,phone;
-    Button buttonRegister,determine_location;
+    Button buttonRegister,determine_location,Date_of_Birth;
     Context mContext;
-    Spinner spinner_months,spinner_years;
-    CustomSpinner  spinner_days;
     static final Integer LOCATION = 0x1;
     String age,location,address;
-
+    AnimationDrawable anim;
+    LinearLayout background_layout_signup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,91 +81,46 @@ public class SignupFragment extends Fragment implements View.OnClickListener{
 
         buttonRegister =  view.findViewById(R.id.buttonRegister);
         determine_location =  view.findViewById(R.id.determine_location);
-
-        spinner_days= view.findViewById(R.id.spinner_days);
-        spinner_months= view.findViewById(R.id.spinner_months);
-        spinner_years= view.findViewById(R.id.spinner_years);
+        Date_of_Birth =  view.findViewById(R.id.Date_of_Birth);
 
 
 
-        spinner_setup();
+
+        background_layout_signup= view.findViewById(R.id.background_layout_signup);
+
+
+        anim = (AnimationDrawable) background_layout_signup.getBackground();
+        anim.setEnterFadeDuration(4000);
+        anim.setExitFadeDuration(4000);
+
 
         buttonRegister.setOnClickListener(this);
         determine_location.setOnClickListener(this);
+        Date_of_Birth.setOnClickListener(this);
+
+
         return view;
     }
-
-    private void spinner_setup() {
-        final List<String> days = new ArrayList<>();
-        for(int i=0;i<30;i++){
-            days.add(String.valueOf(i+1));
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext, R.layout.spinner_item_layout, days);
-        spinner_days.setAdapter(adapter);
-        spinner_days.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                //grade_id = position+1;
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-            }
-        });
-        //=======================================================
-        //Devision
-        final List<String> months = new ArrayList<>();
-        months.add("January");
-        months.add("February");
-        months.add("March");
-        months.add("April");
-        months.add("May");
-        months.add("June");
-        months.add("July");
-        months.add("August");
-        months.add("September");
-        months.add("October");
-        months.add("November");
-        months.add("December");
-
-
-        ArrayAdapter<String> adapter_division = new ArrayAdapter<String>(mContext, R.layout.spinner_item_layout, months);
-        spinner_months.setAdapter(adapter_division);
-        spinner_months.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-               // division_id = position+1;
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-            }
-        });
-
-        //=================================================================
-        //years
-        List<String> years = new ArrayList<>();
-        for(int i=0;i<40;i++){
-            years.add(String.valueOf(i+1949));
-        }
-        ArrayAdapter<String> adapter_years = new ArrayAdapter<>(mContext, R.layout.spinner_item_layout, years);
-        spinner_years.setAdapter(adapter_years);
-        spinner_years.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                //division_id = position+1;
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-            }
-        });
-
+    public void showDatePicker() {
+        DatePickerDialog cc = new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT,dateSetListener, 1990,
+                1, 1);
+        cc.show();
     }
+    private DatePickerDialog.OnDateSetListener dateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker view, int year, int month, int day) {
+                    Toast.makeText(getActivity(), "selected date is " + view.getYear() +
+                            " / " + (view.getMonth()+1) +
+                            " / " + view.getDayOfMonth(), Toast.LENGTH_SHORT).show();
+                }
+            };
+
+
+
 
 
     private void insertUser() {
-
         String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
-
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -233,6 +198,9 @@ public class SignupFragment extends Fragment implements View.OnClickListener{
             case R.id.determine_location:
                 askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, LOCATION);
                 break;
+            case R.id.Date_of_Birth:
+                showDatePicker();
+                break;
         }
     }
 
@@ -293,6 +261,23 @@ public class SignupFragment extends Fragment implements View.OnClickListener{
         Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);
         getActivity().finish();
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (anim != null && !anim.isRunning())
+            anim.start();
+    }
+
+    //Stopping animation:- stop the animation on onPause.
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (anim != null && anim.isRunning())
+            anim.stop();
     }
 
 }

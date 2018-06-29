@@ -55,8 +55,10 @@
 
 
     </string>
-    <string name="Login_policy">by continuing , you agree to accept our</string>
-    <string name="Login_policy2"><u> policy</u></string>
+    <string name="terms_of_service">By signing up , you agree to Plex\'s .<u>Terms of Service</u>.</string>
+    <string name="terms_of_service2">To learn more about how Plex collects, uses, shares and protects your personal data please read Plex\'s .<u>Privacy Policy</u>.</string>
+
+    <string name="Login_policy">By continuing , you agree to accept our .<u>policy.</u></string>
 
     <string name="Plex_Media">&#174;</string>
 

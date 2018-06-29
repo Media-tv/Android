@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -47,7 +49,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     LinearLayout layout_settings,layout_logout;
     Button more_points;
     Context mContext;
+    TextView points;
     RewardedVideoAd mRewardedVideoAd;
+    SharedPreferences prefs;
 
 
     @Override
@@ -59,6 +63,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         layout_logout = view.findViewById(R.id.layout_logout);
 
         more_points = view.findViewById(R.id.more_points);
+        points = view.findViewById(R.id.points);
 
         mContext = this.getActivity();
 
@@ -73,7 +78,16 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
         mRewardedVideoAd.setRewardedVideoAdListener(this);
         loadRewardedVideoAd();
-
+        prefs = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        int points_value = prefs.getInt("points",0);
+        if (points_value < 3000)
+            {
+                points.setText(String.valueOf(points_value) + " points");
+                points.setTextColor(Color.RED);
+            }else
+            {
+                points.setText(String.valueOf(points_value) + " points");
+            }
         return view;
     }
 

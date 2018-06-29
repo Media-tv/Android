@@ -138,7 +138,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
 
     private void notRobotCapcha(final int Position) {
         WebView webView = null;
-        String cv = "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+l.getId_tvseries_tmdb()+"&tmdb=1&tv=1&s="+l.getSeason_number()+"&e="+(episodes.get(Position).getEpisodeNumber()+1);
+        String cv = "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+l.getId_tvseries_tmdb()+"&tmdb=1&tv=1&s="+l.getSeason_number()+"&e="+(Position);
         final Dialog dialoge = new Dialog(mContext);
         dialoge.setContentView(R.layout.robotcapcha);
         webView = (WebView) dialoge.findViewById(R.id.webview2);
