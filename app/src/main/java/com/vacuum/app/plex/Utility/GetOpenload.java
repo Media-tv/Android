@@ -32,6 +32,7 @@ public class GetOpenload {
     String OPENLOAD_API_Login,OPENLOAD_API_KEY,file_id,ticket,openload_thumbnail_url,title;
     Boolean found_captcha = false;
     Dialog dialog;
+    String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
     public GetOpenload(Context mContext,String file_id,String title){
         this.file_id = file_id;
         this.title = title;
@@ -52,7 +53,7 @@ public class GetOpenload {
 
         Log.e("TAG","retrofit_1");
         ApiInterface apiService =
-                ApiClient.getClient(mContext).create(ApiInterface.class);
+                ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
         Call<OpenloadResult> call_slider = apiService.getOpenload(full_url);
         call_slider.enqueue(new Callback<OpenloadResult>() {
             @Override
@@ -124,7 +125,7 @@ public class GetOpenload {
     private void retrofit_2(String full_url) {
 
         ApiInterface apiService =
-                ApiClient.getClient(mContext).create(ApiInterface.class);
+                ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
         Call<OpenloadResult> call_slider = apiService.getOpenload(full_url);
         call_slider.enqueue(new Callback<OpenloadResult>() {
             @Override

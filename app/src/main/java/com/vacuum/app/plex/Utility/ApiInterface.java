@@ -137,8 +137,8 @@ public interface ApiInterface {
 
 
 
-    @GET
-    Call<Update> getUpdateVersion(@Url String url);
+    @GET("plex/update.php")
+    Call<Update> getUpdateVersion();
 
     @GET("plex/getAPIkey.php")
     Call<API_KEY> getApiKEY();

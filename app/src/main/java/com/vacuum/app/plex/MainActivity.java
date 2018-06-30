@@ -248,11 +248,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void upadate_retrofit() {
 
         apiService =
-                ApiClient.getClient(mContext).create(ApiInterface.class);
+                ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
 
         String webhost00free = "https://mohamedebrahim.000webhostapp.com/plex/update.php" ;
 
-        Call<Update> call_UpComing = apiService.getUpdateVersion(webhost00free);
+        Call<Update> call_UpComing = apiService.getUpdateVersion();
         call_UpComing.enqueue(new Callback<Update>() {
             @Override
             public void onResponse(Call<Update>call, Response<Update> response) {
