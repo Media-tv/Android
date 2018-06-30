@@ -147,8 +147,9 @@ public interface ApiInterface {
     Call<String> getMovie_openload_id(@Query("id") int id);
 
 
-    @GET
-    Call<DoneMovies> getDoneMovies(@Url String url);
+    @GET("plex/getDoneMovies.php")
+    Call<DoneMovies> getDoneMovies();
+
 
     @GET
     Call<ResponseBody> profilePicture(@Url String url);

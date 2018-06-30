@@ -47,6 +47,7 @@ public class DiscoverFragment extends Fragment {
     MoviesAdapter moviesAdapter;
     String TMBDB_API_KEY;
     ProgressBar progresssbar_watch;
+    String BASE_URL = "https://mohamedebrahim.000webhostapp.com/plex/";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,10 +77,10 @@ public class DiscoverFragment extends Fragment {
         //====================================================================================
 
         ApiInterface apiService =
-                ApiClient.getClient(mContext).create(ApiInterface.class);
+                ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
 
 
-        Call<DoneMovies> call = apiService.getDoneMovies("https://mohamedebrahim.000webhostapp.com/plex/getDoneMovies.php");
+        Call<DoneMovies> call = apiService.getDoneMovies();
         call.enqueue(new Callback<DoneMovies>() {
             @Override
             public void onResponse(Call<DoneMovies> call, Response<DoneMovies> response) {
@@ -103,8 +104,10 @@ public class DiscoverFragment extends Fragment {
 
     private void setup_gridMovie(int id) {
 
+        BASE_URL = "https://api.themoviedb.org/3/";
+
         ApiInterface apiService =
-                ApiClient.getClient(mContext).create(ApiInterface.class);
+                ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
 
 
         Call<MovieDetails> call = apiService.getMovieDetails(id,TMBDB_API_KEY);
