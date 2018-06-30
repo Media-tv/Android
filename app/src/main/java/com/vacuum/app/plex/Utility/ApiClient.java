@@ -57,16 +57,9 @@ public class ApiClient {
 
     public static Retrofit getClient(Context mContext2,String ROOT_URL) {
             mContext = mContext2;
-
-
-
-
-
             Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
-
-
             //===========================================================
 
         /*Retrofit retrofit = new Retrofit.Builder()
@@ -76,7 +69,6 @@ public class ApiClient {
                 .build();*/
         //====================================================================
 
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ROOT_URL)
                 .client(getUnsafeOkHttpClient2())
@@ -85,11 +77,7 @@ public class ApiClient {
 
 
         return retrofit;
-
     }
-
-
-
 
     private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
         @Override
@@ -108,8 +96,6 @@ public class ApiClient {
             }
         }
     };
-
-
 
     public static OkHttpClient getUnsafeOkHttpClient2() {
         File httpCacheDirectory = new File(mContext.getCacheDir(), "responses");

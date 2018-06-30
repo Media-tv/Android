@@ -54,6 +54,8 @@ public class SearchFragment extends Fragment {
     EditText edit_query;
     ImageView clear_search;
     String  TMBDB_API_KEY;
+    String BASE_URL = "https://api.themoviedb.org/3/";
+
     public static final String TAG_SEARCH_FRAGMENT = "TAG_SEARCH_FRAGMENT";
 
     @Override
@@ -126,7 +128,7 @@ public class SearchFragment extends Fragment {
         String query = Char.toString();
 
         ApiInterface apiService =
-                ApiClient.getClient(mContext).create(ApiInterface.class);
+                ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
 
 
         //setRecyclerView_search
