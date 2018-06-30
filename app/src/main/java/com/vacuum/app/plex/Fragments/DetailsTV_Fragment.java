@@ -373,8 +373,10 @@ public class DetailsTV_Fragment extends Fragment {
     }
 
     private void episodes(final int Season_number) {
+        String BASE_URL = "https://api.themoviedb.org/3/";
+
         final ApiInterface apiService =
-                ApiClient.getClient(mContext).create(ApiInterface.class);
+                ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
         Call<SeasonDetails> call_RecyclerView_episodes = apiService.getepisodes(x,Season_number,TMBDB_API_KEY);
                                    call_RecyclerView_episodes.enqueue(new Callback<SeasonDetails>() {
                                        @Override

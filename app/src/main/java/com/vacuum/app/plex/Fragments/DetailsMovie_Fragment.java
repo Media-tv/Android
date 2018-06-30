@@ -183,8 +183,9 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
 
     private void retrofit() {
 
+        String BASE_URL = "https://api.themoviedb.org/3/";
         apiService =
-                ApiClient.getClient(mContext).create(ApiInterface.class);
+                ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
 
         Call<MovieDetails> call_details = apiService.getMovieDetails(x,TMBDB_API_KEY);
         call_details.enqueue(new Callback<MovieDetails>() {

@@ -194,8 +194,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private void retrofit(){
 
+        String BASE_URL = "https://api.themoviedb.org/3/";
+
         apiService =
-                ApiClient.getClient(mContext).create(ApiInterface.class);
+                ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
 
         Call<MoviesResponse> call_UpComing = apiService.getupcomingMovies(TMBDB_API_KEY,1);
         call_UpComing.enqueue(new Callback<MoviesResponse>() {

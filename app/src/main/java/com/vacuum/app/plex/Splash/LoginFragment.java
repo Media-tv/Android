@@ -127,11 +127,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private void login() {
-        String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
+        String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
 
 
         //===============================================================================
-        ApiInterface api = ApiClient.getClient(mContext,ROOT_URL).create(ApiInterface.class);
+        ApiInterface api = ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
         //==================================================================================
         api.loging_user(
                 login_email.getText().toString(),
