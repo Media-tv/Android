@@ -82,6 +82,7 @@ public class DetailsTV_Fragment extends Fragment {
     Handler mHandler;
     Runnable myRunnable;
     Link l = new Link();
+    String BASE_URL = "https://api.themoviedb.org/3/";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -155,7 +156,7 @@ public class DetailsTV_Fragment extends Fragment {
         layout.setVisibility(View.GONE);
 
         final ApiInterface apiService =
-                ApiClient.getClient(mContext).create(ApiInterface.class);
+                ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
 
         Call<TVDetails> call_TV_details = apiService.getTVDetails(x,TMBDB_API_KEY);
         call_TV_details.enqueue(new Callback<TVDetails>() {
@@ -373,7 +374,6 @@ public class DetailsTV_Fragment extends Fragment {
     }
 
     private void episodes(final int Season_number) {
-        String BASE_URL = "https://api.themoviedb.org/3/";
 
         final ApiInterface apiService =
                 ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
