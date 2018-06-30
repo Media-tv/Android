@@ -16,6 +16,7 @@
         android:rotation="180"
         android:tint="@color/white"
         android:layout_margin="10dp"
+        android:id="@+id/back_login_fragment"
         />
 
     <RelativeLayout

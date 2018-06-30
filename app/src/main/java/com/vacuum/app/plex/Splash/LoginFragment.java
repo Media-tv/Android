@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -71,6 +72,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     RelativeLayout background_layout;
     Context mContext;
     AnimationDrawable anim;
+    ImageView back_login_fragment;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,6 +82,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         error_message =  view.findViewById(R.id.error_message);
 
         login_btn =  view.findViewById(R.id.login_btn);
+        back_login_fragment =  view.findViewById(R.id.back_login_fragment);
 
         login_email =  view.findViewById(R.id.login_email);
         login_password =  view.findViewById(R.id.login_password);
@@ -101,6 +105,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 
         login_btn.setOnClickListener(this);
+        back_login_fragment.setOnClickListener(this);
 
 
         anim = (AnimationDrawable) background_layout.getBackground();
@@ -122,6 +127,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         {
             case R.id.login_btn:
                 validateFields();
+                break;
+                case R.id.back_login_fragment:
+                    getFragmentManager().popBackStack();
                 break;
         }
     }
