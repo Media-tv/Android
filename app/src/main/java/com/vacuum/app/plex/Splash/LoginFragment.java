@@ -130,8 +130,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
 
 
-
-
         //===============================================================================
         ApiInterface api = ApiClient.getClient(mContext,ROOT_URL).create(ApiInterface.class);
         //==================================================================================
@@ -160,6 +158,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 error_message.setVisibility(View.VISIBLE);
+                login_btn.setText("LOG IN");
+
                 Log.e("TAG",t.toString());
             }
         });
