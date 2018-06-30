@@ -177,10 +177,10 @@ public class MoreFragment extends Fragment {
                 Log.e("tag", t.toString());
             }
         });
-
     }
-    private Call getapiService() {
 
+
+    private Call getapiService() {
         ApiInterface apiService =
                 ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
         Call<MoviesResponse> calll = null;

@@ -89,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences.Editor editor;
     private FirebaseAnalytics mFirebaseAnalytics;
     private AdView mAdView;
+    String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -481,11 +483,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             loadHomeFragment();
         }else {
             apiService =
-                    ApiClient.getClient(mContext).create(ApiInterface.class);
+                    ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
 
-            String webhost00free = "https://mohamedebrahim.000webhostapp.com/plex/getAPIkey.php";
-
-            Call<API_KEY> call_UpComing = apiService.getApiKEY(webhost00free);
+            Call<API_KEY> call_UpComing = apiService.getApiKEY();
             call_UpComing.enqueue(new Callback<API_KEY>() {
                 @Override
                 public void onResponse(Call<API_KEY> call, Response<API_KEY> response) {
