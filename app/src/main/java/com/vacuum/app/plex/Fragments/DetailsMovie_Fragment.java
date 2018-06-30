@@ -445,10 +445,10 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         progresssbar_watch.setVisibility(View.VISIBLE);
         watch.setVisibility(View.GONE);
 
-        apiService =ApiClient.getClient(mContext).create(ApiInterface.class);
+        String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
 
-        String url = "https://mohamedebrahim.000webhostapp.com/cimaclub/getfileid.php?id="+x ;
-        Call<String> call_details = apiService.getMovie_openload_id(url);
+        apiService =ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
+        Call<String> call_details = apiService.getMovie_openload_id(x);
         call_details.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {

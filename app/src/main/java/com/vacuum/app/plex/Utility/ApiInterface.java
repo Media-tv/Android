@@ -143,8 +143,8 @@ public interface ApiInterface {
     @GET
     Call<API_KEY> getApiKEY(@Url String url);
 
-    @GET
-    Call<String> getMovie_openload_id(@Url String url);
+    @GET("plex/getfileid.php")
+    Call<String> getMovie_openload_id(@Query("id") int id);
 
 
     @GET
