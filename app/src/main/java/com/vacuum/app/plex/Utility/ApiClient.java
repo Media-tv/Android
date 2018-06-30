@@ -71,7 +71,7 @@ public class ApiClient {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ROOT_URL)
-                //.client(getUnsafeOkHttpClient2())
+                .client(getUnsafeOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -97,7 +97,7 @@ public class ApiClient {
         }
     };
 
-    public static OkHttpClient getUnsafeOkHttpClient2() {
+    public static OkHttpClient getUnsafeOkHttpClient() {
         File httpCacheDirectory = new File(mContext.getCacheDir(), "responses");
         int cacheSize = 10 * 1024 * 1024; // 10 MiB
         Cache cache = new Cache(httpCacheDirectory, cacheSize);
