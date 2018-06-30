@@ -52,6 +52,8 @@ public class MoreFragment extends Fragment {
     String TMBDB_API_KEY;
     Handler mHandler;
     Runnable myRunnable;
+    String BASE_URL = "https://api.themoviedb.org/3/";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -180,7 +182,7 @@ public class MoreFragment extends Fragment {
     private Call getapiService() {
 
         ApiInterface apiService =
-                ApiClient.getClient(mContext).create(ApiInterface.class);
+                ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
         Call<MoviesResponse> calll = null;
         switch (value){
             case "more_Popular_tv":

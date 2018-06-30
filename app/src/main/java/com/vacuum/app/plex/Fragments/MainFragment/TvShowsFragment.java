@@ -51,6 +51,8 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
     FirebaseAnalytics mFirebaseAnalytics;
     public static final String TAG_TVSHOWS_FRAGMENT = "TAG_TVSHOWS_FRAGMENT";
     AdView adView_tvshow_fragment,adView_tvshow_fragment2;
+    String BASE_URL = "https://api.themoviedb.org/3/";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,7 +98,7 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         //progressBar.setVisibility(View.VISIBLE);
         //layout.setVisibility(View.GONE);
         apiService =
-                ApiClient.getClient(mContext).create(ApiInterface.class);
+                ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
 
         //====================================================================================
         //====================================================================================
