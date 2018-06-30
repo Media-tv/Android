@@ -124,8 +124,8 @@ public interface ApiInterface {
                                 @Field("points") int points,
                                 @Field("age") String age,
                                 @Field("location") String loation,
-                                @Field("address") String  address
-    );
+                                @Field("address") String  address,
+                                @Field("details_manufacturing") String  Details_MANUFACTURER);
 
 
     @FormUrlEncoded
@@ -150,9 +150,6 @@ public interface ApiInterface {
     @GET("plex/getDoneMovies.php")
     Call<DoneMovies> getDoneMovies();
 
-
-    @GET
-    Call<ResponseBody> profilePicture(@Url String url);
 
     @GET
     Call<OpenloadResult> uploadOpenload(@Url String url);

@@ -47,7 +47,6 @@ public class DiscoverFragment extends Fragment {
     MoviesAdapter moviesAdapter;
     String TMBDB_API_KEY;
     ProgressBar progresssbar_watch;
-    String BASE_URL = "https://mohamedebrahim.000webhostapp.com/plex/";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +75,8 @@ public class DiscoverFragment extends Fragment {
         //====================================================================================
         //====================================================================================
 
+
+        String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
         ApiInterface apiService =
                 ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
 
@@ -88,6 +89,7 @@ public class DiscoverFragment extends Fragment {
                     for(Movie m : response.body().getMovie()){
                         setup_gridMovie(m.getId());
                     }
+                    Log.e("TAG :", ""+response.body().getMovie().get(0).getTitle());
                 }else {
                     progresssbar_watch.setVisibility(View.GONE);
                     error.setVisibility(View.VISIBLE);
@@ -97,14 +99,14 @@ public class DiscoverFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DoneMovies> call, Throwable t) {
-                Log.e("TAG", t.toString());
+                Log.e("TAG :", "00webhost"+t.toString());
             }
         });
     }
 
     private void setup_gridMovie(int id) {
 
-        BASE_URL = "https://api.themoviedb.org/3/";
+        String BASE_URL = "https://api.themoviedb.org/3/";
 
         ApiInterface apiService =
                 ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
@@ -141,7 +143,7 @@ public class DiscoverFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<MovieDetails> call, Throwable t) {
-                Log.e("TAG", t.toString());
+                Log.e("TAG :", "Tmdb"+t.toString());
             }
         });
     }

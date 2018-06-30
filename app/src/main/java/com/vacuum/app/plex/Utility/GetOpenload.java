@@ -63,15 +63,11 @@ public class GetOpenload {
                     String url = "https://api.openload.co/1/file/dl?file=" + file_id + "&ticket=" + ticket;
                     retrofit_2(url);
                 }
-
-
             }
-
             @Override
             public void onFailure(Call<OpenloadResult> call, Throwable t) {
                 // Log error here since request failed
                 Log.e("TAG: error ", t.toString());
-
             }
         });
 

@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,9 +15,12 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -40,36 +44,27 @@ public class HomeSplashFragment extends Fragment implements View.OnClickListener
         Button login_fragment = (Button) view.findViewById(R.id.login_fragment);
         Button signup_fragment = (Button) view.findViewById(R.id.signup_fragment);
         VideoView videoview = (VideoView) view.findViewById(R.id.videoview);
+        ImageView background_image_home_fragment = (ImageView) view.findViewById(R.id.background_image_home_fragment);
 
         login_fragment.setOnClickListener(this);
         signup_fragment.setOnClickListener(this);
-
-
-
-        Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/" + R.raw.story);
-        videoview.setVideoURI(uri);
-        videoview.start();
-
-        //Video Loop
-        videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
-                mp.setLooping(true);
-                mp.setVolume(0f, 0f);
-
-            }
-        });
-
-        final int duration = 4000;
-        final int colorFrom = Color.parseColor("#10000000");
-        final int colorTo = Color.parseColor("#b8000000");
-        ColorDrawable[] color = {new ColorDrawable(colorFrom), new ColorDrawable(colorTo)};
-        TransitionDrawable transition = new TransitionDrawable(color);
-        videoview.setBackground(transition);
-        transition.startTransition(duration);
-
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            videoview.setVisibility(View.GONE);
+            background_image_home_fragment.setVisibility(View.VISIBLE);
+        }else {
+            Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/" + R.raw.story);
+            videoview.setVideoURI(uri);
+            videoview.start();
+            //Video Loop
+            videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+                    mp.setLooping(true);
+                    mp.setVolume(0f, 0f);
+                }
+            });
+        }
         return view;
     }
     private void fragment(Fragment fragment) {

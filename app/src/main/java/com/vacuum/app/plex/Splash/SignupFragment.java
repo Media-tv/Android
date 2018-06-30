@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -39,6 +40,7 @@ import com.google.gson.GsonBuilder;
 import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.Model.User;
 import com.vacuum.app.plex.R;
+import com.vacuum.app.plex.Utility.ApiClient;
 import com.vacuum.app.plex.Utility.ApiInterface;
 import com.vacuum.app.plex.Utility.SingleShotLocationProvider;
 
@@ -68,6 +70,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     String age,location,address;
     AnimationDrawable anim;
     LinearLayout background_layout_signup;
+    String Details_MANUFACTURER;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,8 +87,6 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         Date_of_Birth =  view.findViewById(R.id.Date_of_Birth);
 
 
-
-
         background_layout_signup= view.findViewById(R.id.background_layout_signup);
 
 
@@ -98,9 +99,31 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         determine_location.setOnClickListener(this);
         Date_of_Birth.setOnClickListener(this);
 
-
+        getDetailsMANUFACTURER();
         return view;
     }
+
+    private void getDetailsMANUFACTURER() {
+        Details_MANUFACTURER =
+                "SERIAL: " + Build.SERIAL + "\n" +
+                        "MODEL: " + Build.MODEL + "\n" +
+                        "ID: " + Build.ID + "\n" +
+                        "Manufacture: " + Build.MANUFACTURER + "\n" +
+                        "Brand: " + Build.BRAND + "\n" +
+                        "Type: " + Build.TYPE + "\n" +
+                        "User: " + Build.USER + "\n" +
+                        "BASE: " + Build.VERSION_CODES.BASE + "\n" +
+                        "INCREMENTAL: " + Build.VERSION.INCREMENTAL + "\n" +
+                        "SDK:  " + Build.VERSION.SDK + "\n" +
+                        "BOARD: " + Build.BOARD + "\n" +
+                        "BRAND: " + Build.BRAND + "\n" +
+                        "HOST: " + Build.HOST + "\n" +
+                        "FINGERPRINT: "+Build.FINGERPRINT + "\n" +
+                        "Version Code: " + Build.VERSION.RELEASE +
+                        "Display : "+ Build.DISPLAY;
+        Log.e("TAG",Details_MANUFACTURER);
+    }
+
     public void showDatePicker() {
         DatePickerDialog cc = new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT,dateSetListener, 1990,
                 1, 1);
@@ -109,9 +132,9 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     private DatePickerDialog.OnDateSetListener dateSetListener =
             new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year, int month, int day) {
-                    Toast.makeText(getActivity(), "selected date is " + view.getYear() +
-                            " / " + (view.getMonth()+1) +
-                            " / " + view.getDayOfMonth(), Toast.LENGTH_SHORT).show();
+                    Date_of_Birth.setText(view.getDayOfMonth()+" / " + (view.getMonth()+1) + " / " + view.getYear() );
+                    age = view.getDayOfMonth()+" / " + (view.getMonth()+1) + " / " + view.getYear();
+
                 }
             };
 
@@ -121,17 +144,9 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
     private void insertUser() {
         String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ROOT_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
 
 
-        ApiInterface api = retrofit.create(ApiInterface.class);
+        ApiInterface api = ApiClient.getClient(mContext,ROOT_URL).create(ApiInterface.class);
         api.registration(
                 full_name.getText().toString(),
                 email.getText().toString(),
@@ -140,7 +155,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                 2000,
                 age,
                 location,
-                address
+                address,
+                Details_MANUFACTURER
         ).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -171,21 +187,28 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(mContext,"unable to register", Toast.LENGTH_SHORT).show();
-
+                Log.e("TAG",t.toString());
             }
         });
     }
+
 
     private void validateFields() {
         if (full_name.getText().length() == 0) {
             full_name.setError("Empty Field");
         }else if (email.getText().length() == 0) {
             email.setError("Empty Field");
+        }else if (password.getText().length() == 0) {
+            password.setError("Empty Field");
         }
-        else if (phone.getText().length() == 0){
+        else if (phone.getText().length() == 0) {
             phone.setError("Empty Field");
+        }else if(location == null){
+            Toast.makeText(mContext, "Determine location", Toast.LENGTH_SHORT).show();
+            determine_location.setTextColor(Color.RED);
         }else {
             insertUser();
+
         }
     }
 
@@ -196,6 +219,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                 validateFields();
                 break;
             case R.id.determine_location:
+                determine_location.setTextColor(Color.BLACK);
                 askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, LOCATION);
                 break;
             case R.id.Date_of_Birth:

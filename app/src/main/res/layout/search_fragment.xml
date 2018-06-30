@@ -24,9 +24,9 @@
             android:inputType="text"
             android:textCursorDrawable="@drawable/color_cursor"
             android:hint="Search..."
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/grey"
             fontPath="fonts/airbnb.ttf"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             />
         <ImageView
             android:layout_width="28dp"

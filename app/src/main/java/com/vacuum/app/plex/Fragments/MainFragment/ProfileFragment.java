@@ -46,7 +46,7 @@ import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
  */
 
 public class ProfileFragment extends Fragment implements View.OnClickListener, RewardedVideoAdListener {
-    LinearLayout layout_settings,layout_logout;
+    LinearLayout layout_settings,layout_logout,layout1_editprofile,layout2_payment,layout_close_account;
     Button more_points;
     Context mContext;
     TextView points;
@@ -61,6 +61,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
         layout_settings = view.findViewById(R.id.layout_settings);
         layout_logout = view.findViewById(R.id.layout_logout);
+        layout1_editprofile = view.findViewById(R.id.layout1_editprofile);
+        layout2_payment = view.findViewById(R.id.layout2_payment);
+        layout_close_account = view.findViewById(R.id.layout_close_account);
 
         more_points = view.findViewById(R.id.more_points);
         points = view.findViewById(R.id.points);
@@ -70,6 +73,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         layout_settings.setOnClickListener(this);
         more_points.setOnClickListener(this);
         layout_logout.setOnClickListener(this);
+        layout1_editprofile.setOnClickListener(this);
+        layout2_payment.setOnClickListener(this);
+        layout_close_account.setOnClickListener(this);
 
 
         MobileAds.initialize(mContext, "ca-app-pub-3341550634619945~1422870532");
@@ -115,6 +121,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                     preferences.edit().remove("email").commit();
                     startActivity(new Intent(mContext, SplashScreen.class));
                     break;
+            case R.id.layout1_editprofile:
+            case R.id.layout2_payment:
+            case R.id.layout_close_account:
+                Toast.makeText(mContext, "Go Premium!", Toast.LENGTH_SHORT).show();
+                break;
+
             default:
         }
     }

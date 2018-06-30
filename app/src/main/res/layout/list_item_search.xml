@@ -123,7 +123,7 @@
                     android:layout_weight="1"
                     android:id="@+id/download_icon"
                     android:layout_gravity="center"
-                    android:src="@drawable/if_download_1031520"
+                    app:srcCompat="@drawable/if_download_1031520"
                     />
             </LinearLayout>
 

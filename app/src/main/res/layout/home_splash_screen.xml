@@ -12,6 +12,14 @@
         android:id="@+id/videoview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/backgroundhomefragmnt"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:id="@+id/background_image_home_fragment"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -35,16 +35,9 @@ public class AddMovie {
 
 
 
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ROOT_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
 
-        ApiInterface api = retrofit.create(ApiInterface.class);
+        ApiInterface api = ApiClient.getClient(mContext,ROOT_URL).create(ApiInterface.class);
         api.addMovie(
                 id,
                 title,

@@ -40,16 +40,6 @@
                app:srcCompat="@drawable/if_sed_10_2232321"
                android:tint="@color/white"
                />
-           <Button
-               android:layout_width="50dp"
-               android:layout_height="50dp"
-               android:src="@drawable/round_background"
-               android:background="@drawable/if_icon_camera_211634"
-               android:layout_alignParentBottom="true"
-               android:layout_alignParentRight="true"
-               android:layout_marginBottom="20dp"
-               android:layout_marginRight="10dp"
-               />
 
        </RelativeLayout>
         <LinearLayout
@@ -206,9 +196,9 @@
                 android:paddingLeft="10dp"
                 fontPath="fonts/brownregular.ttf"
                 android:background="@drawable/rounded_edittext"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:backgroundTint="@color/white"
-                android:inputType="text"
+                android:inputType="numberDecimal"
                 android:textColorHint="@color/black"
                 android:textColor="@color/black"
                 />

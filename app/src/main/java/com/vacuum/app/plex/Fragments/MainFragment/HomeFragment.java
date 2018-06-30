@@ -128,7 +128,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         mInterstitialAd = new InterstitialAd(getActivity());
         mInterstitialAd.setAdUnitId("ca-app-pub-3341550634619945/9102050005");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {

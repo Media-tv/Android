@@ -57,7 +57,7 @@
             android:orientation="horizontal"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="0dp"
-            app:cardElevation="5dp"
+            app:cardElevation="0dp"
             android:layout_alignParentBottom="true">
 
             <LinearLayout

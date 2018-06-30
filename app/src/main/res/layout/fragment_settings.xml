@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -114,7 +113,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/if_arrow_right_01_186409"
+                app:srcCompat="@drawable/if_arrow_right_01_186409"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp" />
@@ -187,7 +186,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/if_arrow_right_01_186409"
+                app:srcCompat="@drawable/if_arrow_right_01_186409"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp" />
@@ -375,7 +374,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/if_arrow_right_01_186409"
+                app:srcCompat="@drawable/if_arrow_right_01_186409"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
@@ -410,7 +409,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/if_arrow_right_01_186409"
+                app:srcCompat="@drawable/if_arrow_right_01_186409"
                 style="@style/SwitchButtonStyle"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
@@ -491,12 +490,11 @@
             android:text="Clear Cache"
             android:id="@+id/clearcach"
             android:drawableTint="@color/white"
-            android:drawableLeft="@drawable/if_basket_1814090"
+            app:srcCompat="@drawable/if_basket_1814090"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:paddingLeft="10dp"
-            android:background="@drawable/social_buttons"
-            android:backgroundTint="@color/colorPrimary"
+            android:background="@color/colorPrimary"
             android:layout_margin="5dp"
             />
         <TextView
@@ -506,9 +504,9 @@
             android:textColor="#a9a9a9"
             android:textSize="12sp"
             fontPath="fonts/airbnb.ttf"
-            android:text="copyright"
+            android:text="copyright to vacuum,Inc 2017"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="10dp"
             />
 
     </LinearLayout>

@@ -13,7 +13,7 @@
         android:layout_height="54dp"
         android:orientation="horizontal"
         android:background="@color/colorPrimaryDark"
-        android:id="@+id/layout1"
+        android:id="@+id/layout1_editprofile"
         android:gravity="right"
         android:layout_marginTop="30dp"
         android:padding="10dp"
@@ -54,7 +54,7 @@
         android:layout_height="54dp"
         android:orientation="horizontal"
         android:background="@color/colorPrimaryDark"
-        android:id="@+id/layout2"
+        android:id="@+id/layout2_payment"
         android:gravity="right"
         android:padding="10dp"
         >

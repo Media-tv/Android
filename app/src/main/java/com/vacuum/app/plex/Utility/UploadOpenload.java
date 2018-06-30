@@ -28,7 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UploadOpenload {
     String OPENLOAD_API_Login,OPENLOAD_API_KEY;
-    Retrofit retrofit;
     ApiInterface api;
     Context mContext;
     String url,title,id_,year;
@@ -61,16 +60,11 @@ public class UploadOpenload {
         OPENLOAD_API_KEY = prefs.getString("OPENLOAD_API_KEY",null);
 
 
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(ROOT_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
 
-        api = retrofit.create(ApiInterface.class);
+
+
+        api = ApiClient.getClient(mContext,ROOT_URL).create(ApiInterface.class);
 
 
         UploadOpenload2(url);

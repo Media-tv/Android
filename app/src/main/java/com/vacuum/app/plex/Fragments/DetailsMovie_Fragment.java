@@ -320,13 +320,19 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             @Override
             public void onResponse(Call<Images_tmdb> call, Response<Images_tmdb> response) {
                 //List<Poster> posters;
-                List<Backdrop> posters;
-                posters = response.body().getBackdrops();
-                image_layout.setVisibility(View.VISIBLE);
-                recyclerView_images.setLayoutManager(new LinearLayoutManager(mContext,
-                        LinearLayoutManager.HORIZONTAL, false));
-                recyclerView_images.setAdapter(new ImagesAdapter(posters, mContext));
-                if(posters.size()>0){change_backdrop(posters);}
+                List<Backdrop> posters = null;
+                try {
+                    posters = response.body().getBackdrops();
+                    image_layout.setVisibility(View.VISIBLE);
+                    recyclerView_images.setLayoutManager(new LinearLayoutManager(mContext,
+                            LinearLayoutManager.HORIZONTAL, false));
+                    recyclerView_images.setAdapter(new ImagesAdapter(posters, mContext));
+                    if (posters.size() > 0) {
+                        change_backdrop(posters);
+                    }
+                }catch (Exception e){
+
+                }
 
             }
 
