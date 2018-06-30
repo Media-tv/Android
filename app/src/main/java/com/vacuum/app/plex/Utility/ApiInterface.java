@@ -151,7 +151,7 @@ public interface ApiInterface {
     Call<DoneMovies> getDoneMovies(@Url String url);
 
     @GET
-    Call<String> getSend(@Url String url);
+    Call<ResponseBody> profilePicture(@Url String url);
 
     @GET
     Call<OpenloadResult> uploadOpenload(@Url String url);

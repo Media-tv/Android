@@ -47,6 +47,10 @@ import com.vacuum.app.plex.R;
 import com.vacuum.app.plex.Utility.ApiClient;
 import com.vacuum.app.plex.Utility.ApiInterface;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -125,14 +129,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private void login() {
         String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
 
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ROOT_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        ApiInterface api = retrofit.create(ApiInterface.class);
+
+
+
+        //===============================================================================
+        ApiInterface api = ApiClient.getClient(mContext,ROOT_URL).create(ApiInterface.class);
+        //==================================================================================
         api.loging_user(
                 login_email.getText().toString(),
                 login_password.getText().toString()
@@ -158,6 +160,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 error_message.setVisibility(View.VISIBLE);
+                Log.e("TAG",t.toString());
             }
         });
     }

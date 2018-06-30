@@ -68,7 +68,6 @@
             fontPath="fonts/brownregular.ttf"
             android:background="@drawable/rounded_edittext"
             android:imeOptions="actionNext"
-            android:backgroundTint="@color/white"
             android:inputType="text"
             android:textColorHint="@color/black"
             android:textColor="@color/black"
@@ -99,7 +98,6 @@
             fontPath="fonts/brownregular.ttf"
             android:background="@drawable/rounded_edittext"
             android:imeOptions="actionDone"
-            android:backgroundTint="@color/white"
             android:inputType="textPassword"
             android:textColorHint="@color/black"
             android:textColor="@color/black" />
