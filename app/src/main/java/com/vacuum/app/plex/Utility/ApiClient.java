@@ -71,7 +71,7 @@ public class ApiClient {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ROOT_URL)
-                .client(getUnsafeOkHttpClient2())
+                //.client(getUnsafeOkHttpClient2())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -128,7 +128,6 @@ public class ApiClient {
             final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
-
             builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
             builder.hostnameVerifier(new HostnameVerifier() {
                 @Override

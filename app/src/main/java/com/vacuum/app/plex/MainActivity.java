@@ -81,14 +81,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static String CURRENT_TAG = TAG_HOME;
     ImageView btn_one,btn_two,btn_four,btn_five;
     Context mContext;
-    AlertDialog.Builder alertadd;
     private ApiInterface apiService;
     ProgressDialog mProgressDialog;
     String link,versionName;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     private FirebaseAnalytics mFirebaseAnalytics;
-    private AdView mAdView;
     String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
 
 
