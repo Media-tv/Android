@@ -1,42 +1,25 @@
 package com.vacuum.app.plex.Utility;
 
 import android.content.Context;
-import android.widget.Toast;
 
-import com.google.android.gms.ads.internal.gmsg.HttpClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.vacuum.app.plex.R;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+
 import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
 
 import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
-import javax.security.cert.Certificate;
 
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
