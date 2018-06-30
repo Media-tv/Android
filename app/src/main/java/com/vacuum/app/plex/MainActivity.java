@@ -250,8 +250,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         apiService =
                 ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
 
-        String webhost00free = "https://mohamedebrahim.000webhostapp.com/plex/update.php" ;
-
         Call<Update> call_UpComing = apiService.getUpdateVersion();
         call_UpComing.enqueue(new Callback<Update>() {
             @Override
