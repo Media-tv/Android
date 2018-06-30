@@ -126,37 +126,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_four.setOnClickListener(this);
         btn_five.setOnClickListener(this);
 
-
         upadate_retrofit();
         get_API_keys();
         analytics();
     }
-
-
     private void analytics() {
-
         final Fabric fabric = new Fabric.Builder(this)
                 .kits(new Crashlytics())
                 .debuggable(true)           // Enables Crashlytics debugger
                 .build();
         Fabric.with(fabric);
-
-
-
-
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setCurrentScreen(this, "MainActivity", null );
-
     }
-
-
     private void loadHomeFragment() {
                 Fragment fragment = getHomeFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
                 fragmentTransaction.addToBackStack(TAG_HOME);
                 fragmentTransaction.commit();
-
     }
 
     private Fragment getHomeFragment() {
