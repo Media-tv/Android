@@ -24,16 +24,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
-import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.R;
 
-import static com.vacuum.app.plex.Splash.SignupFragment.SIGNUP_FRAGMENT_TAG;
-
 public class HomeSplashFragment extends Fragment implements View.OnClickListener {
-
     final static String HOME_SPLASH_FRAGMENT_TAG = "HOME_SPLASH_FRAGMENT_TAG";
     Context mContext;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,9 +36,9 @@ public class HomeSplashFragment extends Fragment implements View.OnClickListener
 
 
         mContext = this.getActivity();
-        Button login_fragment = (Button) view.findViewById(R.id.login_fragment);
-        Button signup_fragment = (Button) view.findViewById(R.id.signup_fragment);
-        VideoView videoview = (VideoView) view.findViewById(R.id.videoview);
+        Button login_fragment =  view.findViewById(R.id.login_fragment);
+        Button signup_fragment =  view.findViewById(R.id.signup_fragment);
+        VideoView videoview =  view.findViewById(R.id.videoview);
         ImageView background_image_home_fragment = (ImageView) view.findViewById(R.id.background_image_home_fragment);
 
         login_fragment.setOnClickListener(this);
@@ -55,6 +50,13 @@ public class HomeSplashFragment extends Fragment implements View.OnClickListener
             Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/" + R.raw.story);
             videoview.setVideoURI(uri);
             videoview.start();
+            final int duration = 4000;
+            final int colorFrom = Color.parseColor("#10000000");
+            final int colorTo = Color.parseColor("#b8000000");
+            ColorDrawable[] color = {new ColorDrawable(colorFrom), new ColorDrawable(colorTo)};
+            TransitionDrawable transition = new TransitionDrawable(color);
+            videoview.setBackground(transition);
+            transition.startTransition(duration);
             //Video Loop
             videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
@@ -87,12 +89,5 @@ public class HomeSplashFragment extends Fragment implements View.OnClickListener
             default:
                 break;
         }
-    }
-
-    private void skipSplash()
-    {
-        Intent i = new Intent(getActivity(), MainActivity.class);
-        startActivity(i);
-        getActivity().finish();
     }
 }

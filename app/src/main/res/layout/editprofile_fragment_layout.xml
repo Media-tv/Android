@@ -5,43 +5,42 @@
     android:layout_width="match_parent"
     android:background="@color/colorPrimaryDark"
     android:layout_height="match_parent">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="30dp"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:id="@+id/background_layout_signup"
-    android:background="@drawable/animation_list">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="Create account"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:textSize="22sp"
-        android:layout_marginBottom="5dp"
-        fontPath="fonts/brownregular.ttf"
-        />
-       <RelativeLayout
-           android:layout_width="150dp"
-           android:layout_height="150dp"
-           android:gravity="center"
-           android:layout_gravity="center"
-           >
-           <ImageView
-               android:layout_width="200dp"
-               android:layout_height="200dp"
-               app:srcCompat="@drawable/if_sed_10_2232321"
-               android:tint="@color/white"
-               />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="30dp"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Edit account"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textSize="22sp"
+            android:layout_marginBottom="5dp"
+            fontPath="fonts/brownregular.ttf"
+            />
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            >
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:srcCompat="@drawable/if_sed_10_2232321"
+                android:tint="@color/white"
+                />
 
-       </RelativeLayout>
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -253,119 +252,94 @@
             </RelativeLayout>
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="5dp"
-        android:visibility="visible"
-        >
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="What's your date of birth?"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginBottom="5dp"
-            fontPath="fonts/brownregular.ttf"
-            />
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:visibility="visible"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="What's your date of birth?"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"
+                fontPath="fonts/brownregular.ttf"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/Date_of_Birth"
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:paddingLeft="10dp"
+                    fontPath="fonts/brownregular.ttf"
+                    android:background="@drawable/rounded_edittext"
+                    android:text="1996/8/1"
+                    android:backgroundTint="@color/white"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    />
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animation_view_birth"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:elevation="2dp"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/Date_of_Birth"
-            android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:paddingLeft="10dp"
-            fontPath="fonts/brownregular.ttf"
-            android:background="@drawable/rounded_edittext"
-            android:text="1996/8/1"
-            android:backgroundTint="@color/white"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
-            />
+            <Button
+                android:text="Add New Location"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_marginLeft="30dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/oval"
+                android:id="@+id/determine_location" />
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_view_birth"
+                android:id="@+id/animation_view_location"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginRight="5dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:elevation="2dp"
+                android:visibility="gone"
                 />
         </RelativeLayout>
 
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="@string/terms_of_service"
-        android:textStyle="normal"
-        android:textSize="12sp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        fontPath="fonts/airbnb.ttf"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="@string/terms_of_service2"
-        android:textStyle="normal"
-        android:textSize="12sp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        fontPath="fonts/airbnb.ttf"
-        />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <Button
-            android:text="Determine Location"
             android:layout_width="250dp"
             android:layout_height="40dp"
+            android:text="Update Profile"
             android:padding="5dp"
             android:textColor="@color/black"
             android:gravity="center"
-            android:layout_marginLeft="30dp"
+            android:layout_margin="10dp"
             android:textSize="15sp"
             android:textStyle="bold"
             android:backgroundTint="@color/white"
             android:background="@drawable/oval"
-            android:id="@+id/determine_location" />
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view_location"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:visibility="gone"
+            android:layout_gravity="center"
+            android:id="@+id/buttonRegister"
             />
-    </RelativeLayout>
-
-
-    <Button
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:text="Register"
-        android:padding="5dp"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:layout_margin="10dp"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:backgroundTint="@color/white"
-        android:background="@drawable/oval"
-        android:layout_gravity="center"
-        android:id="@+id/buttonRegister"
-        />
 
     </LinearLayout>
 

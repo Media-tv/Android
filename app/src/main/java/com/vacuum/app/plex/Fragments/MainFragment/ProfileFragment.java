@@ -29,6 +29,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.vacuum.app.plex.Fragments.EditProfile_Fragment;
 import com.vacuum.app.plex.Fragments.SettingFragment;
 import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.R;
@@ -39,6 +40,8 @@ import java.util.List;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
+import static com.vacuum.app.plex.Fragments.EditProfile_Fragment.EDITPORFILE_FRAGMENT_TAG;
+import static com.vacuum.app.plex.Fragments.SettingFragment.TAG_SETTING_FRAGMENT;
 import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
 
 /**
@@ -102,11 +105,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         switch (view.getId()) {
 
             case R.id.layout_settings:
-                Fragment fragment = new SettingFragment();
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame, fragment, SettingFragment.TAG_SETTING_FRAGMENT);
-                fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
-                fragmentTransaction.commit();
+                switchfragment(new SettingFragment(),TAG_SETTING_FRAGMENT);
                 break;
             case R.id.more_points:
 
@@ -122,6 +121,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                     startActivity(new Intent(mContext, SplashScreen.class));
                     break;
             case R.id.layout1_editprofile:
+                switchfragment(new EditProfile_Fragment(),EDITPORFILE_FRAGMENT_TAG);
+                break;
             case R.id.layout2_payment:
             case R.id.layout_close_account:
                 Toast.makeText(mContext, "Go Premium!", Toast.LENGTH_SHORT).show();
@@ -131,13 +132,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         }
     }
 
-
-
-
-
-
-
-
+    private void switchfragment(Fragment fragment,String TAG) {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame, fragment, TAG);
+        fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
+        fragmentTransaction.commit();
+    }
 
 
     private void loadRewardedVideoAd() {
