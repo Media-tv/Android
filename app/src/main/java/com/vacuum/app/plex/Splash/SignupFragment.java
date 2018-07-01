@@ -218,6 +218,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
             };
 
     private void insertUser() {
+        buttonRegister.setText("registering...");
+        buttonRegister.setEnabled(false);
         String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
         ApiInterface api = ApiClient.getClient(mContext,ROOT_URL).create(ApiInterface.class);
         api.registration(
@@ -247,17 +249,14 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
                             editor.apply();
                             skipSplash();
                             Toast.makeText(mContext,"Hi, "+full_name.getText().toString(), Toast.LENGTH_SHORT).show();
-
                         }
-
-
-
-
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(mContext,"unable to register", Toast.LENGTH_SHORT).show();
+                buttonRegister.setText("Register");
+                buttonRegister.setEnabled(true);
                 Log.e("TAG",t.toString());
             }
         });
@@ -290,8 +289,6 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
                 validateFields();
                 break;
             case R.id.determine_location:
-                determine_location.setTextColor(Color.BLACK);
-                determine_location.setText("Determining...");
                 askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, LOCATION);
                 break;
             case R.id.Date_of_Birth:
@@ -318,6 +315,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
             }
         } else {
             getGPS();
+            determine_location.setText("Determining...");
+            determine_location.setTextColor(Color.RED);
         }
     }
     public void getGPS() {
@@ -338,7 +337,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
                                     location = location1.latitude+","+ location1.longitude;
                                     address = addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() +", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName();
                                     age = "YYYY/MM/DD";
-                                    determine_location.setText("Determine Location");
+                                    determine_location.setText("Location Done");
+                                    determine_location.setTextColor(Color.BLACK);
                                     animation_view_location.setVisibility(View.VISIBLE);
                                     animation_view_location.setAnimation(R.raw.success);
                                     animation_view_location.playAnimation();

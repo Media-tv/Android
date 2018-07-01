@@ -121,8 +121,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                     startActivity(new Intent(mContext, SplashScreen.class));
                     break;
             case R.id.layout1_editprofile:
-                switchfragment(new EditProfile_Fragment(),EDITPORFILE_FRAGMENT_TAG);
-                break;
+                //switchfragment(new EditProfile_Fragment(),EDITPORFILE_FRAGMENT_TAG);
+                //break;
             case R.id.layout2_payment:
             case R.id.layout_close_account:
                 Toast.makeText(mContext, "Go Premium!", Toast.LENGTH_SHORT).show();

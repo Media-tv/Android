@@ -74,7 +74,7 @@ public class SingleShotLocationProvider {
 
 
         } else {
-            Toast.makeText(context, "you should enable GPS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Enable GPS!", Toast.LENGTH_SHORT).show();
             boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             if (isGPSEnabled) {
                 Criteria criteria = new Criteria();
