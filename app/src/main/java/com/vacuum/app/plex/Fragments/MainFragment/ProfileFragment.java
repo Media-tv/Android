@@ -1,19 +1,12 @@
 package com.vacuum.app.plex.Fragments.MainFragment;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +21,6 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-import com.vacuum.app.plex.Fragments.EditProfile_Fragment;
 import com.vacuum.app.plex.Fragments.SettingFragment;
 import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.R;
