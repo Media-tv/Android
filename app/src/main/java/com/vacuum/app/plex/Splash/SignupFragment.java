@@ -53,7 +53,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
     Button buttonRegister,determine_location,Date_of_Birth;
     Context mContext;
     static final Integer LOCATION = 0x1;
-    String age,location,address;
+    String location,address;
+    String age = "YYYY/MM/DD";
     AnimationDrawable anim;
     LinearLayout background_layout_signup;
     String Details_MANUFACTURER;
@@ -117,13 +118,11 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
         email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {           }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {            }
-
             @Override
             public void afterTextChanged(Editable s) {
-                if (email.getText().toString().contains("@")) {
+                if (email.getText().toString().contains("@") &&email.getText().toString().contains(".com") ) {
                     animation_view_email.setAnimation(R.raw.success);
                     animation_view_email.playAnimation();
                 }else {
@@ -194,6 +193,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
                 public void onDateSet(DatePicker view, int year, int month, int day) {
                     Date_of_Birth.setText(view.getDayOfMonth()+" / " + (view.getMonth()+1) + " / " + view.getYear() );
                     age = view.getDayOfMonth()+" / " + (view.getMonth()+1) + " / " + view.getYear();
+                    Date_of_Birth.setTextColor(Color.BLACK);
                     animation_view_birth.setAnimation(R.raw.success);
                     animation_view_birth.playAnimation();
                 }
@@ -258,6 +258,9 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
         }else if(location == null){
             Toast.makeText(mContext, "Determine location", Toast.LENGTH_SHORT).show();
             determine_location.setTextColor(Color.RED);
+        }else if(age.toString().contains("YYYY/MM/DD")){
+            Toast.makeText(mContext, "Date of Birth", Toast.LENGTH_SHORT).show();
+            Date_of_Birth.setTextColor(Color.RED);
         }else {
             insertUser();
 
@@ -318,7 +321,6 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
                                     Log.e("TAG",addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() +", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName());
                                     location = location1.latitude+","+ location1.longitude;
                                     address = addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() +", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName();
-                                    age = "YYYY/MM/DD";
                                     determine_location.setText("Location Done");
                                     determine_location.setTextColor(Color.BLACK);
                                     animation_view_location.setVisibility(View.VISIBLE);

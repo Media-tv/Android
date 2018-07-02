@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView message_update = dialog.findViewById(R.id.message_update);
         ImageView background_image = dialog.findViewById(R.id.background_image);
 
-        if(version_number() != versioncode){
+        if(version_number() != versioncode ){
             title_view.setText(title);
             message_update.setText(message);
             update_btn.setText("UPDATE");
@@ -284,9 +284,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             });
-        }else if(versioncode == 0){
+        } if(versioncode == 0){
             title_view.setText(title);
             message_update.setText(message);
+            update_btn.setText("ok");
             background_image.setImageResource(R.drawable.update_sleep);
             update_btn.setOnClickListener(new View.OnClickListener() {
                 @Override

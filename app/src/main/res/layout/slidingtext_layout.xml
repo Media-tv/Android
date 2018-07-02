@@ -1,0 +1,37 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="1dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/text_slide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:text="welcome!"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            fontPath="fonts/airbnb.ttf"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/text_slide2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:text="sign up for free music and get your fav movies "
+            android:textSize="18sp"
+            android:textColor="#fff"
+            android:alpha="0.7"
+            fontPath="fonts/airbnb.ttf"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+</FrameLayout>

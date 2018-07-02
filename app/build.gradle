@@ -74,7 +74,7 @@ dependencies {
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation 'com.github.halilozercan:BetterVideoPlayer:1.1.0'
     implementation 'com.airbnb.android:lottie:2.5.1'
-
+    implementation 'me.relex:circleindicator:1.2.2@aar'
 
 
 }
