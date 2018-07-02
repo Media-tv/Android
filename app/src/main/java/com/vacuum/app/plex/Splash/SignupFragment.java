@@ -38,7 +38,6 @@ import com.vacuum.app.plex.Utility.SingleShotLocationProvider;
 
 import java.util.List;
 import java.util.Locale;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -233,7 +232,6 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
                             Toast.makeText(mContext,"Hi, "+full_name.getText().toString(), Toast.LENGTH_SHORT).show();
                         }
             }
-
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(mContext,"unable to register", Toast.LENGTH_SHORT).show();
