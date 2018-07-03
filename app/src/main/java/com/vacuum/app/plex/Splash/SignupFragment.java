@@ -58,6 +58,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
     LinearLayout background_layout_signup;
     String Details_MANUFACTURER;
     LottieAnimationView animation_view_fullname,animation_view_birth,animation_view_email,animation_view_password,animation_view_phone,animation_view_location;
+int age_year;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -183,7 +184,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
     }
 
     public void showDatePicker() {
-        DatePickerDialog cc = new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT,dateSetListener, 1990,
+        DatePickerDialog cc = new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT,dateSetListener, 2008,
                 1, 1);
         cc.show();
     }
@@ -192,9 +193,13 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
                 public void onDateSet(DatePicker view, int year, int month, int day) {
                     Date_of_Birth.setText(view.getDayOfMonth()+" / " + (view.getMonth()+1) + " / " + view.getYear() );
                     age = view.getDayOfMonth()+" / " + (view.getMonth()+1) + " / " + view.getYear();
-                    Date_of_Birth.setTextColor(Color.BLACK);
-                    animation_view_birth.setAnimation(R.raw.success);
-                    animation_view_birth.playAnimation();
+                    age_year = view.getYear();
+                    if(age_year<=2002){
+                        Date_of_Birth.setTextColor(Color.BLACK);
+                        animation_view_birth.setAnimation(R.raw.success);
+                        animation_view_birth.playAnimation();
+                    }
+
                 }
             };
 
@@ -256,7 +261,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener  {
         }else if(location == null){
             Toast.makeText(mContext, "Determine location", Toast.LENGTH_SHORT).show();
             determine_location.setTextColor(Color.RED);
-        }else if(age.toString().contains("YYYY/MM/DD")){
+        }else if(age.toString().contains("YYYY/MM/DD") || age_year>2002){
             Toast.makeText(mContext, "Date of Birth", Toast.LENGTH_SHORT).show();
             Date_of_Birth.setTextColor(Color.RED);
         }else {

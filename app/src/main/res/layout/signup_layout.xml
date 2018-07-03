@@ -282,7 +282,7 @@
             android:paddingLeft="10dp"
             fontPath="fonts/brownregular.ttf"
             android:background="@drawable/rounded_edittext"
-            android:text="1996/8/1"
+            android:text="1/1/2008"
             android:backgroundTint="@color/white"
             android:textColorHint="@color/black"
             android:textColor="@color/black"
