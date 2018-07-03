@@ -148,7 +148,6 @@ public class SearchFragment extends Fragment {
                                 movies2.add(s);
                             }
                         }
-
                         recyclerView_search.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
                         recyclerView_search.setAdapter(new SearchAdapter(movies2, mContext));
                     }
