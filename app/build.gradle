@@ -8,8 +8,8 @@ android {
         applicationId "com.vacuum.app.cinema"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 3
-        versionName "3.5.6"
+        versionCode 4
+        versionName "3.4.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 

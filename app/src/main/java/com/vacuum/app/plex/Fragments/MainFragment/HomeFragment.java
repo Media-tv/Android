@@ -202,11 +202,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         call_UpComing.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
+                try{
                     List<Movie> movies = response.body().getResults();
                     movies_recycler1_UpComing.setAdapter(new MoviesAdapter(movies, mContext));
                     Log.e("TAG", "null array");
+                }catch (Exception e){      }
             }
-
             @Override
             public void onFailure(Call<MoviesResponse>call, Throwable t) {
                 // Log error here since request failed

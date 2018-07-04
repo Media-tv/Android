@@ -198,6 +198,9 @@ int age_year;
                         Date_of_Birth.setTextColor(Color.BLACK);
                         animation_view_birth.setAnimation(R.raw.success);
                         animation_view_birth.playAnimation();
+                    }else {
+                        Date_of_Birth.setTextColor(Color.RED);
+                        animation_view_birth.setProgress(0);
                     }
 
                 }
@@ -300,17 +303,19 @@ int age_year;
 
             } else {
                 ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
+                determine_location.setTextColor(Color.RED);
+                determine_location.setText("Need Permission!");
             }
         } else {
+            determine_location.setTextColor(Color.BLACK);
+            determine_location.setText("determining...");
             getGPS();
-            determine_location.setText("Determining...");
-            determine_location.setTextColor(Color.RED);
         }
     }
     public void getGPS() {
         // when you need location
         // if inside activity context = this;
-        SingleShotLocationProvider.requestSingleUpdate(mContext,
+        SingleShotLocationProvider.requestSingleUpdate(mContext,determine_location,
                 new SingleShotLocationProvider.LocationCallback() {
                     @Override public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location1) {
                         Log.e("TAG Location", "my location is " +  location1.latitude+"//////"+ location1.longitude);

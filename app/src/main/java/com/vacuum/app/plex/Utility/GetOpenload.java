@@ -55,14 +55,18 @@ public class GetOpenload {
         call_slider.enqueue(new Callback<OpenloadResult>() {
             @Override
             public void onResponse(Call<OpenloadResult> call, Response<OpenloadResult> response) {
-                OpenloadResult open = response.body();
-                ticket = open.getOpenload().getTicket();
+               try {
+                   OpenloadResult open = response.body();
+                   ticket = open.getOpenload().getTicket();
+
+
                 if(found_captcha){
                     AlertDialog(open.getOpenload().getCaptchaUrl());
                 }else {
                     String url = "https://api.openload.co/1/file/dl?file=" + file_id + "&ticket=" + ticket;
                     retrofit_2(url);
                 }
+               }catch (Exception e){}
             }
             @Override
             public void onFailure(Call<OpenloadResult> call, Throwable t) {
@@ -77,8 +81,10 @@ public class GetOpenload {
         call_openload_thumbnail.enqueue(new Callback<OpenloadThumbnail>() {
             @Override
             public void onResponse(Call<OpenloadThumbnail> call, Response<OpenloadThumbnail> response) {
-                OpenloadThumbnail open = response.body();
-                openload_thumbnail_url = open.getResult();
+                try {
+                    OpenloadThumbnail open = response.body();
+                    openload_thumbnail_url = open.getResult();
+                }catch (Exception e) {                }
             }
             @Override
             public void onFailure(Call<OpenloadThumbnail> call, Throwable t) {

@@ -48,6 +48,43 @@
 
 
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:padding="20dp"
+        android:id="@+id/layout_offline_searchfragment"
+        android:orientation="vertical">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_search_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:lottie_loop="true"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You 're offline"
+            android:textSize="22sp"
+            android:textStyle="normal"
+            android:gravity="center"
+            android:textColor="#f2ffffff"
+            fontPath="fonts/brownregular.ttf"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Please connect to the internet and try again."
+            android:textSize="18sp"
+            android:textColor="#aeffffff"
+            fontPath="fonts/brownregular.ttf"
+            />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

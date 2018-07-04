@@ -107,16 +107,18 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         call_popularTV.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse>call, Response<MoviesResponse> response) {
-                List<Movie> movies = response.body().getResults();
-                movies_recycler4_tv_popular.setAdapter(new MoviesAdapter(movies, mContext));
-                progressBar.setVisibility(View.GONE);
-                layout.setVisibility(View.VISIBLE);
+                try{
+                    List<Movie> movies = response.body().getResults();
+                    movies_recycler4_tv_popular.setAdapter(new MoviesAdapter(movies, mContext));
+                    progressBar.setVisibility(View.GONE);
+                    layout.setVisibility(View.VISIBLE);
+                }catch (Exception e){ }
             }
 
             @Override
             public void onFailure(Call<MoviesResponse>call, Throwable t) {
                 // Log error here since request failed
-                Log.e("tag", t.toString());
+                Log.e("TAG", t.toString());
             }
         });
 

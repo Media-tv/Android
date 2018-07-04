@@ -30,7 +30,6 @@
                 android:layout_width="240dp"
                 android:layout_height="160dp"
                 android:id="@+id/thumbnail"
-                android:foreground="@drawable/ripple"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 android:background="@color/colorPrimary"

@@ -428,18 +428,22 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         webSettings.setJavaScriptEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.loadUrl(cv);
-
-
         webView.setWebViewClient(new WebViewClient() {
                  @Override
                  public boolean shouldOverrideUrlLoading(WebView view, String openload_url) {
                      Log.e("TAG", openload_url);
                      String word = ".co";
-                     String full_url = "https://openloed.co/embed/RoZzZ3TcXQ0";
+                     //String full_url = "https://openloed.co/embed/RoZzZ3TcXQ0";
+                     //String full_url2= "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id=tt6468322&tv=1&s=1&e=6";
                      int index = openload_url.lastIndexOf(word); //16
-                     String right_url ="https://openload"+openload_url.substring(index,openload_url.length()) ;
-                     openload_upload(right_url);
-                     dialoge.dismiss();
+                     if(index != -1){
+                         String right_url ="https://openload"+openload_url.substring(index,openload_url.length()) ;
+                         openload_upload(right_url);
+                         dialoge.dismiss();
+                     }else {
+                         Toast.makeText(mContext, "Bad Connection!", Toast.LENGTH_SHORT).show();
+                         dialoge.dismiss();
+                     }
                      return true;
                  }
              }

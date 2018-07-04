@@ -111,7 +111,6 @@ public class MoreFragment extends Fragment {
                         pastVisiblesItems = mLayoutManager
                                 .findFirstVisibleItemPosition();
 
-
                         // Now check if userScrolled is true and also check if
                         // the item is end then update recycler view and set
                         // userScrolled to false
@@ -120,21 +119,18 @@ public class MoreFragment extends Fragment {
                             userScrolled = false;
                             updateRecyclerView();
                         }
-
                     }
 
                 });
     }
 
     private void updateRecyclerView() {
-
         bottomLayout.setVisibility(View.VISIBLE);
         mHandler=  new Handler();
         myRunnable = new Runnable() {
             public void run() {
                 retrofit();
-                Toast.makeText(mContext, "Items Updated.",
-                        Toast.LENGTH_SHORT).show();
+
                 bottomLayout.setVisibility(View.GONE);
             }
         };

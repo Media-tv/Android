@@ -135,11 +135,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                     } else {
                         //Toast.makeText(mContext, "The interstitial wasn't loaded yet.", Toast.LENGTH_SHORT).show();
                     }
-
                     Fragment(movie,new DetailsMovie_Fragment(),DetailsMovie_Fragment.TAG_DetailsMovie_Fragment);
                 }
-
-
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -149,7 +146,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                         .addAction("Star", R.drawable.if_heart_119_111093, new Callback() {
                             @Override
                             public void doAction() {
-                                new RequestMovie(movie.getId().toString(),movie.getTitle()+" : "+movie.getReleaseDate().substring(0, 4),mContext);
+                                //new RequestMovie(movie.getId().toString(),movie.getTitle()+" : "+movie.getReleaseDate().substring(0, 4),mContext);
+                                Toast.makeText(view.getContext(), "Favourite!", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addAction("Share", R.drawable.if_share4_216719, new Callback() {
@@ -171,7 +169,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return movies.size();

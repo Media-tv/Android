@@ -241,20 +241,17 @@ public class DetailsTV_Fragment extends Fragment {
                         actors_layout.setVisibility(View.VISIBLE);
                         recyclerView_actors.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
                         recyclerView_actors.setAdapter(new CreditsAdapter(casts, mContext));
-
                     }
                 }catch (Exception e ){
                     Log.e("Exception::>>",e.toString());
                 }
             }
-
             @Override
             public void onFailure(Call<Credits> call, Throwable t) {
                 // Log error here since request failed
                 Log.e("tag", t.toString());
             }
         });
-
         //call_recyclerView_crew
         //==================================================================
         Call<Credits> call_recyclerView_crew = apiService.getTVCredits(x,TMBDB_API_KEY);
@@ -271,7 +268,6 @@ public class DetailsTV_Fragment extends Fragment {
                     Log.e("Exception::",e.toString());
                 }
             }
-
             @Override
             public void onFailure(Call<Credits> call, Throwable t) {
                 // Log error here since request failed
@@ -287,13 +283,16 @@ public class DetailsTV_Fragment extends Fragment {
             public void onResponse(Call<Images_tmdb> call, Response<Images_tmdb> response) {
                 List<Backdrop> posters;
                 //List<Poster> posters;
-
+                try {
                     posters = response.body().getBackdrops();
                     image_layout.setVisibility(View.VISIBLE);
                     recyclerView_images.setLayoutManager(new LinearLayoutManager(mContext,
                             LinearLayoutManager.HORIZONTAL, false));
                     recyclerView_images.setAdapter(new ImagesAdapter(posters, mContext));
-                if(posters.size()>0){change_backdrop(posters);}
+                    if (posters.size() > 0) {
+                        change_backdrop(posters);
+                    }
+                }catch (Exception e){   }
             }
 
             @Override

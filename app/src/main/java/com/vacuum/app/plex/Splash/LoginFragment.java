@@ -137,7 +137,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private void login() {
         String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
 
-
+        login_btn.setText("logging in...");
+        error_message.setVisibility(View.GONE);
         //===============================================================================
         ApiInterface api = ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
         //==================================================================================
@@ -167,7 +168,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             public void onFailure(Call<User> call, Throwable t) {
                 error_message.setVisibility(View.VISIBLE);
                 login_btn.setText("LOG IN");
-
                 Log.e("TAG",t.toString());
             }
         });
@@ -185,8 +185,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }else if (login_password.getText().length() == 0) {
             login_password.setError("Empty Field");
         }else {
-            login_btn.setText("logging in...");
-            error_message.setVisibility(View.GONE);
             login();
         }
     }

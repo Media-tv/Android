@@ -10,33 +10,25 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.vacuum.app.plex.Adapter.MoviesAdapter;
 import com.vacuum.app.plex.Adapter.SearchAdapter;
-import com.vacuum.app.plex.Adapter.TrailerAdapter;
 import com.vacuum.app.plex.Model.Movie;
-import com.vacuum.app.plex.Model.MovieDetails;
 import com.vacuum.app.plex.Model.MoviesResponse;
-import com.vacuum.app.plex.Model.Trailer;
-import com.vacuum.app.plex.Model.TrailerResponse;
 import com.vacuum.app.plex.R;
 import com.vacuum.app.plex.Utility.ApiClient;
 import com.vacuum.app.plex.Utility.ApiInterface;
+import com.vacuum.app.plex.Utility.Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -50,11 +42,12 @@ import retrofit2.Response;
 public class SearchFragment extends Fragment {
     Context mContext;
     RecyclerView recyclerView_search;
-    LinearLayout layout_search;
+    LinearLayout layout_search,layout_offline_searchfragment;
     EditText edit_query;
     ImageView clear_search;
     String  TMBDB_API_KEY;
     String BASE_URL = "https://api.themoviedb.org/3/";
+    LottieAnimationView animation_search_fragment;
 
     public static final String TAG_SEARCH_FRAGMENT = "TAG_SEARCH_FRAGMENT";
 
@@ -65,7 +58,9 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.search_fragment, container, false);
         recyclerView_search = view.findViewById(R.id.recyclerView_search);
         layout_search = view.findViewById(R.id.layout_search);
+        layout_offline_searchfragment = view.findViewById(R.id.layout_offline_searchfragment);
         clear_search = view.findViewById(R.id.clear_search);
+        animation_search_fragment = view.findViewById(R.id.animation_search_fragment);
 
         mContext = this.getActivity();
         FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
@@ -80,12 +75,17 @@ public class SearchFragment extends Fragment {
                 recyclerView_search.setVisibility(View.VISIBLE);
                 layout_search.setVisibility(View.GONE);
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                getDate(charSequence);
+                if(!new Utils().isNetworkAvailable(mContext)){
+                    layout_offline_searchfragment.setVisibility(View.VISIBLE);
+                    animation_search_fragment.setAnimation(R.raw.no_internet);
+                    animation_search_fragment.playAnimation();
+                }else {
+                    layout_offline_searchfragment.setVisibility(View.GONE);
+                    getDate(charSequence);
+                }
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
                 String ed_text = edit_query.getText().toString().trim();

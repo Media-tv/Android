@@ -319,7 +319,7 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
     public void getGPS() {
         // when you need location
         // if inside activity context = this;
-        SingleShotLocationProvider.requestSingleUpdate(mContext,
+        SingleShotLocationProvider.requestSingleUpdate(mContext,determine_location,
                 new SingleShotLocationProvider.LocationCallback() {
                     @Override
                     public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location1) {

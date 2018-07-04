@@ -3,6 +3,7 @@ package com.vacuum.app.plex.Utility;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -12,6 +13,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.List;
@@ -27,7 +29,7 @@ public class SingleShotLocationProvider {
     // calls back to calling thread, note this is for low grain: if you want higher precision, swap the
     // contents of the else and if. Also be sure to check gps permission/settings are allowed.
     // call usually takes <10ms
-    public static void requestSingleUpdate(final Context context, final LocationCallback callback) {
+    public static void requestSingleUpdate(final Context context, Button determine_location, final LocationCallback callback) {
         mContext = context;
         final LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -54,9 +56,6 @@ public class SingleShotLocationProvider {
                     callback.onNewLocationAvailable(new GPSCoordinates(location.getLatitude(), location.getLongitude()));
                     Log.e("TAG :getLatitude", String.valueOf(location.getLatitude()));
                     Log.e("TAG :getLongitude", String.valueOf(location.getLongitude()));
-
-
-
                 }
 
                 @Override
@@ -71,12 +70,12 @@ public class SingleShotLocationProvider {
                 public void onProviderDisabled(String provider) {
                 }
             }, null);
-
-
         } else {
-            Toast.makeText(context, "Enable GPS!", Toast.LENGTH_SHORT).show();
+
             boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             if (isGPSEnabled) {
+                determine_location.setTextColor(Color.BLACK);
+                determine_location.setText("determining...");
                 Criteria criteria = new Criteria();
                 criteria.setAccuracy(Criteria.ACCURACY_FINE);
                 locationManager.requestSingleUpdate(criteria, new LocationListener() {
@@ -89,6 +88,9 @@ public class SingleShotLocationProvider {
                     @Override public void onProviderEnabled(String provider) { }
                     @Override public void onProviderDisabled(String provider) { }
                 }, null);
+            }else {
+                determine_location.setText("Enable GPS!");
+                determine_location.setTextColor(Color.RED);
             }
         }
     }

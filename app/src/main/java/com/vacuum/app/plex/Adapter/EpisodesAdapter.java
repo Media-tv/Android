@@ -155,13 +155,18 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
                                          String word = ".co";
                                          String full_url = "https://openloed.co/embed/RoZzZ3TcXQ0";
                                          int index = openload_url.lastIndexOf(word); //16
-                                         Log.e("TAG: index == ", String.valueOf(index));
-                                         if (index != 0) {
-                                             String right_url = "https://openload" + openload_url.substring(index, openload_url.length());
-                                             openload(Position, right_url);
-                                             Toast.makeText(mContext, "404 not found", Toast.LENGTH_SHORT).show();
+                                         if(index != -1){
+                                             Log.e("TAG: index == ", String.valueOf(index));
+                                             if (index != 0) {
+                                                 String right_url = "https://openload" + openload_url.substring(index, openload_url.length());
+                                                 openload(Position, right_url);
+                                             }
+                                             dialoge.dismiss();
+                                         }else {
+                                             Toast.makeText(mContext, "Bad connection", Toast.LENGTH_SHORT).show();
+                                             dialoge.dismiss();
                                          }
-                                         dialoge.dismiss();
+
                                          return true;
                                      }
                                  }
