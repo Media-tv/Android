@@ -29,7 +29,7 @@ import static com.vacuum.app.plex.Splash.LoginFragment.LOGIN_FRAGMENT_TAG;
 
 public class SplashScreen extends AppCompatActivity {
 
-    public static final String MY_PREFS_NAME = "MyPrefsFile";
+    public static final String MY_PREFS_NAME = "Plex";
     Context mContext;
     public  SharedPreferences prefs;
     @Override

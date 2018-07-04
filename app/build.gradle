@@ -10,10 +10,9 @@ android {
         targetSdkVersion 27
         versionCode 4
         versionName "3.4.4"
+        //versionName <Major.Minor.Revision.Build>  //8.4.57.803
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-
-
     }
     buildTypes {
         release {
@@ -21,7 +20,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     lintOptions {
         checkReleaseBuilds false
     }

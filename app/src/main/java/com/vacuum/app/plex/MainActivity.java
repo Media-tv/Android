@@ -450,19 +450,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     private void get_API_keys() {
-
 
         prefs = getSharedPreferences("Plex", Activity.MODE_PRIVATE);
         String TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
 
-        if(TMBDB_API_KEY != null){
+        /*if(TMBDB_API_KEY != null){
             loadHomeFragment();
-        }else {
+        }else {*/
             apiService =
                     ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
-
             Call<API_KEY> call_UpComing = apiService.getApiKEY();
             call_UpComing.enqueue(new Callback<API_KEY>() {
                 @Override
@@ -470,9 +467,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     editor.putString("TMBDB_API_KEY", response.body().getTMBDBAPIKEY());
                     editor.putString("OPENLOAD_API_Login", response.body().getOPENLOADAPILogin());
                     editor.putString("OPENLOAD_API_KEY", response.body().getOPENLOADAPIKEY());
-                    editor.commit();
-                    Log.e("TAG : ",response.body().getTMBDBAPIKEY());
 
+                    editor.putString("ADMOB_PLEX_ID", response.body().getADMOBPLEXID());
+                    editor.putString("ADMOB_PLEX_INTERSTITIAL_1", response.body().getADMOBPLEXINTERSTITIAL1());
+                    editor.putString("ADMOB_PLEX_BANNER_1", response.body().getADMOBPLEXBANNER1());
+                    editor.putString("ADMOB_PLEX_BANNER_2", response.body().getADMOBPLEXBANNER2());
+                    editor.putString("ADMOB_PLEX_REWARDED_1", response.body().getADMOBPLEXREWARDED1());
+                    editor.commit();
+                    //Log.e("TAG :INTERSTITIAL",response.body().getADMOBPLEXINTERSTITIAL1());
                     loadHomeFragment();
                 }
 
@@ -483,7 +485,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
 
-        }
+
     }
 
 

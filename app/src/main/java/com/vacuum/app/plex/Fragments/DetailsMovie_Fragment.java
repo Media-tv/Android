@@ -39,6 +39,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -97,7 +98,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     Handler mHandler;
     Runnable myRunnable;
     ApiInterface apiService;
-    String TMBDB_API_KEY,gener1_analistc;
+    String TMBDB_API_KEY,ADMOB_PLEX_BANNER_1,ADMOB_PLEX_BANNER_2;
     AdView adView;
 
     @Override
@@ -136,7 +137,6 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         recyclerView_crew = view.findViewById(R.id.recyclerView_crew);
         crew_layout = view.findViewById(R.id.crew_layout);
 
-        adView = view.findViewById(R.id.adView_details_fragment);
 
         like.setOnClickListener(this);
         watch.setOnClickListener(this);
@@ -144,6 +144,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
 
         SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
         TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
+        ADMOB_PLEX_BANNER_2 = prefs.getString("ADMOB_PLEX_BANNER_2",null);
 
 
         movie = (Movie)getArguments().getSerializable("movie");
@@ -173,7 +174,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             Log.i("TAG :",e.toString());
         }
         retrofit();
-        Ads();
+        Ads(view);
         return view;
     }
     private void analistcs() {
@@ -308,9 +309,14 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
 
         call_Retrofit_images();
     }
-    private void Ads() {
+    private void Ads(View v) {
+        View adContainer = v.findViewById(R.id.adView_details_fragment);
+        AdView mAdView = new AdView(mContext);
+        mAdView.setAdSize(AdSize.SMART_BANNER);
+        mAdView.setAdUnitId(ADMOB_PLEX_BANNER_2);
+        ((RelativeLayout)adContainer).addView(mAdView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
+        mAdView.loadAd(adRequest);
     }
     private void call_Retrofit_images() {
         //setRecyclerView_images
@@ -374,7 +380,6 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         if (size==1){
             genre1.setText(String.valueOf(names.get(0).getName()));
             layout_genre1.setVisibility(View.VISIBLE);
-            gener1_analistc = names.get(0).getName();
             analistcs();
 
         }else if(size ==2){
@@ -391,14 +396,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             genre3.setText(String.valueOf(names.get(2).getName()));
             layout_genre3.setVisibility(View.VISIBLE);
         }
-
-
     }
-
-
-
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -14,9 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -46,11 +48,10 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
     ProgressBar progressBar;
     Context mContext;
     LinearLayout layout;
-    String TMBDB_API_KEY;
+    String TMBDB_API_KEY,ADMOB_PLEX_BANNER_2;
     TextView more_Popular_tv,more_top_rated_tv;
     FirebaseAnalytics mFirebaseAnalytics;
     public static final String TAG_TVSHOWS_FRAGMENT = "TAG_TVSHOWS_FRAGMENT";
-    AdView adView_tvshow_fragment,adView_tvshow_fragment2;
     String BASE_URL = "https://api.themoviedb.org/3/";
 
     @Override
@@ -63,14 +64,13 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
         mFirebaseAnalytics.setCurrentScreen(getActivity(), "TvShowsFragment", null );
 
-        movies_recycler4_tv_popular=  view.findViewById(R.id.movies_recycler4_tv_popular);
-        movies_recycler5_tv_toprated=  view.findViewById(R.id.movies_recycler5_tv_toprated);
+        movies_recycler4_tv_popular =  view.findViewById(R.id.movies_recycler4_tv_popular);
+        movies_recycler5_tv_toprated =  view.findViewById(R.id.movies_recycler5_tv_toprated);
 
         more_Popular_tv=  view.findViewById(R.id.more_Popular_tv);
         more_top_rated_tv=  view.findViewById(R.id.more_top_rated_tv);
 
-        adView_tvshow_fragment=  view.findViewById(R.id.adView_tvshow_fragment);
-        adView_tvshow_fragment2=  view.findViewById(R.id.adView_tvshow_fragment2);
+
         more_Popular_tv.setOnClickListener(this);
         more_top_rated_tv.setOnClickListener(this);
 
@@ -82,14 +82,30 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
 
         SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
         TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
+        ADMOB_PLEX_BANNER_2= prefs.getString("ADMOB_PLEX_BANNER_2",null);
         retrofit();
-        Ads();
+        Ads(view);
         return view;
     }
-    private void Ads() {
+
+    private void Ads(View v) {
+        View adContainer1 = v.findViewById(R.id.adView_tvshow_fragment);
+
+        AdView mAdView = new AdView(mContext);
+        mAdView.setAdSize(AdSize.MEDIUM_RECTANGLE);
+        mAdView.setAdUnitId(ADMOB_PLEX_BANNER_2);
+        ((RelativeLayout)adContainer1).addView(mAdView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        adView_tvshow_fragment.loadAd(adRequest);
-        adView_tvshow_fragment2.loadAd(adRequest);
+        mAdView.loadAd(adRequest);
+
+
+        View adContainer2 = v.findViewById(R.id.adView_tvshow_fragment2);
+        AdView mAdVie2 = new AdView(mContext);
+        mAdVie2.setAdSize(AdSize.SMART_BANNER);
+        mAdVie2.setAdUnitId(ADMOB_PLEX_BANNER_2);
+        ((RelativeLayout)adContainer2).addView(mAdVie2);
+        AdRequest adReques2 = new AdRequest.Builder().build();
+        mAdVie2.loadAd(adReques2);
     }
 
 

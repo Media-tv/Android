@@ -71,17 +71,14 @@
                 android:id="@+id/movies_recycler4_tv_popular"
                 />
         </LinearLayout>
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <RelativeLayout
             android:id="@+id/adView_tvshow_fragment"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            ads:adSize="MEDIUM_RECTANGLE"
-            android:layout_gravity="center"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-        </com.google.android.gms.ads.AdView>
+            android:gravity="center"
+            android:layout_gravity="center"/>
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/card_view5"
@@ -124,17 +121,14 @@
                 />
 
         </LinearLayout>
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <RelativeLayout
             android:id="@+id/adView_tvshow_fragment2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            ads:adSize="SMART_BANNER"
-            android:layout_gravity="center"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-        </com.google.android.gms.ads.AdView>
+            android:layout_gravity="center">
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

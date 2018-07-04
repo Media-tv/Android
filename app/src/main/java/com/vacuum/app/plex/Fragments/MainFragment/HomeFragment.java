@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
@@ -73,9 +75,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     TextView more_upcoming,more_Popular,more_top_rated;
     public  static  LinearLayout layout;
     public static InterstitialAd mInterstitialAd;
-    AdRequest adRequest;
-    AdView adView;
-    String file_id,title;
+    String file_id,title,ADMOB_PLEX_BANNER_1,ADMOB_PLEX_INTERSTITIAL_1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,11 +86,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
         TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
+        ADMOB_PLEX_BANNER_1 = prefs.getString("ADMOB_PLEX_BANNER_1",null);
+        ADMOB_PLEX_INTERSTITIAL_1 = prefs.getString("ADMOB_PLEX_INTERSTITIAL_1",null);
 
         movies_recycler1_UpComing=  view.findViewById(R.id.movies_recycler1_UpComing);
         movies_recycler2_popular=  view.findViewById(R.id.movies_recycler2_popular);
         movies_recycler3_top_rated=  view.findViewById(R.id.movies_recycler3_top_rated);
-        adView = view.findViewById(R.id.adView);
+
+
+
+
+
+
+
+
 
         progressBar =  view.findViewById(R.id.progressBar);
         layout =  view.findViewById(R.id.layout);
@@ -115,41 +124,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         movies_recycler3_top_rated.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
 
 
-
         FirebaseAnalytics  mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
         mFirebaseAnalytics.setCurrentScreen(getActivity(), "HomeFragment", null );
         retrofit();
-        Ads();
+        Ads(view);
         return view;
     }
 
-    private void Ads() {
+    private void Ads(View v) {
+        //adView = view.findViewById(R.id.adView);
+        View adContainer = v.findViewById(R.id.adMobView);
 
+        AdView mAdView = new AdView(mContext);
+        mAdView.setAdSize(AdSize.SMART_BANNER);
+        mAdView.setAdUnitId(ADMOB_PLEX_BANNER_1);
+        ((RelativeLayout)adContainer).addView(mAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         mInterstitialAd = new InterstitialAd(getActivity());
-        mInterstitialAd.setAdUnitId("ca-app-pub-3341550634619945/9102050005");
+        mInterstitialAd.setAdUnitId(ADMOB_PLEX_INTERSTITIAL_1);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
-                // Load the next interstitial.
-                //AdRequest adRequest = new AdRequest.Builder().addTestDevice(AD_UNIT_ID).build();
 
-               // mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                Ads();
             }
-
         });
-        adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-        adView.setAdListener(new AdListener() {
-             @Override
-             public void onAdClosed() {
-                 super.onAdClosed();
-                 Ads();
-                 Toast.makeText(mContext, " Banner loading", Toast.LENGTH_SHORT).show();
-             }
-         }
-        );
 
     }
 

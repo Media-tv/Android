@@ -1,5 +1,6 @@
 package com.vacuum.app.plex.Fragments.MainFragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -46,6 +47,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     TextView points;
     RewardedVideoAd mRewardedVideoAd;
     SharedPreferences prefs;
+    String ADMOB_PLEX_REWARDED_1;
 
 
     @Override
@@ -64,6 +66,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
 
         mContext = this.getActivity();
 
+
+
+        prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        ADMOB_PLEX_REWARDED_1 = prefs.getString("ADMOB_PLEX_REWARDED_1",null);
+
+
         layout_settings.setOnClickListener(this);
         more_points.setOnClickListener(this);
         layout_logout.setOnClickListener(this);
@@ -72,13 +80,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         layout_close_account.setOnClickListener(this);
 
 
-        MobileAds.initialize(mContext, "ca-app-pub-3341550634619945~1422870532");
-
         // Use an activity context to get the rewarded video instance.
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
         mRewardedVideoAd.setRewardedVideoAdListener(this);
         loadRewardedVideoAd();
-        prefs = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        //prefs = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         int points_value = prefs.getInt("points",0);
         if (points_value < 3000)
             {
@@ -102,8 +108,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
 
                 if (mRewardedVideoAd.isLoaded()) {
                     mRewardedVideoAd.show();
-                } else {
-                    Toast.makeText(mContext, "not loaded yet!", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(mContext, "Not loaded yet!", Toast.LENGTH_SHORT).show();
                 }
                 break;
                 case R.id.layout_logout:
@@ -129,24 +135,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
         fragmentTransaction.commit();
     }
-
-
     private void loadRewardedVideoAd() {
-        mRewardedVideoAd.loadAd("ca-app-pub-3341550634619945/4895005821"/*"ca-app-pub-3341550634619945/4093367533"*/,
+        mRewardedVideoAd.loadAd(ADMOB_PLEX_REWARDED_1,//ca-app-pub-3940256099942544/5224354917
                 new AdRequest.Builder().build());
     }
-
-
     @Override
     public void onRewardedVideoAdLoaded() {
-
+       // mRewardedVideoAd.show();
     }
-
     @Override
     public void onRewardedVideoAdOpened() {
-
     }
-
     @Override
     public void onRewardedVideoStarted() {
 
@@ -172,5 +171,24 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
 
+    }
+
+
+    @Override
+    public void onResume() {
+        mRewardedVideoAd.resume(mContext);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        mRewardedVideoAd.pause(mContext);
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        mRewardedVideoAd.destroy(mContext);
+        super.onDestroy();
     }
 }
