@@ -180,7 +180,7 @@ int age_year;
                         "FINGERPRINT: "+Build.FINGERPRINT + "\n" +
                         "Version Code: " + Build.VERSION.RELEASE +
                         "Display : "+ Build.DISPLAY;
-        Log.e("TAG",Details_MANUFACTURER);
+        //Log.e("TAG",Details_MANUFACTURER);
     }
 
     public void showDatePicker() {
@@ -293,10 +293,8 @@ int age_year;
 
     private void askForPermission(String permission, Integer requestCode) {
         if (ContextCompat.checkSelfPermission(mContext, permission) != PackageManager.PERMISSION_GRANTED) {
-
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(), permission)) {
-
                 //This is called if user has denied the permission before
                 //In this case I am just asking the permission again
                 ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
@@ -307,10 +305,12 @@ int age_year;
                 determine_location.setText("Need Permission!");
             }
         } else {
-            determine_location.setTextColor(Color.BLACK);
-            determine_location.setText("determining...");
-            getGPS();
+           // determine_location.setTextColor(Color.BLACK);
+           // determine_location.setText("determining...");
         }
+        Log.e("TAG","getGPS");
+        getGPS();
+
     }
     public void getGPS() {
         // when you need location
@@ -323,6 +323,7 @@ int age_year;
                             Geocoder geo = new Geocoder(mContext, Locale.getDefault());
                             List<Address> addresses = geo.getFromLocation(location1.latitude, location1.longitude, 1);
                             if (addresses.isEmpty()) {
+                                Log.e("TAG :", "addresses.isEmpty()" );
                             }
                             else {
                                 if (addresses.size() > 0) {
@@ -343,9 +344,6 @@ int age_year;
                     }
                 });
     }
-
-
-
 
     private void skipSplash()
     {

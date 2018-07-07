@@ -61,7 +61,7 @@ public class HomeSplashFragment extends Fragment implements View.OnClickListener
 
         login_fragment.setOnClickListener(this);
         signup_fragment.setOnClickListener(this);
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
             videoview.setVisibility(View.GONE);
             background_image_home_fragment.setVisibility(View.VISIBLE);
         }else {

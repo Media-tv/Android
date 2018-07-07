@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAnalytics mFirebaseAnalytics;
     String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -237,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try{
                     Update c = response.body();
                     //Log.e("TAG : ",c);
-                    String versionname = c.getVersionname();
+                    versionName = c.getVersionname();
                     int  versioncode = c.getVersioncode();
                     String message =c.getMessage();
                     String title =c.getTitle();
@@ -455,11 +454,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         prefs = getSharedPreferences("Plex", Activity.MODE_PRIVATE);
         String TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
 
-        /*if(TMBDB_API_KEY != null){
+        if(TMBDB_API_KEY != null){
             loadHomeFragment();
-        }else {*/
+        }else {
             apiService =
-                    ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
+                    ApiClient.getClient(mContext, BASE_URL).create(ApiInterface.class);
             Call<API_KEY> call_UpComing = apiService.getApiKEY();
             call_UpComing.enqueue(new Callback<API_KEY>() {
                 @Override
@@ -484,7 +483,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.e("TAG : onFailure", t.toString());
                 }
             });
-
+        }
 
     }
 
