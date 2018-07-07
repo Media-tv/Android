@@ -73,15 +73,20 @@ public class SingleShotLocationProvider {
         } else {
             Log.e("TAG", "GPSmethod" );
             boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+
             if (isGPSEnabled) {
                 Log.e("TAG", "GPSEnabled" );
                 determine_location.setTextColor(Color.BLACK);
                 determine_location.setText("determining...");
+                Location  gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                callback.onNewLocationAvailable(new GPSCoordinates(gps_loc.getLatitude(), gps_loc.getLongitude()));
                 Criteria criteria = new Criteria();
                 criteria.setAccuracy(Criteria.ACCURACY_FINE);
                 locationManager.requestSingleUpdate(criteria, new LocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
+                        Log.e("TAG", "onLocationChanged" );
                         callback.onNewLocationAvailable(new GPSCoordinates(location.getLatitude(), location.getLongitude()));
                     }
 
