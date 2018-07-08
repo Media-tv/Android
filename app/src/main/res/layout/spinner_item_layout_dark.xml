@@ -6,8 +6,10 @@
     android:layout_height="wrap_content"
     android:textSize="18sp"
     android:gravity="left"
-    android:text="SEASON"
+    android:text="Automatic"
     android:background="@color/colorPrimaryDark"
     android:textColor="@color/white"
     android:padding="10dp"
+    fontPath="fonts/brownregular.ttf"
+
     />

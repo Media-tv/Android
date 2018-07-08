@@ -34,7 +34,7 @@ import java.util.List;
 public class SettingFragment extends Fragment {
     Context mContext;
     public static final String TAG_SETTING_FRAGMENT = "TAG_SETTING_FRAGMENT";
-    Spinner spinner_quality;
+    Spinner spinner_quality,spinner_quality_download;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class SettingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
         mContext = this.getContext();
         spinner_quality = view.findViewById(R.id.spinner_quality);
+        spinner_quality_download = view.findViewById(R.id.spinner_quality_download);
 
 
         setspinner();
@@ -51,11 +52,13 @@ public class SettingFragment extends Fragment {
     }
 
     private void setspinner() {
-        List<String> quality = new ArrayList<>();
-        quality.add("Low");
-        quality.add("Medium");
-        quality.add("High");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item_layout_dark, quality);
+        List<String> quality_stream = new ArrayList<>();
+        quality_stream.add("Automatic");
+        quality_stream.add("Low");
+        quality_stream.add("Normal");
+        quality_stream.add("High");
+        quality_stream.add("Very High");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item_layout_dark, quality_stream);
         spinner_quality.setAdapter(adapter);
         spinner_quality.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -68,6 +71,28 @@ public class SettingFragment extends Fragment {
             }
 
         });
+
+
+//===================================
+        List<String> quality_down = new ArrayList<>();
+        quality_down.add("Normal");
+        quality_down.add("High");
+        quality_down.add("Very High");
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(mContext, R.layout.spinner_item_layout_dark, quality_down);
+        spinner_quality_download.setAdapter(adapter2);
+        spinner_quality_download.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+
+        });
+
     }
 
 

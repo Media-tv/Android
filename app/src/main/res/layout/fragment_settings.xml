@@ -21,15 +21,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="General Settings"
-            android:textColor="#696969"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            fontPath="fonts/brownregular.ttf"
+            android:textSize="18sp"
             />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="10dp"
+            android:visibility="visible"
             >
 
             <LinearLayout
@@ -74,6 +78,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="10dp"
+            android:visibility="visible"
             >
 
             <LinearLayout
@@ -117,6 +122,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="10dp"
+            android:visibility="visible"
             >
 
             <LinearLayout
@@ -155,12 +161,12 @@
                 android:layout_gravity="center"
                 android:layout_weight="0.5"/>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="10dp"
+            android:visibility="visible"
             >
 
             <LinearLayout
@@ -204,6 +210,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="10dp"
+            android:visibility="visible"
             >
 
             <LinearLayout
@@ -243,11 +250,15 @@
                 android:layout_weight="0.5"/>
         </LinearLayout>
 
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="10dp"
+            android:visibility="visible"
             >
 
             <LinearLayout
@@ -286,12 +297,12 @@
                 android:layout_gravity="center"
                 android:layout_weight="0.5"/>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="10dp"
+            android:visibility="visible"
             >
 
             <LinearLayout
@@ -335,7 +346,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="10dp"
-            android:visibility="gone"
+            android:visibility="visible"
             >
 
             <LinearLayout
@@ -364,13 +375,58 @@
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Social"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            fontPath="fonts/brownregular.ttf"
+            android:textSize="20sp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Private Session"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Choose a Private Session if you don't want to share what you're listing to. Each Session lasts until you've been inactive for 6 hours."
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="10dp"
-            android:visibility="gone"
+            android:visibility="visible"
             >
 
             <LinearLayout
@@ -409,6 +465,18 @@
                 android:layout_gravity="center"
                 android:layout_weight="0.5"/>
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Streaming Quality"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            fontPath="fonts/brownregular.ttf"
+            android:textSize="20sp"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -439,14 +507,15 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:text="Higher quality uses more data"
+                    android:text="Higher quality uses more data."
                     android:textSize="14sp" />
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="50dp"
+                android:layout_weight="1.5"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:orientation="horizontal">
 
@@ -468,6 +537,409 @@
 
             </RelativeLayout>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Download"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Higher quality uses more Disk space."
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinner_quality_download"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/if_arrow_down" />
+
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Downloading using cellular"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Recomming Setting: Off"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/sbddsdfdsffsdfs"
+                android:layout_width="0dp"
+                android:theme="@style/SwitchButtonStyle"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Equalizer"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Open the equalizer control panel"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/sbfgdfsrersdfdsffsdfs"
+                android:layout_width="0dp"
+                android:theme="@style/SwitchButtonStyle"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Advertisements"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            fontPath="fonts/brownregular.ttf"
+            android:textSize="20sp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Plex Ad  Partner Preference"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Control how ads are targeted to me based on information gathered from advertising partners."
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="About"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            fontPath="fonts/brownregular.ttf"
+            android:textSize="20sp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                android:alpha="0.5"
+                >
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Version"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="8.4.61.683 armV7"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Third-party software"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Sweet software that helped us"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Terms and Conditions"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="All the stuff you need to know."
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Privacy Policy"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Important for both of us."
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Support"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Get help from us and the community."
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         <RelativeLayout
@@ -591,8 +1063,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:textColor="@color/white"
