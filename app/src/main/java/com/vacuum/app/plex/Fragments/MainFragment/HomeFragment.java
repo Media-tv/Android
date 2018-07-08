@@ -134,6 +134,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private void Ads(View v) {
         //adView = view.findViewById(R.id.adView);
         View adContainer = v.findViewById(R.id.adMobView);
+       // Log.e("TAG :BANNERhomefragment",ADMOB_PLEX_BANNER_1);
 
         AdView mAdView = new AdView(mContext);
         mAdView.setAdSize(AdSize.SMART_BANNER);

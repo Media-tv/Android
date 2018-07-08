@@ -452,9 +452,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void get_API_keys() {
 
         prefs = getSharedPreferences("Plex", Activity.MODE_PRIVATE);
-        String TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
+        String ADMOB_PLEX_BANNER_1 = prefs.getString("ADMOB_PLEX_BANNER_1",null);
 
-        if(TMBDB_API_KEY != null){
+        if(ADMOB_PLEX_BANNER_1 != null){
             loadHomeFragment();
         }else {
             apiService =
@@ -473,7 +473,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     editor.putString("ADMOB_PLEX_BANNER_2", response.body().getADMOBPLEXBANNER2());
                     editor.putString("ADMOB_PLEX_REWARDED_1", response.body().getADMOBPLEXREWARDED1());
                     editor.commit();
-                    //Log.e("TAG :INTERSTITIAL",response.body().getADMOBPLEXINTERSTITIAL1());
+                    //Log.e("TAG :BANNER_1", response.body().getADMOBPLEXBANNER1());
                     loadHomeFragment();
                 }
 
@@ -483,8 +483,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.e("TAG : onFailure", t.toString());
                 }
             });
-        }
 
+        }
     }
 
 

@@ -2,6 +2,7 @@ package com.vacuum.app.plex.Utility;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -11,6 +12,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Button;
@@ -46,16 +48,17 @@ public class SingleShotLocationProvider {
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
-                Log.e("TAG Location", "need permssion" );
+                Log.e("TAG Location", "need permssion");
 
                 return;
             }
+
             locationManager.requestSingleUpdate(criteria, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
                     callback.onNewLocationAvailable(new GPSCoordinates(location.getLatitude(), location.getLongitude()));
-                    Log.e("TAG :getLatitude", String.valueOf(location.getLatitude()));
-                    Log.e("TAG :getLongitude", String.valueOf(location.getLongitude()));
+                    Log.e("TAG :", String.valueOf(location.getLatitude()));
+                    Log.e("TAG :", String.valueOf(location.getLongitude()));
                 }
 
                 @Override
@@ -73,14 +76,14 @@ public class SingleShotLocationProvider {
         } else {
             Log.e("TAG", "GPSmethod" );
             boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-
-
             if (isGPSEnabled) {
                 Log.e("TAG", "GPSEnabled" );
                 determine_location.setTextColor(Color.BLACK);
                 determine_location.setText("determining...");
-                Location  gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                callback.onNewLocationAvailable(new GPSCoordinates(gps_loc.getLatitude(), gps_loc.getLongitude()));
+                //Location  gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                //callback.onNewLocationAvailable(new GPSCoordinates(gps_loc.getLatitude(), gps_loc.getLongitude()));
+
+
                 Criteria criteria = new Criteria();
                 criteria.setAccuracy(Criteria.ACCURACY_FINE);
                 locationManager.requestSingleUpdate(criteria, new LocationListener() {

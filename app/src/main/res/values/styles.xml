@@ -9,23 +9,26 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-
-
     </style>
 
+    <style name="SwitchButtonStyle" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/lightYellow</item>
+        <item name="android:track">@color/lightYellow</item>
 
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">#fff</item>
+
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">#fff</item>
+
+    </style>
 
 
 
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/duskYellow</item>
         <item name="colorControlActivated">@color/duskYellow</item>
-    </style>
-    <style name="SwitchButtonStyle">
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
     </style>
 
 

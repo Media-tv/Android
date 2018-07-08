@@ -3,14 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:scrollbarThumbVertical="@color/grey"
+    android:scrollbarSize="3dp"
+    android:background="@color/colorPrimaryDark"
+    >
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         tools:ignore="MissingPrefix"
         android:gravity="center"
-        android:layout_marginBottom="60dp"
-        android:background="#e2e2e2"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
@@ -21,89 +25,462 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             />
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#fff"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_margin="10dp"
             >
 
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Large"
-                fontPath="fonts/airbnb.ttf"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:text="Cache Files"
-                android:textSize="16sp" />
-            <com.kyleduo.switchbutton.SwitchButton
-                android:id="@+id/sb_default_measure1"
-                android:layout_width="80dp"
-                android:layout_centerVertical="true"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:layout_margin="5dp"
-                android:layout_alignParentRight="true"
-                />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="228dp"
-                android:background="#fff"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="350dp"
-                    android:layout_height="1dp"
-                    android:layout_centerHorizontal="true"
-                    android:background="#c6c6c6" />
-
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
                 <TextView
-                    style="@style/Base.TextAppearance.AppCompat.Large"
-                    fontPath="fonts/oswaldlight.ttf"
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:text="Offline Mode" />
-
-                <com.kyleduo.switchbutton.SwitchButton
-                    android:id="@+id/sb_default_measure6"
-                    android:layout_width="80dp"
-                    android:layout_margin="5dp"
+                    android:text="Crossfade"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Allows you to crossfade between songs"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/sb_default_measure6"
+                android:layout_width="0dp"
+                android:theme="@style/SwitchButtonStyle"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Gapless"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Allows gapless playback"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/sb_defaulsdfs"
+                android:layout_width="0dp"
+                android:theme="@style/SwitchButtonStyle"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Allow Explicit Content"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Allows playback of explicit-rated content"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/sb_defaulsdsdfsdfs"
+                android:layout_width="0dp"
+                android:theme="@style/SwitchButtonStyle"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Normalize volume"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Set the same volume level for all traacks."
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/sb_defausdfsdfs"
+                android:layout_width="0dp"
+                android:theme="@style/SwitchButtonStyle"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Device Broadcast Status"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Allow other apps on your device to see what you are watching to."
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/sb_defausdfhddfsdfs"
+                android:layout_width="0dp"
+                android:theme="@style/SwitchButtonStyle"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="AutoPlay"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Keep on watching to similar movies when your movie ends."
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/sb_desdffausdfhddfsdfs"
+                android:layout_width="0dp"
+                android:theme="@style/SwitchButtonStyle"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Stranger Things Mode"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Turn Stranger Things mode on/off"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/sbddfsdfs"
+                android:layout_width="0dp"
+                android:theme="@style/SwitchButtonStyle"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Connect to smart TV"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="watch to movies/TV series and control Plex on your device."
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Waze Navigation"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Enable the Waze integration"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/sbddsdffsdfs"
+                android:layout_width="0dp"
+                android:theme="@style/SwitchButtonStyle"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:textColor="@color/white"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Streaming"
+                    android:textSize="18sp" />
+                <TextView
+                    android:textColor="#a0ffffff"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Higher quality uses more data"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinner_quality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:background="#ffffff" />
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/if_arrow_down" />
 
             </RelativeLayout>
-
-        </RelativeLayout>
+        </LinearLayout>
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:orientation="horizontal"
             android:id="@+id/Language"
             >
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#c6c6c6"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_centerHorizontal="true"
-                />
+
 
             <TextView
-                style="@style/Base.TextAppearance.AppCompat.Large"
-                fontPath="fonts/airbnb.ttf"
+                android:textColor="@color/white"
+                fontPath="fonts/brownregular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -124,35 +501,25 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:orientation="horizontal"
             >
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#c6c6c6"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                />
 
             <TextView
-                style="@style/Base.TextAppearance.AppCompat.Large"
-                fontPath="fonts/airbnb.ttf"
+                android:textColor="@color/white"
+                fontPath="fonts/brownregular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:text="open links with chrome"
                 android:textSize="16sp" />
-            <com.kyleduo.switchbutton.SwitchButton
+            <Switch
                 android:id="@+id/sb_default_measure3"
-                style="@style/SwitchButtonStyle"
+                android:theme="@style/SwitchButtonStyle"
                 android:layout_width="80dp"
                 android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:layout_margin="5dp"
+                android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
                 />
 
@@ -161,22 +528,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:orientation="horizontal"
             android:id="@+id/Themes"
             >
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#c6c6c6"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_centerHorizontal="true"
-                />
 
             <TextView
-                style="@style/Base.TextAppearance.AppCompat.Large"
-                fontPath="fonts/airbnb.ttf"
+                android:textColor="@color/white"
+                fontPath="fonts/brownregular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -189,7 +547,8 @@
                 app:srcCompat="@drawable/if_arrow_right_01_186409"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp" />
+                android:layout_marginRight="10dp"
+                />
 
         </RelativeLayout>
 
@@ -204,27 +563,26 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:orientation="horizontal"
             >
 
             <TextView
-                style="@style/Base.TextAppearance.AppCompat.Large"
-                fontPath="fonts/airbnb.ttf"
+                android:textColor="@color/white"
+                fontPath="fonts/brownregular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:text="Use Cellular Data"
                 android:textSize="16sp" />
-            <com.kyleduo.switchbutton.SwitchButton
+            <Switch
                 android:id="@+id/sb_default_measure4"
-                style="@style/SwitchButtonStyle"
+                android:theme="@style/SwitchButtonStyle"
                 android:layout_width="80dp"
-                android:layout_margin="5dp"
+                android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
+                android:checked="false"
                 android:layout_alignParentRight="true"
                 />
 
@@ -233,35 +591,25 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:orientation="horizontal"
             >
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#c6c6c6"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                />
 
             <TextView
-                style="@style/Base.TextAppearance.AppCompat.Large"
-                fontPath="fonts/airbnb.ttf"
+                android:textColor="@color/white"
+                fontPath="fonts/brownregular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:text="Enable Auto Download"
                 android:textSize="16sp" />
-            <com.kyleduo.switchbutton.SwitchButton
+            <Switch
                 android:id="@+id/sb_default_measure5"
-                style="@style/SwitchButtonStyle"
+                android:theme="@style/SwitchButtonStyle"
                 android:layout_width="80dp"
                 android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:layout_margin="5dp"
+                android:layout_marginRight="10dp"
                 android:checked="true"
                 android:layout_alignParentRight="true"
                 />
@@ -279,27 +627,25 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:orientation="horizontal"
             >
 
             <TextView
-                style="@style/Base.TextAppearance.AppCompat.Large"
-                fontPath="fonts/airbnb.ttf"
+                android:textColor="@color/white"
+                fontPath="fonts/brownregular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:text="Push notifications"
                 android:textSize="16sp" />
-            <com.kyleduo.switchbutton.SwitchButton
+            <Switch
                 android:id="@+id/sb_default_measure7"
-                style="@style/SwitchButtonStyle"
+                android:theme="@style/SwitchButtonStyle"
                 android:layout_width="80dp"
                 android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:layout_margin="5dp"
+                android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
                 />
 
@@ -308,35 +654,26 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:orientation="horizontal"
             >
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#c6c6c6"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:text="Sound"
-                fontPath="fonts/airbnb.ttf"
+                fontPath="fonts/brownregular.ttf"
                 android:textSize="16sp"
-                style="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="@color/white"
                 />
-            <com.kyleduo.switchbutton.SwitchButton
+            <Switch
                 android:id="@+id/sb_default_measure8"
-                style="@style/SwitchButtonStyle"
+                android:theme="@style/SwitchButtonStyle"
                 android:layout_width="80dp"
                 android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:layout_margin="5dp"
+                android:layout_marginRight="10dp"
                 android:checked="true"
                 android:layout_alignParentRight="true"
                 />
@@ -356,20 +693,18 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:orientation="horizontal"
-            android:id="@+id/terms"
-            >
+            android:id="@+id/terms">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:text="Terms_Conditions_title"
-                fontPath="fonts/airbnb.ttf"
+                android:text="Terms Conditions title"
+                fontPath="fonts/brownregular.ttf"
                 android:textSize="16sp"
-                style="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="@color/white"
                 />
             <ImageView
                 android:layout_width="wrap_content"
@@ -377,25 +712,16 @@
                 app:srcCompat="@drawable/if_arrow_right_01_186409"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="10dp"
                 />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:orientation="horizontal"
             android:id="@+id/policy"
             >
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#c6c6c6"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -403,24 +729,22 @@
                 android:layout_marginLeft="10dp"
                 android:textSize="16sp"
                 android:text="@string/privacy_policy"
-                fontPath="fonts/airbnb.ttf"
-                style="@style/Base.TextAppearance.AppCompat.Large"
+                fontPath="fonts/brownregular.ttf"
+                android:textColor="@color/white"
                 />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/if_arrow_right_01_186409"
-                style="@style/SwitchButtonStyle"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="10dp"
                 />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:layout_marginTop="30dp"
             android:orientation="horizontal"
             >
@@ -431,9 +755,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:text="version"
-                fontPath="fonts/airbnb.ttf"
+                fontPath="fonts/brownregular.ttf"
                 android:textSize="16sp"
-                style="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="@color/white"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -441,8 +765,8 @@
                 android:layout_centerVertical="true"
                 android:textColor="#c6c6c6"
                 android:textSize="16sp"
-                android:text="1.12"
-                fontPath="fonts/airbnb.ttf"
+                android:text="3.4.4"
+                fontPath="fonts/brownregular.ttf"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
                 />
@@ -451,26 +775,17 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:orientation="horizontal"
             >
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#c6c6c6"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:text="Bulid number"
-                fontPath="fonts/airbnb.ttf"
+                android:textColor="@color/white"
+                fontPath="fonts/brownregular.ttf"
                 android:textSize="16sp"
-                style="@style/Base.TextAppearance.AppCompat.Large"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -478,7 +793,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="#c6c6c6"
                 android:textSize="16sp"
-                fontPath="fonts/airbnb.ttf"
+                fontPath="fonts/brownregular.ttf"
                 android:text="(16062601)"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
@@ -489,24 +804,22 @@
             android:layout_height="50dip"
             android:text="Clear Cache"
             android:id="@+id/clearcach"
-            android:drawableTint="@color/white"
             app:srcCompat="@drawable/if_basket_1814090"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:paddingLeft="10dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/white"
             android:layout_margin="5dp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textColor="#a9a9a9"
+            android:textColor="@color/white"
             android:textSize="12sp"
-            fontPath="fonts/airbnb.ttf"
+            fontPath="fonts/brownregular.ttf"
             android:text="copyright to vacuum,Inc 2017"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="10dp"
             />
 
     </LinearLayout>
