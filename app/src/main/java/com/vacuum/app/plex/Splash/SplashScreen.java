@@ -11,20 +11,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.R;
-import com.vacuum.app.plex.Utility.ApiClient;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.vacuum.app.plex.Splash.HomeSplashFragment.HOME_SPLASH_FRAGMENT_TAG;
-import static com.vacuum.app.plex.Splash.LoginFragment.LOGIN_FRAGMENT_TAG;
 
 
 public class SplashScreen extends AppCompatActivity {
@@ -32,6 +29,8 @@ public class SplashScreen extends AppCompatActivity {
     public static final String MY_PREFS_NAME = "Plex";
     Context mContext;
     public  SharedPreferences prefs;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +52,9 @@ public class SplashScreen extends AppCompatActivity {
                 .setFontAttrId(R.attr.fontPath)
                 .build());
         remmber_me();
-        home_splash_fragment();
+        if (savedInstanceState == null){
+            home_splash_fragment();
+        }
     }
 
     private void remmber_me() {
@@ -63,8 +64,6 @@ public class SplashScreen extends AppCompatActivity {
             Intent i = new Intent(mContext, MainActivity.class);
             startActivity(i);
             finish();
-        }else {
-            home_splash_fragment();
         }
     }
 
@@ -80,6 +79,5 @@ public class SplashScreen extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
 
 }
