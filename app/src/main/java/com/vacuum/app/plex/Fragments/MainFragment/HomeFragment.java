@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -175,9 +176,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                     .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                 @Override
                 public void onSliderClick(BaseSliderView slider) {
-                    title = s.getTitle();
-                    file_id = s.getFile_id();
-                    new GetOpenload(mContext,file_id,title);
+
+                    //===============================================
+                    String word = "/f/";
+                    //String url_example = "https://openload.co/f/d_px1L4xJV0";
+                    String URL = s.getFile_id();
+                    int index = URL.lastIndexOf(word); //19
+                    if(index == -1){
+                            /*String intArray[] = {s.getFile_id(),title,s.getPosterPath()};
+                            Intent inent = new Intent(mContext, WatchActivity.class);
+                            inent.putExtra("url", intArray);
+                            mContext.startActivity(inent);*/
+
+                            //String stream = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
+                            intent.setDataAndType(Uri.parse(URL), "video/*");
+                            startActivity(intent);
+                    }else {
+                        title = s.getTitle();
+                        file_id = s.getFile_id();
+                        String NEW_URL = file_id.substring(index+3,file_id.length());
+                        Log.e("TAG","index==" + index);
+                        Log.e("TAG","getfileid" + s.getFile_id());
+                        Log.e("TAG","NEW_URL" + NEW_URL);
+
+                        new GetOpenload(mContext,NEW_URL,title);
+                    }
+
                 }
             });
             mDemoSlider.addSlider(textSliderView);
