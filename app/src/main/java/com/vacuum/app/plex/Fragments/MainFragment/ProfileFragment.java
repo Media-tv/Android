@@ -22,6 +22,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.vacuum.app.plex.Fragments.EditProfile_Fragment;
 import com.vacuum.app.plex.Fragments.SettingFragment;
 import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.R;
@@ -41,7 +42,7 @@ import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
  */
 
 public class ProfileFragment extends Fragment implements View.OnClickListener, RewardedVideoAdListener {
-    LinearLayout layout_settings,layout_logout,layout1_editprofile,layout2_payment,layout_close_account;
+    LinearLayout layout_settings,layout1_editprofile,layout2_payment,layout_close_account;
     Button more_points;
     Context mContext;
     TextView points;
@@ -56,7 +57,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
         layout_settings = view.findViewById(R.id.layout_settings);
-        layout_logout = view.findViewById(R.id.layout_logout);
         layout1_editprofile = view.findViewById(R.id.layout1_editprofile);
         layout2_payment = view.findViewById(R.id.layout2_payment);
         layout_close_account = view.findViewById(R.id.layout_close_account);
@@ -74,7 +74,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
 
         layout_settings.setOnClickListener(this);
         more_points.setOnClickListener(this);
-        layout_logout.setOnClickListener(this);
         layout1_editprofile.setOnClickListener(this);
         layout2_payment.setOnClickListener(this);
         layout_close_account.setOnClickListener(this);
@@ -112,14 +111,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                     Toast.makeText(mContext, "Not loaded yet!", Toast.LENGTH_SHORT).show();
                 }
                 break;
-                case R.id.layout_logout:
-                    SharedPreferences preferences = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-                    preferences.edit().remove("email").commit();
-                    startActivity(new Intent(mContext, SplashScreen.class));
-                    break;
             case R.id.layout1_editprofile:
-                //switchfragment(new EditProfile_Fragment(),EDITPORFILE_FRAGMENT_TAG);
-                //break;
+                switchfragment(new EditProfile_Fragment(),EDITPORFILE_FRAGMENT_TAG);
+                break;
             case R.id.layout2_payment:
             case R.id.layout_close_account:
                 Toast.makeText(mContext, "Go Premium!", Toast.LENGTH_SHORT).show();

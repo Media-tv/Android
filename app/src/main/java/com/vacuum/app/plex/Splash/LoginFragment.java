@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -137,6 +138,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private void login() {
         String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
 
+        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(mContext.INPUT_METHOD_SERVICE);
+        if (imm.isActive()){
+            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0); // hide
+        }
+
         login_btn.setText("logging in...");
         error_message.setVisibility(View.GONE);
         //===============================================================================
@@ -153,6 +159,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     User u = response.body();
                         Toast.makeText(mContext,"Hello, "+u.getFullName(), Toast.LENGTH_SHORT).show();
                         SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                        editor.putString("full_name",u.getFullName());
                         editor.putString("email",u.getEmail());
                         editor.putString("password",u.getPassword());
                         editor.putString("phone",u.getPhone());

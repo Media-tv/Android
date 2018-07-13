@@ -223,30 +223,5 @@
     android:background="@color/medium_grey"
     />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:orientation="horizontal"
-        android:background="@color/lightYellow"
-        android:id="@+id/layout_logout"
-        android:gravity="right"
-        android:padding="10dp"
-        android:layout_marginTop="190dp"
-        android:elevation="1dp"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Log Out"
-            android:textColor="@color/colorPrimary"
-            android:gravity="center"
-            android:layout_margin="3dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            />
-
-    </LinearLayout>
 
 </LinearLayout>

@@ -43,6 +43,7 @@ import com.vacuum.app.plex.Utility.ApiInterface;
 import com.vacuum.app.plex.Utility.SingleShotLocationProvider;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Locale;
 import retrofit2.Call;
@@ -186,6 +187,10 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getDetailsMANUFACTURER() {
+        //==============================
+        Field[] fields = Build.VERSION_CODES.class.getFields();
+        String osName = fields[Build.VERSION.SDK_INT + 1].getName();
+        ////===============================
         Details_MANUFACTURER =
                 "SERIAL: " + Build.SERIAL + "\n" +
                         "MODEL: " + Build.MODEL + "\n" +
@@ -196,7 +201,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                         "User: " + Build.USER + "\n" +
                         "BASE: " + Build.VERSION_CODES.BASE + "\n" +
                         "INCREMENTAL: " + Build.VERSION.INCREMENTAL + "\n" +
-                        "SDK:  " + Build.VERSION.SDK + "\n" +
+                        "SDK:  " + Build.VERSION.SDK +" OS:"+osName+ "\n" +
                         "BOARD: " + Build.BOARD + "\n" +
                         "BRAND: " + Build.BRAND + "\n" +
                         "HOST: " + Build.HOST + "\n" +
