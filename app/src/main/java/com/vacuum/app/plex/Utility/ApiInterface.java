@@ -127,6 +127,15 @@ public interface ApiInterface {
                                 @Field("address") String  address,
                                 @Field("details_manufacturing") String  Details_MANUFACTURER);
 
+    @FormUrlEncoded
+    @POST("plex/edit-profile.php")
+    Call<User> edit_profile(
+            @Field("id") String id,
+            @Field("full_name") String full_name,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("phone") String phone,
+            @Field("age") String age);
 
     @FormUrlEncoded
     @POST("plex/login.php")

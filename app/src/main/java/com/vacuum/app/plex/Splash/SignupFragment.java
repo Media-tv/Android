@@ -256,14 +256,16 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                 if (response.isSuccessful()) {
                     User u = response.body();
                     SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-                    editor.putString("full_name", full_name.getText().toString());
-                    editor.putString("email", email.getText().toString());
-                    editor.putString("password", password.getText().toString());
-                    editor.putString("phone", phone.getText().toString());
-                    editor.putInt("points", u.getPoints());
-                    editor.putString("age", age);
-                    editor.putString("loation", location);
-                    editor.putString("address", address);
+                    editor.putString("id",u.getId());
+                    editor.putString("full_name",u.getFullName());
+                    editor.putString("email",u.getEmail());
+                    editor.putString("password",u.getPassword());
+                    editor.putString("phone",u.getPhone());
+                    editor.putString("address",u.getAddress());
+                    editor.putInt("points",u.getPoints());
+                    editor.putString("age",u.getAge());
+                    editor.putString("location",u.getLocation());
+                    editor.putString("created",u.getCreated());
                     editor.apply();
                     skipSplash();
                     Toast.makeText(mContext, "Hi, " + full_name.getText().toString(), Toast.LENGTH_SHORT).show();

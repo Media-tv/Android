@@ -50,14 +50,14 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
 
     public final static String EDITPORFILE_FRAGMENT_TAG = "EDITPORFILE_FRAGMENT_TAG";
     private EditText full_name, email, password, phone;
-    Button buttonRegister, determine_location, Date_of_Birth;
+    Button buttonRegister,  Date_of_Birth;
     Context mContext;
     static final Integer LOCATION = 0x1;
     String age, location, address;
     AnimationDrawable anim;
-    String Details_MANUFACTURER;
-    LottieAnimationView animation_view_fullname, animation_view_birth, animation_view_email, animation_view_password, animation_view_phone, animation_view_location;
-
+    LottieAnimationView animation_view_fullname, animation_view_birth, animation_view_email,
+            animation_view_password, animation_view_phone;
+    SharedPreferences prefs;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,32 +72,35 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
         animation_view_email = view.findViewById(R.id.animation_view_email);
         animation_view_password = view.findViewById(R.id.animation_view_password);
         animation_view_phone = view.findViewById(R.id.animation_view_phone);
-        animation_view_location = view.findViewById(R.id.animation_view_location);
+       // animation_view_location = view.findViewById(R.id.animation_view_location);
         animation_view_birth = view.findViewById(R.id.animation_view_birth);
 
 
         buttonRegister = view.findViewById(R.id.buttonRegister);
-        determine_location = view.findViewById(R.id.determine_location);
+        //determine_location = view.findViewById(R.id.determine_location);
         Date_of_Birth = view.findViewById(R.id.Date_of_Birth);
 
         buttonRegister.setOnClickListener(this);
-        determine_location.setOnClickListener(this);
+        //determine_location.setOnClickListener(this);
         Date_of_Birth.setOnClickListener(this);
 
+        prefs = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+
+
+
         filled_field();
-        getDetailsMANUFACTURER();
         validateFields2();
         return view;
     }
 
     private void filled_field() {
-        SharedPreferences prefs = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+
         full_name.setText(prefs.getString("full_name",""));
         email.setText(prefs.getString("email",""));
         password.setText(prefs.getString("password",""));
         phone.setText(prefs.getString("phone",""));
         Date_of_Birth.setText(prefs.getString("age",""));
-
+        age = prefs.getString("age","");
     }
 
     private void validateFields2() {
@@ -179,27 +182,6 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
         });
     }
 
-    private void getDetailsMANUFACTURER() {
-        Details_MANUFACTURER =
-                "SERIAL: " + Build.SERIAL + "\n" +
-                        "MODEL: " + Build.MODEL + "\n" +
-                        "ID: " + Build.ID + "\n" +
-                        "Manufacture: " + Build.MANUFACTURER + "\n" +
-                        "Brand: " + Build.BRAND + "\n" +
-                        "Type: " + Build.TYPE + "\n" +
-                        "User: " + Build.USER + "\n" +
-                        "BASE: " + Build.VERSION_CODES.BASE + "\n" +
-                        "INCREMENTAL: " + Build.VERSION.INCREMENTAL + "\n" +
-                        "SDK:  " + Build.VERSION.SDK + "\n" +
-                        "BOARD: " + Build.BOARD + "\n" +
-                        "BRAND: " + Build.BRAND + "\n" +
-                        "HOST: " + Build.HOST + "\n" +
-                        "FINGERPRINT: " + Build.FINGERPRINT + "\n" +
-                        "Version Code: " + Build.VERSION.RELEASE +
-                        "Display : " + Build.DISPLAY;
-        Log.e("TAG", Details_MANUFACTURER);
-    }
-
     public void showDatePicker() {
         DatePickerDialog cc = new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, dateSetListener, 1990,
                 1, 1);
@@ -216,19 +198,17 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
                 }
             };
 
-    private void insertUser() {
+    private void UpdateUser() {
         String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
         ApiInterface api = ApiClient.getClient(mContext, ROOT_URL).create(ApiInterface.class);
-        api.registration(
+
+        api.edit_profile(
+                prefs.getString("id",""),
                 full_name.getText().toString(),
                 email.getText().toString(),
                 password.getText().toString(),
                 phone.getText().toString(),
-                2000,
-                age,
-                location,
-                address,
-                Details_MANUFACTURER
+                age
         ).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -245,16 +225,12 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
                     editor.putString("address", address);
                     editor.apply();
                     skipSplash();
-                    Toast.makeText(mContext, "hi, " + full_name.getText().toString(), Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(mContext, "Successful , " + full_name.getText().toString(), Toast.LENGTH_SHORT).show();
                 }
-
-
             }
-
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(mContext, "unable to register", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "unable to Edit Profile", Toast.LENGTH_SHORT).show();
                 Log.e("TAG", t.toString());
             }
         });
@@ -270,13 +246,8 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
             password.setError("Empty Field");
         } else if (phone.getText().length() <= 4) {
             phone.setError("Error");
-        } else if (location == null) {
-            Toast.makeText(mContext, "Determine location", Toast.LENGTH_SHORT).show();
-            determine_location.setTextColor(Color.RED);
-        } else {
-            //insertUser();
-            Toast.makeText(mContext, "Done", Toast.LENGTH_SHORT).show();
-
+        }  else {
+            UpdateUser();
         }
     }
 
@@ -284,68 +255,16 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonRegister:
-                validateFields();
-                break;
-            case R.id.determine_location:
-                determine_location.setTextColor(Color.BLACK);
-                determine_location.setText("Determining...");
-                askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, LOCATION);
-                break;
-            case R.id.Date_of_Birth:
-                showDatePicker();
+                    validateFields();
+                    break;
+                case R.id.Date_of_Birth:
+                    showDatePicker();
                 break;
         }
     }
 
 
-    private void askForPermission(String permission, Integer requestCode) {
-        if (ContextCompat.checkSelfPermission(mContext, permission) != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(), permission)) {
-
-                //This is called if user has denied the permission before
-                //In this case I am just asking the permission again
-                ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
-
-            } else {
-                ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
-            }
-        } else {
-            getGPS();
-        }
-    }
-
-    public void getGPS() {
-        // when you need location
-        // if inside activity context = this;
-        SingleShotLocationProvider.requestSingleUpdate(mContext,determine_location,
-                new SingleShotLocationProvider.LocationCallback() {
-                    @Override
-                    public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location1) {
-                        Log.e("TAG Location", "my location is " + location1.latitude + "//////" + location1.longitude);
-                        try {
-                            Geocoder geo = new Geocoder(mContext, Locale.getDefault());
-                            List<Address> addresses = geo.getFromLocation(location1.latitude, location1.longitude, 1);
-                            if (addresses.isEmpty()) {
-                            } else {
-                                if (addresses.size() > 0) {
-                                    Log.e("TAG", addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName());
-                                    location = location1.latitude + "," + location1.longitude;
-                                    address = addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName();
-                                    age = "YYYY/MM/DD";
-                                    determine_location.setText("Determine Location");
-                                    animation_view_location.setVisibility(View.VISIBLE);
-                                    animation_view_location.setAnimation(R.raw.success);
-                                    animation_view_location.playAnimation();
-                                }
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
 
 
     private void skipSplash() {

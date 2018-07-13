@@ -159,12 +159,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     User u = response.body();
                         Toast.makeText(mContext,"Hello, "+u.getFullName(), Toast.LENGTH_SHORT).show();
                         SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                        editor.putString("id",u.getId());
                         editor.putString("full_name",u.getFullName());
                         editor.putString("email",u.getEmail());
                         editor.putString("password",u.getPassword());
                         editor.putString("phone",u.getPhone());
                         editor.putString("address",u.getAddress());
                         editor.putInt("points",u.getPoints());
+                        editor.putString("age",u.getAge());
+                        editor.putString("location",u.getLocation());
+                        editor.putString("created",u.getCreated());
+
                         editor.apply();
                         skipSplash();
 
