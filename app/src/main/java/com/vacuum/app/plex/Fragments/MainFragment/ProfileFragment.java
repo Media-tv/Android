@@ -27,6 +27,7 @@ import com.vacuum.app.plex.Fragments.SettingFragment;
 import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.R;
 import com.vacuum.app.plex.Splash.SplashScreen;
+import com.vacuum.app.plex.Utility.CollapsingImageLayout;
 import com.vacuum.app.plex.Utility.SingleShotLocationProvider;
 
 import java.util.List;
@@ -42,7 +43,7 @@ import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
  */
 
 public class ProfileFragment extends Fragment implements View.OnClickListener, RewardedVideoAdListener {
-    LinearLayout layout_settings,layout1_editprofile,layout2_payment,layout_close_account;
+    LinearLayout layout_settings,layout2_payment;
     Button more_points;
     Context mContext;
     TextView points;
@@ -50,6 +51,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     SharedPreferences prefs;
     String ADMOB_PLEX_REWARDED_1;
 
+    CollapsingImageLayout layout1_editprofile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +61,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         layout_settings = view.findViewById(R.id.layout_settings);
         layout1_editprofile = view.findViewById(R.id.layout1_editprofile);
         layout2_payment = view.findViewById(R.id.layout2_payment);
-        layout_close_account = view.findViewById(R.id.layout_close_account);
 
         more_points = view.findViewById(R.id.more_points);
         points = view.findViewById(R.id.points);
@@ -76,7 +77,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         more_points.setOnClickListener(this);
         layout1_editprofile.setOnClickListener(this);
         layout2_payment.setOnClickListener(this);
-        layout_close_account.setOnClickListener(this);
 
 
         // Use an activity context to get the rewarded video instance.
@@ -115,7 +115,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                 switchfragment(new EditProfile_Fragment(),EDITPORFILE_FRAGMENT_TAG);
                 break;
             case R.id.layout2_payment:
-            case R.id.layout_close_account:
                 Toast.makeText(mContext, "Go Premium!", Toast.LENGTH_SHORT).show();
                 break;
 

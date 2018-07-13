@@ -300,7 +300,6 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
             Date_of_Birth.setTextColor(Color.RED);
         } else {
             insertUser();
-
         }
     }
 
