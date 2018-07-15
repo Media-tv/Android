@@ -39,7 +39,7 @@
         </activity>
 
 
-        <activity android:name=".Fragments.AboutUsActivity"/>
+        <activity android:name=".Fragments.AboutFragment"/>
         <activity
             android:name=".Activities.WatchActivity"
             android:screenOrientation="landscape"

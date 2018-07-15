@@ -296,12 +296,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             });
 
         }else {
-            update_btn.setOnClickListener(new View.OnClickListener() {
+            dialog.cancel();
+
+            /*update_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialog.cancel();
                 }
-            });
+            });*/
         }
     }
 

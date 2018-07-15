@@ -1,16 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/colorPrimaryDark"
     tools:context="com.vacuum.app.plex.Fragments.MainFragment.ProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/layout_logo"
+        android:gravity="center"
+        android:layout_margin="0dp"
+        android:alpha="0.2"
+        android:layout_gravity="bottom"        >
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:srcCompat="@drawable/logo"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Plex Media"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            fontPath="fonts/brownregular.ttf"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/Plex_Media"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:textSize="12sp"
+            fontPath="fonts/brownregular.ttf"
+            />
+    </LinearLayout>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme">
 
@@ -18,6 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:minHeight="108dp"
+            android:layout_marginBottom="10dp"
             android:fitsSystemWindows="true"
             android:clickable="true"
             android:id="@+id/layout1_editprofile"
@@ -71,13 +113,90 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
             android:visibility="visible"
             app:layout_scrollFlags="scroll|enterAlways"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:orientation="vertical">
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:orientation="horizontal"
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/layout_history"
+                android:gravity="right"
+                android:padding="10dp"
+                android:clickable="true"
+                android:foreground="@drawable/ripple_effect"
+                >
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:srcCompat="@drawable/if_interface_4_history_3027531"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="History"
+                    fontPath="fonts/brownregular.ttf"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/medium_grey"
+                android:alpha="0.2"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:orientation="horizontal"
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/layout_favourites"
+                android:gravity="right"
+                android:padding="10dp"
+                android:clickable="true"
+                android:foreground="@drawable/ripple_effect"
+                >
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:srcCompat="@drawable/if_heart_119_111093"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Favourites"
+                    fontPath="fonts/brownregular.ttf"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/medium_grey"
+                android:alpha="0.2"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
@@ -86,6 +205,8 @@
                 android:id="@+id/layout2_payment"
                 android:gravity="right"
                 android:padding="10dp"
+                android:clickable="true"
+                android:foreground="@drawable/ripple_effect"
                 >
                 <ImageView
                     android:layout_width="32dp"
@@ -100,9 +221,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="payment"
+                    fontPath="fonts/brownregular.ttf"
                     android:textSize="18sp"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
-                    android:layout_margin="3dp"
                     android:textColor="@color/white"
                     />
                 <ImageView
@@ -115,8 +237,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:background="@color/medium_grey"
+                android:alpha="0.2"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,6 +249,7 @@
                 android:id="@+id/layout3_points"
                 android:gravity="right"
                 android:padding="10dp"
+
                 >
                 <ImageView
                     android:layout_width="32dp"
@@ -141,10 +265,10 @@
                     android:text="2598 points"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:layout_marginLeft="5dp"
+                    fontPath="fonts/brownregular.ttf"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:id="@+id/points"
-                    />
+                    android:id="@+id/points" />
 
                 <Button
                     android:layout_width="0dp"
@@ -165,10 +289,98 @@
             </LinearLayout>
 
 
+
+
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:background="@color/medium_grey"
+                android:alpha="0.5"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:orientation="horizontal"
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/layout_redeem"
+                android:gravity="right"
+                android:padding="10dp"
+                android:clickable="true"
+                android:foreground="@drawable/ripple_effect"
+                >
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:srcCompat="@drawable/if_ic_redeem_48px_352437"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Redeem"
+                    android:textColor="@color/white"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="18sp"
+                    fontPath="fonts/brownregular.ttf"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/medium_grey"
+                android:alpha="0.2"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:orientation="horizontal"
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/layout_share"
+                android:gravity="right"
+                android:padding="10dp"
+                android:clickable="true"
+                android:foreground="@drawable/ripple_effect"
+                >
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:srcCompat="@drawable/if_share4_216719"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Share Plex Media"
+                    fontPath="fonts/brownregular.ttf"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/Plex_Media"
+                    android:textColor="@color/white"
+                    android:gravity="center_vertical"
+                    android:textSize="12sp"
+                    fontPath="fonts/brownregular.ttf"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="@color/medium_grey"
+                android:alpha="0.2"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -178,6 +390,8 @@
                 android:id="@+id/layout_settings"
                 android:gravity="right"
                 android:padding="10dp"
+                android:clickable="true"
+                android:foreground="@drawable/ripple_effect"
                 >
                 <ImageView
                     android:layout_width="32dp"
@@ -194,8 +408,9 @@
                     android:text="Settings"
                     android:textColor="@color/white"
                     android:gravity="center_vertical"
-                    android:layout_margin="3dp"
+                    android:layout_marginLeft="10dp"
                     android:textSize="18sp"
+                    fontPath="fonts/brownregular.ttf"
                     />
                 <ImageView
                     android:layout_width="26dp"
@@ -207,6 +422,43 @@
 
 
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/medium_grey"
+                android:alpha="0.2"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:orientation="horizontal"
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/layout_about"
+                android:gravity="right"
+                android:padding="10dp"
+                android:clickable="true"
+                android:foreground="@drawable/ripple_effect"
+                >
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:srcCompat="@drawable/if_artboard_3_3030711"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="About"
+                    android:textColor="@color/white"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="18sp"
+                    fontPath="fonts/brownregular.ttf"
+                    />
+            </LinearLayout>
 
         </LinearLayout>
 
