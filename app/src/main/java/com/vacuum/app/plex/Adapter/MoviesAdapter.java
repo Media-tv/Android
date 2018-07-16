@@ -1,22 +1,11 @@
 package com.vacuum.app.plex.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,39 +16,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DecodeFormat;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
-import com.vacuum.app.plex.Activities.WatchActivity;
 import com.vacuum.app.plex.Fragments.DetailsMovie_Fragment;
 import com.vacuum.app.plex.Fragments.DetailsTV_Fragment;
 import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.Model.Movie;
 import com.vacuum.app.plex.R;
-import com.vacuum.app.plex.Utility.ApiInterface;
 import com.vacuum.app.plex.Utility.DownloadImage;
-import com.vacuum.app.plex.Utility.RequestMovie;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
-import java.util.Random;
 
 import me.samthompson.bubbleactions.BubbleActions;
 import me.samthompson.bubbleactions.Callback;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.vacuum.app.plex.Fragments.MainFragment.HomeFragment.mInterstitialAd;
 

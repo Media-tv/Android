@@ -97,8 +97,9 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("plex/request.php")
-    Call<ResponseBody> requestMovie(@Field("movie_id") String movie_id,
-                                   @Field("title") String title);
+    Call<ResponseBody> requestMovie(@Field("user") String movie_id,
+                                    @Field("title") String title,
+                                    @Field("description") String description);
 
     @FormUrlEncoded
     @POST("plex/addmovie.php")

@@ -24,6 +24,7 @@ import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.vacuum.app.plex.Fragments.AboutFragment;
 import com.vacuum.app.plex.Fragments.EditProfile_Fragment;
+import com.vacuum.app.plex.Fragments.RequestFragment;
 import com.vacuum.app.plex.Fragments.SettingFragment;
 import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.R;
@@ -37,6 +38,7 @@ import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static com.vacuum.app.plex.Fragments.AboutFragment.TAG_ABOUT_FRAGMENT;
 import static com.vacuum.app.plex.Fragments.EditProfile_Fragment.EDITPORFILE_FRAGMENT_TAG;
+import static com.vacuum.app.plex.Fragments.RequestFragment.TAG_REQUEST_FRAGMENT;
 import static com.vacuum.app.plex.Fragments.SettingFragment.TAG_SETTING_FRAGMENT;
 import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
 
@@ -45,7 +47,7 @@ import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
  */
 
 public class ProfileFragment extends Fragment implements View.OnClickListener, RewardedVideoAdListener {
-    LinearLayout layout_settings,layout2_payment,layout_about,layout_share;
+    LinearLayout layout_settings,layout2_payment,layout_about,layout_share,layout_request;
     Button more_points;
     Context mContext;
     TextView points;
@@ -65,6 +67,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         layout2_payment = view.findViewById(R.id.layout2_payment);
         layout_about = view.findViewById(R.id.layout_about);
         layout_share = view.findViewById(R.id.layout_share);
+        layout_request = view.findViewById(R.id.layout_request);
 
         more_points = view.findViewById(R.id.more_points);
         points = view.findViewById(R.id.points);
@@ -83,6 +86,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         layout2_payment.setOnClickListener(this);
         layout_about.setOnClickListener(this);
         layout_share.setOnClickListener(this);
+        layout_request.setOnClickListener(this);
 
 
         // Use an activity context to get the rewarded video instance.
@@ -134,7 +138,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
                 break;
-
+            case R.id.layout_request:
+                switchfragment(new RequestFragment(),TAG_REQUEST_FRAGMENT);
+                break;
             default:
         }
     }
@@ -160,45 +166,25 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     public void onRewardedVideoStarted() {
 
     }
-
     @Override
     public void onRewardedVideoAdClosed() {
         loadRewardedVideoAd();
     }
-
-
-
     @Override
     public void onRewarded(RewardItem rewardItem) {
 
     }
-
     @Override
-    public void onRewardedVideoAdLeftApplication() {
-
-    }
-
+    public void onRewardedVideoAdLeftApplication() {   }
     @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {
-
-    }
-
-
+    public void onRewardedVideoAdFailedToLoad(int i) {    }
     @Override
-    public void onResume() {
-        mRewardedVideoAd.resume(mContext);
-        super.onResume();
-    }
-
+    public void onResume() {        mRewardedVideoAd.resume(mContext);
+        super.onResume(); }
     @Override
-    public void onPause() {
-        mRewardedVideoAd.pause(mContext);
-        super.onPause();
-    }
-
+    public void onPause() {        mRewardedVideoAd.pause(mContext);
+        super.onPause(); }
     @Override
-    public void onDestroy() {
-        mRewardedVideoAd.destroy(mContext);
-        super.onDestroy();
-    }
+    public void onDestroy() {        mRewardedVideoAd.destroy(mContext);
+        super.onDestroy(); }
 }

@@ -95,7 +95,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
         holder.download_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "go Premium!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Go Premium!", Toast.LENGTH_SHORT).show();
             }
         });
         //onClick

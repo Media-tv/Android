@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
+    android:padding="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Movie Title"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="5dp"
+        fontPath="fonts/brownregular.ttf" />
+    <EditText
+        android:id="@+id/Request_title"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="50dp"
+        android:focusedByDefault="true"
+        fontPath="fonts/brownregular.ttf"
+        android:background="@drawable/rounded_edittext"
+        android:imeOptions="actionNext"
+        android:backgroundTint="@color/white"
+        android:hint="The Lord of the Rings: 2002"
+        android:inputType="text"
+        android:textColor="@color/black" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Description"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginBottom="5dp"
+        fontPath="fonts/brownregular.ttf" />
+    <EditText
+        android:id="@+id/Request_description"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="50dp"
+        android:focusedByDefault="true"
+        fontPath="fonts/brownregular.ttf"
+        android:background="@drawable/rounded_edittext"
+        android:imeOptions="actionNext"
+        android:backgroundTint="@color/white"
+        android:hint="The sequel to the Golden Globe-nominated and AFI Award-winning The Lord of the Rings: The Fellowship of the Ring,The Two Towers follows the continuing quest of Frodo (Elijah Wood) and the Fellowship to destroy the One Ring. Frodo and Sam (Sean Astin) discover they are being followed by the mysterious Gollum. Aragorn (Viggo Mortensen), the Elf archer Legolas and Gimli the Dwarf encounter the besieged Rohan kingdom, whose once great King Theoden has fallen under Saruman's deadly spell."
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="6"
+        android:gravity="top|left"
+        android:maxLines="20"
+        android:textSize="16sp"
+        android:scrollbars="vertical"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/Request_btn"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="30dp"
+        fontPath="fonts/brownregular.ttf"
+        android:background="@drawable/rounded_edittext"
+        android:text="Request"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="18sp"
+            android:id="@+id/request_done"
+            fontPath="fonts/brownregular.ttf"
+            android:textColor="@color/white"
+            />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view_request"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:elevation="2dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

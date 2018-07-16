@@ -9,7 +9,7 @@
     android:background="@color/colorPrimaryDark"
     tools:context="com.vacuum.app.plex.Fragments.MainFragment.ProfileFragment">
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:orientation="horizontal"
@@ -46,7 +46,7 @@
             android:textSize="12sp"
             fontPath="fonts/brownregular.ttf"
             />
-    </LinearLayout>
+    </LinearLayout>-->
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -156,7 +156,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/medium_grey"
+                android:background="@color/white"
                 android:alpha="0.2"
                 />
             <LinearLayout
@@ -194,7 +194,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/medium_grey"
+                android:background="@color/white"
                 android:alpha="0.2"
                 />
             <LinearLayout
@@ -238,7 +238,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/medium_grey"
+                android:background="@color/white"
                 android:alpha="0.2"
                 />
             <LinearLayout
@@ -295,7 +295,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/medium_grey"
+                android:background="@color/white"
                 android:alpha="0.5"
                 />
             <LinearLayout
@@ -333,7 +333,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/medium_grey"
+                android:background="@color/white"
                 android:alpha="0.2"
                 />
             <LinearLayout
@@ -379,7 +379,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.2dp"
-                android:background="@color/medium_grey"
+                android:background="@color/white"
                 android:alpha="0.2"
                 />
             <LinearLayout
@@ -420,14 +420,49 @@
                     />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/white"
+                android:alpha="0.2"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:orientation="horizontal"
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/layout_request"
+                android:gravity="right"
+                android:padding="10dp"
+                android:clickable="true"
+                android:foreground="@drawable/ripple_effect"
+                >
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:srcCompat="@drawable/if_server_298866"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Request Movie!"
+                    android:textColor="@color/white"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="18sp"
+                    fontPath="fonts/brownregular.ttf"
+                    />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/medium_grey"
-                android:alpha="0.2"
-                />
+                android:background="@color/white"
+                android:alpha="0.2"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
