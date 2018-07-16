@@ -47,7 +47,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
         TextView Title;
         TextView year,overview;
 
-        ImageView thumbnail,tv,play_eposides;
+        ImageView thumbnail,tv,play_eposides,download_icon;
         ProgressBar progresssbar_watch_eposides;
 
 
@@ -59,6 +59,8 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
             thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
             tv = (ImageView) v.findViewById(R.id.tv);
             play_eposides = (ImageView) v.findViewById(R.id.play_eposides);
+            download_icon = (ImageView) v.findViewById(R.id.download_icon);
+
             progresssbar_watch_eposides = v.findViewById(R.id.progresssbar_watch_eposides);
 
 
@@ -90,6 +92,12 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
         holder.overview.setText(episode.getOverview());
         Glide.with(mContext).load("http://image.tmdb.org/t/p/w300" + episode.getStillPath()).into(holder.thumbnail);
 
+        holder.download_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "go Premium!", Toast.LENGTH_SHORT).show();
+            }
+        });
         //onClick
         //==================================================================
 

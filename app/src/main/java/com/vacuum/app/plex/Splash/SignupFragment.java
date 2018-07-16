@@ -321,6 +321,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
     private void askForPermission(String permission, Integer requestCode) {
         if (ContextCompat.checkSelfPermission(mContext, permission) != PackageManager.PERMISSION_GRANTED) {
+            Log.e("TAG", "checkSelfPermission");
+
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(), permission)) {
                 //This is called if user has denied the permission before
@@ -328,14 +330,13 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                 ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
 
             } else {
-                ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
                 determine_location.setTextColor(Color.RED);
                 determine_location.setText("Need Permission!");
+                ActivityCompat.requestPermissions(this.getActivity(), new String[]{permission}, requestCode);
             }
         } else {
              determine_location.setTextColor(Color.BLACK);
              determine_location.setText("determining...");
-
         }
         Log.e("TAG", "getGPS");
         getGPS();

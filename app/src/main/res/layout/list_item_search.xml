@@ -122,7 +122,7 @@
                     android:layout_height="20dp"
                     android:layout_weight="1"
                     android:id="@+id/download_icon"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     app:srcCompat="@drawable/if_download_1031520"
                     />
             </LinearLayout>

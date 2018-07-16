@@ -60,15 +60,12 @@ public class SingleShotLocationProvider {
                     Log.e("TAG :", String.valueOf(location.getLatitude()));
                     Log.e("TAG :", String.valueOf(location.getLongitude()));
                 }
-
                 @Override
                 public void onStatusChanged(String provider, int status, Bundle extras) {
                 }
-
                 @Override
                 public void onProviderEnabled(String provider) {
                 }
-
                 @Override
                 public void onProviderDisabled(String provider) {
                 }
@@ -83,20 +80,21 @@ public class SingleShotLocationProvider {
                 //Location  gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 //callback.onNewLocationAvailable(new GPSCoordinates(gps_loc.getLatitude(), gps_loc.getLongitude()));
 
-
                 Criteria criteria = new Criteria();
                 criteria.setAccuracy(Criteria.ACCURACY_FINE);
-                locationManager.requestSingleUpdate(criteria, new LocationListener() {
-                    @Override
-                    public void onLocationChanged(Location location) {
-                        Log.e("TAG", "onLocationChanged" );
-                        callback.onNewLocationAvailable(new GPSCoordinates(location.getLatitude(), location.getLongitude()));
-                    }
+                try {
+                    locationManager.requestSingleUpdate(criteria, new LocationListener() {
+                        @Override
+                        public void onLocationChanged(Location location) {
+                            Log.e("TAG", "onLocationChanged" );
+                            callback.onNewLocationAvailable(new GPSCoordinates(location.getLatitude(), location.getLongitude()));
+                        }
 
-                    @Override public void onStatusChanged(String provider, int status, Bundle extras) { }
-                    @Override public void onProviderEnabled(String provider) { }
-                    @Override public void onProviderDisabled(String provider) { }
-                }, null);
+                        @Override public void onStatusChanged(String provider, int status, Bundle extras) { }
+                        @Override public void onProviderEnabled(String provider) { }
+                        @Override public void onProviderDisabled(String provider) { }
+                    }, null);
+                } catch (SecurityException e ) { e.printStackTrace(); }
             }else {
                 determine_location.setText("Enable GPS!");
                 determine_location.setTextColor(Color.RED);
