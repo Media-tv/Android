@@ -95,13 +95,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         loadRewardedVideoAd();
         //prefs = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         int points_value = prefs.getInt("points",0);
-        if (points_value < 3000)
+        if (points_value <= 1000)
             {
                 points.setText(String.valueOf(points_value) + " points");
                 points.setTextColor(Color.RED);
             }else
             {
                 points.setText(String.valueOf(points_value) + " points");
+                points.setTextColor(Color.WHITE);
             }
         return view;
     }
@@ -169,6 +170,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     @Override
     public void onRewardedVideoAdClosed() {
         loadRewardedVideoAd();
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putInt("points",(prefs.getInt("points",0)+500));
+        editor.apply();
+
     }
     @Override
     public void onRewarded(RewardItem rewardItem) {

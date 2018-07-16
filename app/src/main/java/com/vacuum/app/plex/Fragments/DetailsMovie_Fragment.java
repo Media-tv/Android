@@ -48,6 +48,7 @@ import com.vacuum.app.plex.Model.Movie;
 import com.vacuum.app.plex.Model.MovieDetails;
 import com.vacuum.app.plex.Model.Trailer;
 import com.vacuum.app.plex.Model.TrailerResponse;
+import com.vacuum.app.plex.Model.User;
 import com.vacuum.app.plex.R;
 import com.vacuum.app.plex.Utility.ApiClient;
 import com.vacuum.app.plex.Utility.ApiInterface;
@@ -60,7 +61,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
 
 /**
  * Created by Home on 3/3/2018.
@@ -80,14 +83,13 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     LinearLayout trailer_layout,actors_layout,crew_layout,image_layout;
     RatingBar ratingBar;
     ImageView like,watch;
-    int x;
+    int x,points;
     Movie movie;
     Handler mHandler;
     Runnable myRunnable;
     ApiInterface apiService;
-    String TMBDB_API_KEY,ADMOB_PLEX_BANNER_1,ADMOB_PLEX_BANNER_2;
-    AdView adView;
-
+    String TMBDB_API_KEY,ADMOB_PLEX_BANNER_2,user_id;
+    Boolean enough_points = true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -132,6 +134,8 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
         TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
         ADMOB_PLEX_BANNER_2 = prefs.getString("ADMOB_PLEX_BANNER_2",null);
+        user_id = prefs.getString("id",null);
+        points = prefs.getInt("points",0);
 
 
         movie = (Movie)getArguments().getSerializable("movie");
@@ -157,6 +161,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                     .load(cover_string_link)
                     .transition(withCrossFade())
                     .into(cover);
+            calculate_points(Integer.parseInt(movie.getReleaseDate().substring(0, 4)));
         }catch (Exception e){
             Log.i("TAG :",e.toString());
         }
@@ -164,6 +169,15 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         Ads(view);
         return view;
     }
+
+    private void calculate_points(int year) {
+       if (year == 2018 &&points>=500) { points = points-500; enough_points=true;}
+        else if (year < 2018 &&year>=2012 &&points>=300) { points = points-300;enough_points=true; }
+       else if (year < 2012 &&year>=2000&&points>=200) { points = points-200;enough_points=true; }
+       else if (year < 2000&&points>=100) { points = points-100;enough_points=true; }
+       else {enough_points=false; }
+    }
+
     private void analistcs() {
         FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
         mFirebaseAnalytics.setCurrentScreen(getActivity(), "DetailsMovie_Fragment", null );
@@ -397,9 +411,42 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                 }
                     break;
             case  R.id.watch:
-                retrofit_getfile_openload_id();
+                points();
+                if(enough_points == true){
+                    retrofit_getfile_openload_id();
+                    progresssbar_watch.setVisibility(View.VISIBLE);
+                    watch.setVisibility(View.GONE);
+                }else {
+                    progresssbar_watch.setVisibility(View.GONE);
+                    watch.setVisibility(View.VISIBLE);
+                    Toast.makeText(mContext, "No Points", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
         }
+    }
+
+    private void points() {
+        String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
+
+        apiService =ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
+        Log.e("TAG :points",String.valueOf(points));
+        Call<User> call_details = apiService.points(user_id,String.valueOf(points));
+        call_details.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User m = response.body();
+                SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putInt("points",m.getPoints());
+                editor.apply();
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e("TAG", t.toString());
+            }
+        });
     }
 
     private void notRobotCapcha() {
@@ -437,8 +484,8 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     }
 
     private void retrofit_getfile_openload_id() {
-        progresssbar_watch.setVisibility(View.VISIBLE);
-        watch.setVisibility(View.GONE);
+
+
 
         String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
 
@@ -450,7 +497,6 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                 String m = response.body();
                 if(m == null){
                     notRobotCapcha();
-
                     //===============================================
                 }else {
                     new GetOpenload(mContext,m.toString(),movie.getOriginalTitle());

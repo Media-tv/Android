@@ -145,7 +145,12 @@ public interface ApiInterface {
             @Field("password") String password
     );
 
-
+    @FormUrlEncoded
+    @POST("plex/points.php")
+    Call<User> points(
+            @Field("id") String id,
+            @Field("points") String points
+    );
 
     @GET("plex/update.php")
     Call<Update> getUpdateVersion();
