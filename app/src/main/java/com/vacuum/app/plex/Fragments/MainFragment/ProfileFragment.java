@@ -1,6 +1,7 @@
 package com.vacuum.app.plex.Fragments.MainFragment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,10 +10,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,14 +31,15 @@ import com.vacuum.app.plex.Fragments.EditProfile_Fragment;
 import com.vacuum.app.plex.Fragments.RequestFragment;
 import com.vacuum.app.plex.Fragments.SettingFragment;
 import com.vacuum.app.plex.MainActivity;
+import com.vacuum.app.plex.Model.User;
 import com.vacuum.app.plex.R;
-import com.vacuum.app.plex.Splash.SplashScreen;
-import com.vacuum.app.plex.Utility.CollapsingImageLayout;
-import com.vacuum.app.plex.Utility.SingleShotLocationProvider;
+import com.vacuum.app.plex.Utility.ApiClient;
+import com.vacuum.app.plex.Utility.ApiInterface;
 
-import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static com.vacuum.app.plex.Fragments.AboutFragment.TAG_ABOUT_FRAGMENT;
 import static com.vacuum.app.plex.Fragments.EditProfile_Fragment.EDITPORFILE_FRAGMENT_TAG;
@@ -47,15 +52,14 @@ import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
  */
 
 public class ProfileFragment extends Fragment implements View.OnClickListener, RewardedVideoAdListener {
-    LinearLayout layout_settings,layout2_payment,layout_about,layout_share,layout_request;
+    LinearLayout layout_settings,layout2_payment,layout_about,layout_share,layout_request,layout_redeem,layout1_editprofile;
     Button more_points;
     Context mContext;
-    TextView points;
+    TextView points_textview;
     RewardedVideoAd mRewardedVideoAd;
     SharedPreferences prefs;
-    String ADMOB_PLEX_REWARDED_1;
-
-    CollapsingImageLayout layout1_editprofile;
+    String ADMOB_PLEX_REWARDED_1,user_id;
+    Dialog dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,9 +72,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         layout_about = view.findViewById(R.id.layout_about);
         layout_share = view.findViewById(R.id.layout_share);
         layout_request = view.findViewById(R.id.layout_request);
+        layout_redeem = view.findViewById(R.id.layout_redeem);
 
         more_points = view.findViewById(R.id.more_points);
-        points = view.findViewById(R.id.points);
+        points_textview = view.findViewById(R.id.points);
 
         mContext = this.getActivity();
 
@@ -78,6 +83,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
 
         prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
         ADMOB_PLEX_REWARDED_1 = prefs.getString("ADMOB_PLEX_REWARDED_1",null);
+        user_id = prefs.getString("id",null);
 
 
         layout_settings.setOnClickListener(this);
@@ -87,6 +93,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         layout_about.setOnClickListener(this);
         layout_share.setOnClickListener(this);
         layout_request.setOnClickListener(this);
+        layout_redeem.setOnClickListener(this);
 
 
         // Use an activity context to get the rewarded video instance.
@@ -97,20 +104,40 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         int points_value = prefs.getInt("points",0);
         if (points_value <= 1000)
             {
-                points.setText(String.valueOf(points_value) + " points");
-                points.setTextColor(Color.RED);
+                points_textview.setText(String.valueOf(points_value) + " points");
+                points_textview.setTextColor(Color.RED);
             }else
             {
-                points.setText(String.valueOf(points_value) + " points");
-                points.setTextColor(Color.WHITE);
+                points_textview.setText(String.valueOf(points_value) + " points");
+                points_textview.setTextColor(Color.WHITE);
             }
+            get_points();
         return view;
+    }
+
+    private void get_points() {
+        String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
+
+        ApiInterface apiService = ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
+        Call<User> call_details = apiService.get_points(user_id);
+        call_details.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User m = response.body();
+                SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putInt("points",m.getPoints());
+                editor.apply();
+            }
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e("TAG", t.toString());
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
             case R.id.layout_settings:
                 switchfragment(new SettingFragment(),TAG_SETTING_FRAGMENT);
                 break;
@@ -142,9 +169,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
             case R.id.layout_request:
                 switchfragment(new RequestFragment(),TAG_REQUEST_FRAGMENT);
                 break;
+            case R.id.layout_redeem:
+                alert_dialog();
+                break;
+
             default:
         }
     }
+
+
 
     private void switchfragment(Fragment fragment,String TAG) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -168,17 +201,31 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
 
     }
     @Override
-    public void onRewardedVideoAdClosed() {
-        loadRewardedVideoAd();
-        SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putInt("points",(prefs.getInt("points",0)+500));
-        editor.apply();
+    public void onRewardedVideoAdClosed() { loadRewardedVideoAd(); }
 
+    private void update_points(int points) {
+        String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
+
+        ApiInterface apiService = ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
+        Log.e("TAG :points",String.valueOf(points));
+        Call<User> call_details = apiService.points(user_id,String.valueOf(points));
+        call_details.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User m = response.body();
+                SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putInt("points",m.getPoints());
+                editor.apply();
+            }
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e("TAG", t.toString());
+            }
+        });
     }
     @Override
     public void onRewarded(RewardItem rewardItem) {
-
-    }
+        update_points(prefs.getInt("points",0)+500); }
     @Override
     public void onRewardedVideoAdLeftApplication() {   }
     @Override
@@ -192,4 +239,43 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     @Override
     public void onDestroy() {        mRewardedVideoAd.destroy(mContext);
         super.onDestroy(); }
+
+    private void alert_dialog() {
+        dialog = new Dialog(mContext);
+        dialog.setContentView(R.layout.redeem_layout);
+        dialog.setTitle("Test Capcha");
+        final EditText captcha_edit_text= dialog.findViewById(R.id.captcha_edit_text);
+        captcha_edit_text.requestFocus();
+
+        Button okButton =  dialog.findViewById(R.id.OKButton);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Redeem(captcha_edit_text.getText().toString());
+                InputMethodManager inputMethodManager =(InputMethodManager)getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(captcha_edit_text.getWindowToken(), 0);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void Redeem(String redeem) {
+        String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
+        ApiInterface apiService = ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
+        Call<User> call_details = apiService.redeem(user_id,redeem);
+        call_details.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User m = response.body();
+                SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putInt("points",m.getPoints());
+                editor.apply();
+            }
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e("TAG", t.toString());
+            }
+        });
+
+    }
 }

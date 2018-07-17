@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_margin="20dp"
+        android:gravity="left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:text="Redeem your code"
+        fontPath="fonts/brownregular.ttf"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/captcha_edit_text"
+        android:inputType="textVisiblePassword"
+        android:hint="Enter code"
+        android:textColorHint="@color/duskYellow"
+        android:textColorHighlight="@color/duskYellow"
+        android:textColorLink="@color/duskYellow"
+        fontPath="fonts/brownregular.ttf"
+        />
+    <TextView
+        android:gravity="left"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="By clicking Redeem, you agree to the Gift Card &amp; Promotional Code Terms and Conditions as applicable."
+        fontPath="fonts/brownregular.ttf"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:id="@+id/layout_logo"
+            android:layout_margin="0dp"
+            android:alpha="0.2">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Plex Media"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                fontPath="fonts/brownregular.ttf"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/Plex_Media"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                fontPath="fonts/brownregular.ttf"
+                />
+
+        </LinearLayout>
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:id="@+id/OKButton"
+            android:textSize="12sp"
+            android:layout_margin="5dp"
+            android:layout_gravity="right"
+            android:text="Redeem"
+            android:elevation="0dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/oval"
+            android:textColor="@color/black"
+            fontPath="fonts/brownregular.ttf"
+            />
+    </RelativeLayout>
+
+</LinearLayout>
