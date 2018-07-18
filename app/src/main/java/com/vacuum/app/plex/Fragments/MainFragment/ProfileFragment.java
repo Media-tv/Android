@@ -64,6 +64,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     SharedPreferences prefs;
     String ADMOB_PLEX_REWARDED_1,user_id;
     Dialog dialog;
+    static int points_value;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,7 +106,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         mRewardedVideoAd.setRewardedVideoAdListener(this);
         loadRewardedVideoAd();
         //prefs = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        int points_value = prefs.getInt("points",0);
+        points_value = prefs.getInt("points",0);
         if (points_value <= 1000)
             {
                 points_textview.setText(String.valueOf(points_value) + " points");
@@ -271,7 +272,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                     redeem_Button.setEnabled(true);
                     redeem_Button.setAlpha(1);
                 }
-
             }
         });
         redeem_Button.setOnClickListener(new View.OnClickListener() {
@@ -307,7 +307,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                     inputMethodManager.hideSoftInputFromWindow(captcha_edit_text.getWindowToken(), 0);
                     redeem_edit_layout.setVisibility(View.GONE);
                     balance.setVisibility(View.VISIBLE);
+                    balance.setText("$"+(m.getPoints()-points_value)+".00 is added. \n Your new balance is $"+String.valueOf(m.getPoints())+".00");
                     redeem_Button.setText("Confirm");
+                    redeem_Button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) { dialog.dismiss();
+                        }
+                    });
                 }catch (Exception e){  }
             }
             @Override
