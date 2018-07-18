@@ -274,32 +274,32 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         });
         redeem_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Redeem(captcha_edit_text.getText().toString(),error_redeem);
-                InputMethodManager inputMethodManager =(InputMethodManager)getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(captcha_edit_text.getWindowToken(), 0);
-                dialog.dismiss();
-            }
+                Redeem(captcha_edit_text.getText().toString(),error_redeem,captcha_edit_text);
+                }
         });
         dialog.show();
     }
 
-    private void Redeem(String redeem, final TextView error_redeem) {
+    private void Redeem(String redeem, final TextView error_redeem, final EditText captcha_edit_text) {
         String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
         ApiInterface apiService = ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
         Call<User> call_details = apiService.redeem(user_id,redeem);
         call_details.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if(response.isSuccessful()) {
+                try {
                     User m = response.body();
                     SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putInt("points", m.getPoints());
                     editor.apply();
-                }else{ error_redeem.setVisibility(View.VISIBLE); }
+                    InputMethodManager inputMethodManager =(InputMethodManager)getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(captcha_edit_text.getWindowToken(), 0);
+                }catch (Exception e){  }
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                error_redeem.setVisibility(View.VISIBLE);
             }
         });
 
