@@ -171,10 +171,10 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     }
 
     private void calculate_points(int year) {
-       if (year == 2018 &&points>=500) { points = points-500; enough_points=true;}
-        else if (year < 2018 &&year>=2012 &&points>=300) { points = points-300;enough_points=true; }
-       else if (year < 2012 &&year>=2000&&points>=200) { points = points-200;enough_points=true; }
-       else if (year < 2000&&points>=100) { points = points-100;enough_points=true; }
+       if (year == 2018 &&points>=25) { points = points-25; enough_points=true;}
+        else if (year < 2018 &&year>=2012 &&points>=20) { points = points-20;enough_points=true; }
+       else if (year < 2012 &&year>=2000&&points>=15) { points = points-15;enough_points=true; }
+       else if (year < 2000&&points>=10) { points = points-10;enough_points=true; }
        else {enough_points=false; }
     }
 

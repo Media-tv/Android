@@ -110,7 +110,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
 
     private void update_points_value() {
         points_value = prefs.getInt("points",0);
-        if (points_value <= 1000)
+        if (points_value <= 10)
         {
             points_textview.setText("$"+String.valueOf(points_value));
             points_textview.setTextColor(Color.RED);
