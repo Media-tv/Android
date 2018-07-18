@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -245,10 +247,29 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         dialog.setContentView(R.layout.redeem_layout);
         dialog.setTitle("Test Capcha");
         final EditText captcha_edit_text= dialog.findViewById(R.id.captcha_edit_text);
-        captcha_edit_text.requestFocus();
+        final Button redeem_Button =  dialog.findViewById(R.id.redeem_Button);
 
-        Button okButton =  dialog.findViewById(R.id.OKButton);
-        okButton.setOnClickListener(new View.OnClickListener() {
+        captcha_edit_text.requestFocus();
+        captcha_edit_text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length() == 0) {
+                    redeem_Button.setEnabled(false);
+                    redeem_Button.setAlpha(0.2f);
+                }else {
+                    redeem_Button.setEnabled(true);
+                    redeem_Button.setAlpha(1);
+                }
+
+            }
+        });
+        redeem_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Redeem(captcha_edit_text.getText().toString());
                 InputMethodManager inputMethodManager =(InputMethodManager)getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);

@@ -8,7 +8,6 @@
 
 
     <TextView
-        android:layout_margin="20dp"
         android:gravity="left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,15 +16,22 @@
         android:text="Redeem your code"
         fontPath="fonts/brownregular.ttf"
         />
+    <TextView
+        android:gravity="left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/grey"
+        android:text="ebrahim131@gmail.com"
+        fontPath="fonts/brownregular.ttf"
+        />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/captcha_edit_text"
         android:inputType="textVisiblePassword"
         android:hint="Enter code"
-        android:textColorHint="@color/duskYellow"
-        android:textColorHighlight="@color/duskYellow"
-        android:textColorLink="@color/duskYellow"
         fontPath="fonts/brownregular.ttf"
         />
     <TextView
@@ -54,7 +60,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Plex Media"
+                android:text="PlexMedia"
                 android:textColor="@color/black"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="10dp"
@@ -77,12 +83,14 @@
         <Button
             android:layout_width="80dp"
             android:layout_height="30dp"
-            android:id="@+id/OKButton"
+            android:id="@+id/redeem_Button"
             android:textSize="12sp"
             android:layout_margin="5dp"
             android:layout_gravity="right"
             android:text="Redeem"
             android:elevation="0dp"
+            android:enabled="false"
+            android:alpha="0.2"
             android:layout_alignParentRight="true"
             android:background="@drawable/oval"
             android:textColor="@color/black"
