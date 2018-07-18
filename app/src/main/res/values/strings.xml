@@ -54,7 +54,7 @@
     <string name="Login_policy">By continuing , you agree to accept our .<u>policy.</u></string>
     <string name="Plex_Media">&#174;</string>
 
-    <string name="redeem"><u>By clicking Redeem, you agree to the Gift Card &amp; Promotional Code <i>Terms and Conditions</i> as applicable.</u></string>
+    <string name="redeem"><i>By clicking Redeem, you agree to the Gift Card &amp; Promotional Code<font color='#01C6DB'><u>Terms and Conditions</u></font> as applicable.</i></string>
 
 
 

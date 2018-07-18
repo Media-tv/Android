@@ -34,8 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:textStyle="italic"
-        android:text="By clicking Redeem, you agree to the Gift Card &amp; Promotional Code Terms and Conditions as applicable."
+        android:text="@string/redeem"
         fontPath="fonts/brownregular.ttf"
         />
 
