@@ -283,7 +283,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     //downlaoding();
                     String title ="PlexMedia-"+versionName+"-armV7.apk" ;
                     new DownloadFile(mContext,link,title);
-
                 }
             });
         } if(versioncode == 0){
