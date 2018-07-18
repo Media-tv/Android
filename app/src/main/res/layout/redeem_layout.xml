@@ -8,53 +8,71 @@
 
 
     <TextView
-        android:gravity="left"
-        android:layout_width="match_parent"
+        android:id="@+id/balance"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:textColor="@color/black"
-        android:text="Redeem your code"
-        fontPath="fonts/brownregular.ttf"
-        />
-    <TextView
-        android:gravity="left"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/grey"
-        android:text="ebrahim131@gmail.com"
-        fontPath="fonts/brownregular.ttf"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/captcha_edit_text"
-        android:inputType="textVisiblePassword"
-        android:hint="Enter code"
-        fontPath="fonts/brownregular.ttf"
-        />
-    <TextView
-        android:gravity="left"
-        android:layout_marginTop="0dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="10sp"
-        android:id="@+id/error_redeem"
-        android:textColor="@color/red"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:visibility="gone"
-        android:text="the code is incorrect or invalid. Please try again."
-        fontPath="fonts/brownregular.ttf"
-        />
-    <TextView
-        android:gravity="left"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:text="$10.00 is added. \n Your new balance is $30.12"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="10sp"
-        android:text="@string/redeem"
-        fontPath="fonts/brownregular.ttf"
-        />
+        android:visibility="gone"
+        android:id="@+id/redeem_edit_layout"
+        android:orientation="vertical">
+        <TextView
+            android:gravity="left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:text="Redeem your code"
+            fontPath="fonts/brownregular.ttf"
+            />
+        <TextView
+            android:gravity="left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/grey"
+            android:text="ebrahim131@gmail.com"
+            fontPath="fonts/brownregular.ttf"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/captcha_edit_text"
+            android:inputType="textVisiblePassword"
+            android:hint="Enter code"
+            fontPath="fonts/brownregular.ttf"
+            />
+        <TextView
+            android:gravity="left"
+            android:layout_marginTop="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:id="@+id/error_redeem"
+            android:textColor="@color/red"
+            android:visibility="gone"
+            android:text="the code is incorrect or invalid. Please try again."
+            fontPath="fonts/brownregular.ttf"
+            />
+        <TextView
+            android:gravity="left"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="@string/redeem"
+            fontPath="fonts/brownregular.ttf"
+            />
+
+    </LinearLayout>
 
 
     <RelativeLayout

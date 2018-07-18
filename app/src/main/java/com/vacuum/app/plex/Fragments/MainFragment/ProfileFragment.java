@@ -251,6 +251,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         final EditText captcha_edit_text= dialog.findViewById(R.id.captcha_edit_text);
         final Button redeem_Button =  dialog.findViewById(R.id.redeem_Button);
         final TextView error_redeem= dialog.findViewById(R.id.error_redeem);
+        final TextView balance= dialog.findViewById(R.id.balance);
+        final LinearLayout redeem_edit_layout= dialog.findViewById(R.id.redeem_edit_layout);
 
         captcha_edit_text.requestFocus();
         captcha_edit_text.addTextChangedListener(new TextWatcher() {
@@ -274,13 +276,21 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         });
         redeem_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Redeem(captcha_edit_text.getText().toString(),error_redeem,captcha_edit_text);
+                Redeem(captcha_edit_text.getText().toString(),error_redeem,
+                        captcha_edit_text,
+                        redeem_edit_layout,
+                        balance,
+                        redeem_Button);
                 }
         });
         dialog.show();
     }
 
-    private void Redeem(String redeem, final TextView error_redeem, final EditText captcha_edit_text) {
+    private void Redeem(String redeem, final TextView error_redeem,
+                        final EditText captcha_edit_text,
+                        final LinearLayout redeem_edit_layout,
+                        final TextView balance,
+                        final Button redeem_Button) {
         String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
         ApiInterface apiService = ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
         Call<User> call_details = apiService.redeem(user_id,redeem);
@@ -292,8 +302,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                     SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putInt("points", m.getPoints());
                     editor.apply();
-                    InputMethodManager inputMethodManager =(InputMethodManager)getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    InputMethodManager inputMethodManager =(InputMethodManager)getContext()
+                            .getSystemService(Activity.INPUT_METHOD_SERVICE);
                     inputMethodManager.hideSoftInputFromWindow(captcha_edit_text.getWindowToken(), 0);
+                    redeem_edit_layout.setVisibility(View.GONE);
+                    balance.setVisibility(View.VISIBLE);
+                    redeem_Button.setText("Confirm");
                 }catch (Exception e){  }
             }
             @Override
