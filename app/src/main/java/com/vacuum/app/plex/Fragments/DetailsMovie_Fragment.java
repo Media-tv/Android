@@ -419,7 +419,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                 }else {
                     progresssbar_watch.setVisibility(View.GONE);
                     watch.setVisibility(View.VISIBLE);
-                    Toast.makeText(mContext, "No Points", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "not enough money", Toast.LENGTH_SHORT).show();
                 }
 
                 break;

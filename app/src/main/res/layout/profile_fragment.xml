@@ -258,7 +258,7 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:text="Add Points"
+                    android:text="Get free $50"
                     android:padding="3dp"
                     android:textColor="@color/black"
                     android:gravity="center"

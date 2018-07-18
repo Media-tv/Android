@@ -245,7 +245,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                 email.getText().toString(),
                 password.getText().toString(),
                 phone.getText().toString(),
-                2000,
+                100,
                 age,
                 location,
                 address,

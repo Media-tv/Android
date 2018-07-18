@@ -20,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     String ADMOB_PLEX_REWARDED_1,user_id;
     Dialog dialog;
     static int points_value;
+    ProgressBar progresssbar_redeem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -232,7 +234,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     }
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        update_points(prefs.getInt("points",0)+500); }
+        update_points(prefs.getInt("points",0)+50); }
     @Override
     public void onRewardedVideoAdLeftApplication() {   }
     @Override
@@ -256,6 +258,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         final TextView error_redeem= dialog.findViewById(R.id.error_redeem);
         final TextView balance= dialog.findViewById(R.id.balance);
         final LinearLayout redeem_edit_layout= dialog.findViewById(R.id.redeem_edit_layout);
+        progresssbar_redeem= dialog.findViewById(R.id.progresssbar_redeem);
 
         captcha_edit_text.requestFocus();
         captcha_edit_text.addTextChangedListener(new TextWatcher() {
@@ -278,6 +281,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         });
         redeem_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                progresssbar_redeem.setVisibility(View.VISIBLE);
                 Redeem(captcha_edit_text.getText().toString(),error_redeem,
                         captcha_edit_text,
                         redeem_edit_layout,
@@ -304,6 +308,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                     SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putInt("points", m.getPoints());
                     editor.apply();
+                    progresssbar_redeem.setVisibility(View.GONE);
                     InputMethodManager inputMethodManager =(InputMethodManager)getContext()
                             .getSystemService(Activity.INPUT_METHOD_SERVICE);
                     inputMethodManager.hideSoftInputFromWindow(captcha_edit_text.getWindowToken(), 0);
@@ -322,6 +327,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                progresssbar_redeem.setVisibility(View.GONE);
                 error_redeem.setVisibility(View.VISIBLE);
             }
         });
