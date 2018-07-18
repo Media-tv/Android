@@ -38,8 +38,6 @@ public class DownloadImage {
         this.mContext = mContext;
         this.poster_url = poster_url;
         glide();
-
-
     }
 
     private void glide() {

@@ -1,15 +1,22 @@
 package com.vacuum.app.plex.Fragments;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -52,9 +59,11 @@ import com.vacuum.app.plex.Model.User;
 import com.vacuum.app.plex.R;
 import com.vacuum.app.plex.Utility.ApiClient;
 import com.vacuum.app.plex.Utility.ApiInterface;
+import com.vacuum.app.plex.Utility.DownloadFile;
 import com.vacuum.app.plex.Utility.GetOpenload;
 import com.vacuum.app.plex.Utility.UploadOpenload;
 
+import java.io.File;
 import java.util.List;
 
 import retrofit2.Call;
@@ -62,6 +71,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
+import static cn.jzvd.JZVideoPlayer.TAG;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
 
@@ -402,14 +412,17 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.like:
-                if (LIKE){
-                    like.setImageResource(R.drawable.if_heart_119_111093);
-                    LIKE = false;
-                }else {
-                    like.setImageResource(R.drawable.if_heart_1814104);
-                    LIKE = true;
-                }
-                    break;
+                        if (LIKE){
+                            like.setImageResource(R.drawable.if_heart_119_111093);
+                            LIKE = false;
+                        }else {
+                            like.setImageResource(R.drawable.if_heart_1814104);
+                            LIKE = true;
+                        }
+                        String uri22 =  "https://github.com/bower-media-samples/big-buck-bunny-1080p-5s/raw/master/video.mp4";
+                        String title =movie.getOriginalTitle()+": "+movie.getReleaseDate().substring(0, 4)+".mp4" ;
+                        new DownloadFile(mContext,uri22,title);
+                        break;
             case  R.id.watch:
                 points();
                 if(enough_points == true){
@@ -425,7 +438,6 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                 break;
         }
     }
-
     private void points() {
         String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
 
