@@ -44,6 +44,7 @@ import com.vacuum.app.plex.Model.API_KEY;
 import com.vacuum.app.plex.Model.Update;
 import com.vacuum.app.plex.Utility.ApiClient;
 import com.vacuum.app.plex.Utility.ApiInterface;
+import com.vacuum.app.plex.Utility.DownloadFile;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -279,7 +280,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onClick(View v) {
                     dialog.cancel();
-                    downlaoding();
+                    //downlaoding();
+                    String title ="PlexMedia-"+versionName+"-armV7.apk" ;
+                    new DownloadFile(mContext,link,title);
 
                 }
             });
