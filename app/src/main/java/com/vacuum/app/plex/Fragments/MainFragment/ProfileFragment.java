@@ -38,8 +38,6 @@ import com.vacuum.app.plex.R;
 import com.vacuum.app.plex.Utility.ApiClient;
 import com.vacuum.app.plex.Utility.ApiInterface;
 
-import org.w3c.dom.Text;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -86,7 +84,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
 
 
 
-        prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
+        prefs = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         ADMOB_PLEX_REWARDED_1 = prefs.getString("ADMOB_PLEX_REWARDED_1",null);
         user_id = prefs.getString("id",null);
 
@@ -105,19 +103,22 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
         mRewardedVideoAd.setRewardedVideoAdListener(this);
         loadRewardedVideoAd();
-        //prefs = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        update_points_value();
+        get_points();
+        return view;
+    }
+
+    private void update_points_value() {
         points_value = prefs.getInt("points",0);
         if (points_value <= 1000)
-            {
-                points_textview.setText(String.valueOf(points_value) + " points");
-                points_textview.setTextColor(Color.RED);
-            }else
-            {
-                points_textview.setText(String.valueOf(points_value) + " points");
-                points_textview.setTextColor(Color.WHITE);
-            }
-            get_points();
-        return view;
+        {
+            points_textview.setText(String.valueOf(points_value) + " points");
+            points_textview.setTextColor(Color.RED);
+        }else
+        {
+            points_textview.setText(String.valueOf(points_value) + " points");
+            points_textview.setTextColor(Color.WHITE);
+        }
     }
 
     private void get_points() {
@@ -132,6 +133,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                 SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putInt("points",m.getPoints());
                 editor.apply();
+                update_points_value();
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
@@ -314,6 +316,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                         public void onClick(View v) { dialog.dismiss();
                         }
                     });
+                    update_points_value();
                 }catch (Exception e){  }
             }
             @Override
