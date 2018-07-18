@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="280dp"
     android:orientation="vertical"
-    android:layout_margin="10dp"
+    android:layout_margin="15dp"
     android:layout_height="wrap_content">
 
 
@@ -36,10 +36,22 @@
         />
     <TextView
         android:gravity="left"
+        android:layout_marginTop="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:id="@+id/error_redeem"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        android:text="the code is incorrect or invalid. Please try again."
+        fontPath="fonts/brownregular.ttf"
+        />
+    <TextView
+        android:gravity="left"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:text="@string/redeem"
         fontPath="fonts/brownregular.ttf"
         />
