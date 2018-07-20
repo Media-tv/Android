@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Context mContext;
     private ApiInterface apiService;
     ProgressDialog mProgressDialog;
-    String link,versionName;
+    String link,versionName,versionName_new;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try{
                     Update c = response.body();
                     //Log.e("TAG : ",c);
-                    versionName = c.getVersionname();
+                    versionName_new = c.getVersionname();
                     int  versioncode = c.getVersioncode();
                     String message =c.getMessage();
                     String title =c.getTitle();
@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onClick(View v) {
                     dialog.cancel();
                     //downlaoding();
-                    String title ="PlexMedia-"+versionName+"-armV7.apk" ;
+                    String title ="PlexMedia-"+versionName_new+"-armV7.apk" ;
                     new DownloadFile(mContext,link,title);
                 }
             });
