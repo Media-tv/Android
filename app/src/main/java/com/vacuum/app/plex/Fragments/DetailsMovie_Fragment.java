@@ -419,10 +419,11 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                             like.setImageResource(R.drawable.if_heart_1814104);
                             LIKE = true;
                         }
-                        String uri22 =  "https://github.com/bower-media-samples/big-buck-bunny-1080p-5s/raw/master/video.mp4";
-                        String title =movie.getOriginalTitle()+": "+movie.getReleaseDate().substring(0, 4)+".mp4" ;
-                        new DownloadFile(mContext,uri22,title);
-                        break;
+                        //String uri22 =  "https://github.com/bower-media-samples/big-buck-bunny-1080p-5s/raw/master/video.mp4";
+                        //String title =movie.getOriginalTitle()+": "+movie.getReleaseDate().substring(0, 4)+".mp4" ;
+                        //new DownloadFile(mContext,uri22,title);
+                        retrofit_getfile_openload_id();
+                break;
             case  R.id.watch:
                 points();
                 if(enough_points == true){
@@ -496,34 +497,26 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     }
 
     private void retrofit_getfile_openload_id() {
-
-
-
         String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
-
         apiService =ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
         Call<String> call_details = apiService.getMovie_openload_id(x);
         call_details.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String m = response.body();
-                if(m == null){
+                if (m == null) {
                     notRobotCapcha();
                     //===============================================
-                }else {
-                    new GetOpenload(mContext,m.toString(),movie.getOriginalTitle());
+                } else {
+                    new GetOpenload(mContext, m.toString(), movie.getOriginalTitle()+": "+movie.getReleaseDate().substring(0, 4));
                 }
             }
-
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 // Log error here since request failed
-                Log.e("tag", t.toString());
-            }
+                Log.e("TAG", t.toString()); }
         });
-
     }
-
     private void openload_upload(String right_url) {
         Link l = new Link();
         l.setUrl(right_url);
@@ -542,8 +535,6 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             v.vibrate(100);
         }
     }
-
-
     @Override
     public void onPause() {
         super.onPause();
@@ -552,7 +543,6 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             mHandler.removeCallbacksAndMessages(null);
             mHandler.removeCallbacks(myRunnable);
         }
-
     }
 
     @Override

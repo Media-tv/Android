@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class GetOpenload {
 
     Context mContext;
-    String OPENLOAD_API_Login,OPENLOAD_API_KEY,file_id,ticket,openload_thumbnail_url,title;
+    String OPENLOAD_API_Login,OPENLOAD_API_KEY,file_id,ticket,openload_thumbnail_url,title,stream_url;
     Boolean found_captcha = false;
     Dialog dialog;
     String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
@@ -132,6 +132,8 @@ public class GetOpenload {
                 OpenloadResult open = response.body();
                 if (open.getOpenload() != null) {
                     watchActivity(open.getOpenload().getUrl());
+                    stream_url = open.getOpenload().getUrl();
+                    download(open.getOpenload().getUrl());
                     if(dialog != null)
                         dialog.dismiss();
                 } else {
@@ -145,6 +147,10 @@ public class GetOpenload {
             }
         });
 
+    }
+    public void download(String ss) {
+        Log.e("TAG :streamurl", stream_url);
+        new DownloadFile(mContext,ss,title);
     }
 
 
