@@ -198,19 +198,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 navItemIndex = 3;
         }
-
         loadHomeFragment();
     }
-
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
-
     private int version_number() {
-
         PackageInfo pInfo = null;
         int versionCode = 0;
         try {
@@ -221,11 +215,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
         return versionCode;
-
     }
-
     private void upadate_retrofit() {
-
         apiService =
                 ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
 
@@ -257,7 +248,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
     private void AlertDialog(int versioncode,String title,String message) {
 
         final Dialog dialog = new Dialog(MainActivity.this);
@@ -300,12 +290,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dialog.cancel();
         }
     }
-
     private void get_API_keys() {
-
         prefs = getSharedPreferences("Plex", Activity.MODE_PRIVATE);
         String ADMOB_PLEX_BANNER_1 = prefs.getString("ADMOB_PLEX_BANNER_1",null);
-
         if(ADMOB_PLEX_BANNER_1 != null){
             loadHomeFragment();
         }else {
