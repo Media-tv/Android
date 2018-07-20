@@ -1,6 +1,7 @@
 package com.vacuum.app.plex.Splash;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentResolver;
@@ -298,6 +299,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         } else if (age.toString().contains("YYYY/MM/DD") || age_year > 2002) {
             Toast.makeText(mContext, "Date of Birth", Toast.LENGTH_SHORT).show();
             Date_of_Birth.setTextColor(Color.RED);
+        }else if(!isStoragePermissionGranted()){
+            Toast.makeText(mContext, "Storage Permission", Toast.LENGTH_SHORT).show();
         } else {
             insertUser();
         }
@@ -340,7 +343,22 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         }
         Log.e("TAG", "getGPS");
         getGPS();
-
+    }
+    private boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v("TAG", "Permission is granted");
+                return true;
+            } else {
+                Log.v("TAG", "Permission is revoked");
+                ActivityCompat.requestPermissions((Activity) mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v("TAG", "Permission is granted");
+            return true;
+        }
     }
 
     public void getGPS() {

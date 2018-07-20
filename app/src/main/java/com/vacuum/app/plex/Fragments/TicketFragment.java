@@ -1,4 +1,4 @@
-package com.vacuum.app.plex.Fragments.MainFragment;
+package com.vacuum.app.plex.Fragments;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -17,7 +17,6 @@ import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 
-import com.vacuum.app.plex.Fragments.SettingFragment;
 import com.vacuum.app.plex.R;
 
 public class TicketFragment extends Fragment {
@@ -33,7 +32,7 @@ public class TicketFragment extends Fragment {
 
 
         FrameLayout frame = (FrameLayout) view.findViewById(R.id.graphics_holder);
-        TicketFragment.PlayAreaView image = new TicketFragment.PlayAreaView(mContext);
+        PlayAreaView image = new PlayAreaView(mContext);
         frame.addView(image);
         return view;
 
@@ -107,7 +106,7 @@ public class TicketFragment extends Fragment {
             super(context);
             translate = new Matrix();
             gestures = new GestureDetector(mContext,
-                    new TicketFragment.GestureListener(this));
+                    new GestureListener(this));
             droid = BitmapFactory.decodeResource(getResources(),
                     R.drawable.ticket3);
         }
@@ -131,9 +130,9 @@ public class TicketFragment extends Fragment {
     private class GestureListener implements GestureDetector.OnGestureListener,
             GestureDetector.OnDoubleTapListener {
 
-        TicketFragment.PlayAreaView view;
+        PlayAreaView view;
 
-        public GestureListener(TicketFragment.PlayAreaView view) {
+        public GestureListener(PlayAreaView view) {
             this.view = view;
         }
 

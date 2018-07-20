@@ -33,6 +33,7 @@ import com.vacuum.app.plex.Fragments.AboutFragment;
 import com.vacuum.app.plex.Fragments.EditProfile_Fragment;
 import com.vacuum.app.plex.Fragments.RequestFragment;
 import com.vacuum.app.plex.Fragments.SettingFragment;
+import com.vacuum.app.plex.Fragments.TicketFragment;
 import com.vacuum.app.plex.MainActivity;
 import com.vacuum.app.plex.Model.User;
 import com.vacuum.app.plex.R;
@@ -48,6 +49,7 @@ import static com.vacuum.app.plex.Fragments.AboutFragment.TAG_ABOUT_FRAGMENT;
 import static com.vacuum.app.plex.Fragments.EditProfile_Fragment.EDITPORFILE_FRAGMENT_TAG;
 import static com.vacuum.app.plex.Fragments.RequestFragment.TAG_REQUEST_FRAGMENT;
 import static com.vacuum.app.plex.Fragments.SettingFragment.TAG_SETTING_FRAGMENT;
+import static com.vacuum.app.plex.Fragments.TicketFragment.TAG_TICKET_FRAGMENT;
 import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
 
 /**
@@ -162,7 +164,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                 switchfragment(new EditProfile_Fragment(),EDITPORFILE_FRAGMENT_TAG);
                 break;
             case R.id.layout2_payment:
-                Toast.makeText(mContext, "Go Premium!", Toast.LENGTH_SHORT).show();
+                switchfragment(new TicketFragment(),TAG_TICKET_FRAGMENT);
+                //Toast.makeText(mContext, "Go Premium!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.layout_about:
                 switchfragment(new AboutFragment(),TAG_ABOUT_FRAGMENT);

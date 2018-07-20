@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        mContext = this.getApplicationContext();
+        mContext = MainActivity.this;
         btn_one =  findViewById(R.id.btn_one);
         btn_two =  findViewById(R.id.btn_two);
         btn_three = findViewById(R.id.btn_three);
@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     new DownloadFile(mContext,link,title);
                 }
             });
-        } if(versioncode == 0){
+        }else if(versioncode == 0){
             title_view.setText(title);
             message_update.setText(message);
             update_btn.setText("ok");
