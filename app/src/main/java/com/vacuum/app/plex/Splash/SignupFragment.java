@@ -323,6 +323,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
 
     private void askForPermission(String permission, Integer requestCode) {
+        isStoragePermissionGranted();
         if (ContextCompat.checkSelfPermission(mContext, permission) != PackageManager.PERMISSION_GRANTED) {
             Log.e("TAG", "checkSelfPermission");
 
