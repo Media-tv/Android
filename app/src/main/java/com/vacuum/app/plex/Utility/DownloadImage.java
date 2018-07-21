@@ -21,12 +21,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
-
-import static cn.jzvd.JZVideoPlayer.TAG;
 
 public class DownloadImage {
 
@@ -103,16 +99,16 @@ public class DownloadImage {
         if (Build.VERSION.SDK_INT >= 23) {
             if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED) {
-                Log.v(TAG,"Permission is granted");
+                Log.v("TAG","Permission is granted");
                 return true;
             } else {
-                Log.v(TAG,"Permission is revoked");
+                Log.v("TAG","Permission is revoked");
                 ActivityCompat.requestPermissions((Activity)mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 return false;
             }
         }
         else { //permission is automatically granted on sdk<23 upon installation
-            Log.v(TAG,"Permission is granted");
+            Log.v("TAG","Permission is granted");
             return true;
         }
     }

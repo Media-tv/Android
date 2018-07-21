@@ -15,8 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.vacuum.app.plex.Adapter.MoviesAdapter;
 import com.vacuum.app.plex.Model.Movie;

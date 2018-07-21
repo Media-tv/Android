@@ -50,7 +50,6 @@ import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static cn.jzvd.JZVideoPlayer.TAG;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

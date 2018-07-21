@@ -35,7 +35,6 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-import static cn.jzvd.JZVideoPlayer.TAG;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
