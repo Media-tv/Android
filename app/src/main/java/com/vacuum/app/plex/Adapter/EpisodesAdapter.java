@@ -53,12 +53,12 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
 
         public SearchViewHolder(View v) {
             super(v);
-            Title = (TextView) v.findViewById(R.id.Title);
-            year = (TextView) v.findViewById(R.id.year);
-            overview = (TextView) v.findViewById(R.id.overview);
-            thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
-            tv = (ImageView) v.findViewById(R.id.tv);
-            play_eposides = (ImageView) v.findViewById(R.id.play_eposides);
+            Title =  v.findViewById(R.id.Title);
+            year =  v.findViewById(R.id.year);
+            overview =  v.findViewById(R.id.overview);
+            thumbnail =  v.findViewById(R.id.thumbnail);
+            tv =  v.findViewById(R.id.tv);
+            play_eposides =  v.findViewById(R.id.play_eposides);
             download_tv_icon = v.findViewById(R.id.download_tv_icon);
 
             progresssbar_watch_eposides = v.findViewById(R.id.progresssbar_watch_eposides);
@@ -128,7 +128,8 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
             public void onClick(View view) {
                 holder.progresssbar_download_tv.setVisibility(View.VISIBLE);
                 holder.download_tv_icon.setVisibility(View.GONE);
-                notRobotCapcha(position);
+                Toast.makeText(mContext, "Go Premium!", Toast.LENGTH_SHORT).show();
+                //notRobotCapcha(position);
                 int PlayStopButtonState = (holder.download_tv_icon.getTag() == null) ? 1 : (Integer) holder.download_tv_icon.getTag();
                 int previousPosition = mCurrentPlayingPosition;
                 if (PlayStopButtonState == 1) {

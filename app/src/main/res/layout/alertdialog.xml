@@ -4,28 +4,32 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_marginBottom="80dp"
+    android:padding="20dp"
+    android:background="@color/white"
     android:layout_height="wrap_content">
 
 
     <ImageView
         android:id="@+id/captcha"
         android:layout_gravity="center"
-        android:layout_width="250dp"
+        android:layout_width="200dp"
+        android:scaleType="fitXY"
         android:layout_height="100dp" />
     <EditText
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/captcha_edit_text"
         android:inputType="textVisiblePassword"
         android:hint="****"
+        android:textColor="@color/black"
+        android:padding="3dp"
+        android:layout_margin="5dp"
         />
     <Button
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:id="@+id/OKButton"
         android:text="Submit"
-        android:elevation="0dp"
         android:textColor="@color/black"
         android:background="@drawable/oval"
         />

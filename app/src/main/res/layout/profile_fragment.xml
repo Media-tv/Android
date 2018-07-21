@@ -256,14 +256,11 @@
                     android:id="@+id/points" />
 
                 <Button
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
                     android:text="Get free $50"
-                    android:padding="3dp"
                     android:textColor="@color/black"
                     android:gravity="center"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
                     android:textSize="10sp"
                     android:textStyle="bold"
                     android:background="@drawable/oval"

@@ -68,7 +68,7 @@ public class UploadOpenload {
             }
             @Override
             public void onFailure(Call<OpenloadResult> call, Throwable t) {
-                Log.e("tag", t.toString());
+                Log.e("TAG", t.toString());
             }
         });
     }
@@ -89,7 +89,7 @@ public class UploadOpenload {
                     JSONObject arr = result.getJSONObject(id);
                     String file_id = arr.getString("extid");
                     if(file_id == "false"){
-                        Toast.makeText(mContext, "no Movies", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Request!", Toast.LENGTH_SHORT).show();
                     }else {
                         new AddMovie(mContext,id_,
                                 title+" : "+year,
