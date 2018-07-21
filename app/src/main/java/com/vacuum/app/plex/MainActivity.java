@@ -1,15 +1,20 @@
 package com.vacuum.app.plex;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +27,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -64,40 +71,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView btn_one,btn_two,btn_four,btn_five;
     Context mContext;
     private ApiInterface apiService;
-    ProgressDialog mProgressDialog;
     String link,versionName,versionName_new;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
-    private FirebaseAnalytics mFirebaseAnalytics;
+    FirebaseAnalytics mFirebaseAnalytics;
     String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow(); // in Activity's onCreate() for instance
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            w.setStatusBarColor(ContextCompat.getColor(this,R.color.transparent));
-        }*/
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_main);
-
-
         MobileAds.initialize(this, "ca-app-pub-3341550634619945~1422870532");
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/brownregular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
-
         prefs = getSharedPreferences("Plex", Activity.MODE_PRIVATE);
         editor = prefs.edit();
-
-
 
 
         mContext = MainActivity.this;
@@ -117,6 +111,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         upadate_retrofit();
         get_API_keys();
         analytics();
+        if(!isPackageInstalled()){
+            final Dialog dialog = new Dialog(MainActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.alertdialog_update);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setCancelable(false);
+            dialog.show();
+
+            Button update_btn = dialog.findViewById(R.id.update_btn);
+            TextView title_view = dialog.findViewById(R.id.title);
+            TextView message_update = dialog.findViewById(R.id.message_update);
+            ImageView background_image = dialog.findViewById(R.id.background_image);
+            background_image.setImageResource(R.drawable.mxplayer);
+            title_view.setText("");
+            message_update.setText("For better streaming quality and subtitle \nDownload MX Player app");
+            update_btn.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
+                                                  dialog.cancel();
+                                                  final String appPackageName = "com.mxtech.videoplayer.ad"; // getPackageName() from Context or Activity object
+                                                  try {
+                                                      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                                                  } catch (android.content.ActivityNotFoundException anfe) {
+                                                      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                                                  }
+                                              }
+                                          });
+        }
     }
     private void analytics() {
         final Fabric fabric = new Fabric.Builder(this)
@@ -233,7 +255,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
     private void AlertDialog(int versioncode,String title,String message) {
-
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.alertdialog_update);
@@ -307,6 +328,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
 
+        }
+    }
+
+    public boolean isPackageInstalled() {
+        try{
+            getApplicationContext().getPackageManager().getApplicationInfo("com.mxtech.videoplayer.ad", 0);
+            return true;
+        } catch( PackageManager.NameNotFoundException e ){
+            return false;
         }
     }
 }

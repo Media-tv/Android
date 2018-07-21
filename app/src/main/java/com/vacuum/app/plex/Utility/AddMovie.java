@@ -25,10 +25,10 @@ public class AddMovie {
                     final String file_id,
 //======================================================
                     int id_tvseries_tmdb,
-                    String name_tv_series,
-                    int season_number,
+                    final String name_tv_series,
+                    final int season_number,
                     String episode_name,
-                    int Episode_number,
+                    final int Episode_number,
                     int episode_id_tmdb)
     {
 
@@ -56,7 +56,6 @@ public class AddMovie {
                     String responsse ;
                     try {
                         responsse  = response.body().string();
-                        Log.e("TAG", "Add Movie "+responsse);
                         new GetOpenload(mContext,file_id,title);
                     } catch (IOException e) {
                         e.printStackTrace();

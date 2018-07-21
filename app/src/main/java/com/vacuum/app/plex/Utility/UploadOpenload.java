@@ -91,16 +91,30 @@ public class UploadOpenload {
                     if(file_id == "false"){
                         Toast.makeText(mContext, "Request!", Toast.LENGTH_SHORT).show();
                     }else {
-                        new AddMovie(mContext,id_,
-                                title+" : "+year,
-                                file_id,
-                                //========================================
-                                l.getId_tvseries_tmdb(),
-                                l.getName_tv_series(),
-                                l.getSeason_number(),
-                                l.getEpisode_name(),
-                                l.getEpisode_number(),
-                                l.getEpisode_id_tmdb());
+                        if (title == null){
+                            new AddMovie(mContext,id_,
+                                    l.getName_tv_series()+"-S"+l.getSeason_number()+"E"+l.getEpisode_number(),
+                                    file_id,
+                                    //========================================
+                                    l.getId_tvseries_tmdb(),
+                                    l.getName_tv_series(),
+                                    l.getSeason_number(),
+                                    l.getEpisode_name(),
+                                    l.getEpisode_number(),
+                                    l.getEpisode_id_tmdb());
+                        }else{
+                            new AddMovie(mContext,id_,
+                                    title+"-"+year,
+                                    file_id,
+                                    //========================================
+                                    l.getId_tvseries_tmdb(),
+                                    l.getName_tv_series(),
+                                    l.getSeason_number(),
+                                    l.getEpisode_name(),
+                                    l.getEpisode_number(),
+                                    l.getEpisode_id_tmdb());
+                        }
+
                     }
                 } catch (JSONException e) {
                     Log.e("TAG:forecast", e.toString());
