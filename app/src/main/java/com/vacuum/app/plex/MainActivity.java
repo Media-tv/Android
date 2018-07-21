@@ -266,6 +266,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView message_update = dialog.findViewById(R.id.message_update);
         ImageView background_image = dialog.findViewById(R.id.background_image);
 
+        Log.e("TAG","versioncode"+String.valueOf(versioncode));
+        Log.e("TAG","version_number()"+String.valueOf(version_number()));
+
         if(version_number() != versioncode ){
             title_view.setText(title);
             message_update.setText(message);
