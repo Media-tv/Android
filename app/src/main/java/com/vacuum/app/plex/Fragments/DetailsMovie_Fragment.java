@@ -98,8 +98,10 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     Handler mHandler;
     Runnable myRunnable;
     ApiInterface apiService;
-    String TMBDB_API_KEY,ADMOB_PLEX_BANNER_2,user_id;
-    Boolean enough_points = true;
+    private String TMBDB_API_KEY,ADMOB_PLEX_BANNER_2,user_id;
+    private Boolean enough_points = true;
+    private Boolean boolean_download = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -422,11 +424,13 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                         //String uri22 =  "https://github.com/bower-media-samples/big-buck-bunny-1080p-5s/raw/master/video.mp4";
                         //String title =movie.getOriginalTitle()+": "+movie.getReleaseDate().substring(0, 4)+".mp4" ;
                         //new DownloadFile(mContext,uri22,title);
+                        boolean_download = true;
                         retrofit_getfile_openload_id();
                 break;
             case  R.id.watch:
                 points();
                 if(enough_points == true){
+                    boolean_download = false;
                     retrofit_getfile_openload_id();
                     progresssbar_watch.setVisibility(View.VISIBLE);
                     watch.setVisibility(View.GONE);
@@ -508,7 +512,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                     notRobotCapcha();
                     //===============================================
                 } else {
-                    new GetOpenload(mContext, m.toString(), movie.getOriginalTitle()+": "+movie.getReleaseDate().substring(0, 4));
+                    new GetOpenload(mContext, m.toString(), movie.getOriginalTitle()+": "+movie.getReleaseDate().substring(0, 4)).boolen_download(boolean_download);
                 }
             }
             @Override
