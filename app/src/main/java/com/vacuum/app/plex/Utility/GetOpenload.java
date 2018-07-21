@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class GetOpenload {
 
     private Context mContext;
-    private String OPENLOAD_API_Login,OPENLOAD_API_KEY,file_id,ticket,openload_thumbnail_url,title,stream_url;
+    private String OPENLOAD_API_Login,OPENLOAD_API_KEY,file_id,ticket,openload_thumbnail_url,title;
     private Boolean found_captcha = false;
     private Dialog dialog;
     private Boolean boolean_download = false;
@@ -132,9 +132,8 @@ public class GetOpenload {
             public void onResponse(Call<OpenloadResult> call, Response<OpenloadResult> response) {
                 OpenloadResult open = response.body();
                 if (open.getOpenload() != null) {
-                    watchActivity(open.getOpenload().getUrl());
-                    stream_url = open.getOpenload().getUrl();
-                    if (boolean_download){download(open.getOpenload().getUrl());}
+                    if (boolean_download){ download(open.getOpenload().getUrl()); }
+                    else { watchActivity(open.getOpenload().getUrl()); }
                     if(dialog != null)
                         dialog.dismiss();
                 } else {
@@ -147,16 +146,11 @@ public class GetOpenload {
                 Log.e("openloadResult", t.toString());
             }
         });
-
     }
     public void download(String ss) {
-        Log.e("TAG :streamurl", stream_url);
         new DownloadFile(mContext,ss,title);
     }
-    public void boolen_download(Boolean ss) {
-        Log.e("TAG :streamurl", stream_url);
-        boolean_download = true;
-    }
+    public void boolen_download(Boolean ss) { boolean_download = ss; }
 
 
     private void watchActivity(String url ) {

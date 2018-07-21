@@ -421,9 +421,6 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                             like.setImageResource(R.drawable.if_heart_1814104);
                             LIKE = true;
                         }
-                        //String uri22 =  "https://github.com/bower-media-samples/big-buck-bunny-1080p-5s/raw/master/video.mp4";
-                        //String title =movie.getOriginalTitle()+": "+movie.getReleaseDate().substring(0, 4)+".mp4" ;
-                        //new DownloadFile(mContext,uri22,title);
                         boolean_download = true;
                         retrofit_getfile_openload_id();
                 break;
@@ -512,7 +509,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                     notRobotCapcha();
                     //===============================================
                 } else {
-                    new GetOpenload(mContext, m.toString(), movie.getOriginalTitle()+": "+movie.getReleaseDate().substring(0, 4)).boolen_download(boolean_download);
+                    new GetOpenload(mContext, m.toString(), movie.getOriginalTitle()+"-"+movie.getReleaseDate().substring(0, 4)+".mp4").boolen_download(boolean_download);
                 }
             }
             @Override
