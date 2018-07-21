@@ -165,7 +165,6 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
         webSettings.setJavaScriptEnabled(true);
         webView.loadUrl(cv);
 
-
         webView.setWebViewClient(new WebViewClient() {
                                      @Override
                                      public boolean shouldOverrideUrlLoading(WebView view, String openload_url) {
@@ -184,7 +183,6 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
                                              Toast.makeText(mContext, "Bad connection", Toast.LENGTH_SHORT).show();
                                              dialoge.dismiss();
                                          }
-
                                          return true;
                                      }
                                  }

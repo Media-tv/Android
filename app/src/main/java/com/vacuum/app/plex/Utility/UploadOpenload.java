@@ -42,16 +42,6 @@ public class UploadOpenload {
         this.year = l.getYear();
         this.id_ = l.getId();
 
-        //Log.e("TAG: id ",l.getId());
-        //Log.e("TAG: title",l.getTitle());
-        //Log.e("TAG: year",l.getYear());
-//        Log.e("TAG: season number ",l.getSeason_number());
-//        Log.e("TAG: episode",l.getEpisodes_number());
-        //Log.e("TAG: url ",l.getUrl());
-
-
-
-
 
         String ROOT_URL = "https://mohamedebrahim.000webhostapp.com/";
 
@@ -59,17 +49,8 @@ public class UploadOpenload {
         OPENLOAD_API_Login = prefs.getString("OPENLOAD_API_Login",null);
         OPENLOAD_API_KEY = prefs.getString("OPENLOAD_API_KEY",null);
 
-
-
-
-
-
         api = ApiClient.getClient(mContext,ROOT_URL).create(ApiInterface.class);
-
-
         UploadOpenload2(url);
-
-
     }
 
     private void UploadOpenload2(String raw) {
