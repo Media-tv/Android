@@ -415,15 +415,16 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                         }
                 break;
             case R.id.download_movie:
-                if (!boolean_download){
+                if (boolean_download){
+                    progresssbar_download.setVisibility(View.VISIBLE);
+                    download_movie.setVisibility(View.GONE);
+                    boolean_download = false;
+                }
+                else{
                     progresssbar_download.setVisibility(View.VISIBLE);
                     download_movie.setVisibility(View.GONE);
                     boolean_download = true;
-                    retrofit_getfile_openload_id();}
-                else{
-                    progresssbar_download.setVisibility(View.GONE);
-                    download_movie.setVisibility(View.VISIBLE);
-                    boolean_download = false;
+                    retrofit_getfile_openload_id();
                 }
 
                 break;

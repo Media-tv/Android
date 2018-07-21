@@ -117,14 +117,29 @@
                     android:textColor="@color/white"
                     android:id="@+id/overview"
                     />
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:id="@+id/download_icon"
-                    android:layout_gravity="center_vertical"
-                    app:srcCompat="@drawable/if_download_1031520"
-                    />
+                <RelativeLayout
+                    android:layout_width="30dp"
+                    android:layout_height="30dp">
+                    <ProgressBar
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:id="@+id/progresssbar_download_tv"
+                        android:visibility="gone"
+                        style="?android:attr/progressBarStyleLarge"
+                        android:indeterminateDrawable="@drawable/progress"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        />
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/download_tv_icon"
+                        android:padding="5dp"
+                        android:visibility="visible"
+                        android:layout_gravity="center_vertical"
+                        app:srcCompat="@drawable/if_download_1031520"
+                        />
+                </RelativeLayout>
             </LinearLayout>
 
 

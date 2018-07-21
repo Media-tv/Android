@@ -102,8 +102,8 @@ public class GetOpenload {
         ImageView captcha = dialog.findViewById(R.id.captcha);
         captcha_edit_text= dialog.findViewById(R.id.captcha_edit_text);
         captcha_edit_text.requestFocus();
-        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(mContext.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+        //InputMethodManager imm = (InputMethodManager) mContext.getSystemService(mContext.INPUT_METHOD_SERVICE);
+        //imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
         Glide.with(mContext)
                 .load(url).into(captcha);
 
@@ -135,12 +135,8 @@ public class GetOpenload {
                 if (open.getOpenload() != null) {
                     if (boolean_download){ download(open.getOpenload().getUrl()); }
                     else { watchActivity(open.getOpenload().getUrl()); }
-
-                    View view = dialog.getCurrentFocus();
-                    if (view != null) {
-                        InputMethodManager imm = (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    }
+                    InputMethodManager inputManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.hideSoftInputFromWindow(dialog.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     if(dialog != null)
                         dialog.dismiss();
                 } else {

@@ -257,13 +257,13 @@
             android:orientation="horizontal"
             android:gravity="right">
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="30dp"
+                android:layout_height="30dp">
                 <ProgressBar
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:id="@+id/progresssbar_download"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     style="?android:attr/progressBarStyleLarge"
                     android:indeterminateDrawable="@drawable/progress"
                     android:layout_centerVertical="true"
@@ -274,6 +274,7 @@
                     android:layout_height="30dp"
                     android:id="@+id/download_movie"
                     android:padding="5dp"
+                    android:visibility="visible"
                     android:layout_gravity="center_vertical"
                     app:srcCompat="@drawable/if_download_1031520"
                     />

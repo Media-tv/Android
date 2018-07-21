@@ -47,8 +47,8 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
         TextView Title;
         TextView year,overview;
 
-        ImageView thumbnail,tv,play_eposides,download_icon;
-        ProgressBar progresssbar_watch_eposides;
+        ImageView thumbnail,tv,play_eposides,download_icon,download_tv_icon;
+        ProgressBar progresssbar_watch_eposides,progresssbar_download_tv;
 
 
         public SearchViewHolder(View v) {
@@ -60,8 +60,10 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
             tv = (ImageView) v.findViewById(R.id.tv);
             play_eposides = (ImageView) v.findViewById(R.id.play_eposides);
             download_icon = (ImageView) v.findViewById(R.id.download_icon);
+            download_tv_icon = v.findViewById(R.id.download_tv_icon);
 
             progresssbar_watch_eposides = v.findViewById(R.id.progresssbar_watch_eposides);
+            progresssbar_download_tv = v.findViewById(R.id.progresssbar_download_tv);
 
 
 
@@ -118,28 +120,36 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
             public void onClick(View view) {
                 holder.progresssbar_watch_eposides.setVisibility(View.VISIBLE);
                 holder.play_eposides.setVisibility(View.GONE);
-
                 notRobotCapcha(position);
-
                 int PlayStopButtonState = (holder.play_eposides.getTag() == null) ? 1 : (Integer) holder.play_eposides.getTag();
-                //int PlayStopButtonState = (Integer) holder.play_eposides.getTag();
-
                 int previousPosition = mCurrentPlayingPosition;
                 if (PlayStopButtonState == 1) {
-
                     mCurrentPlayingPosition = position;
                     holder.play_eposides.setTag(2);
-
-                } else {
-                    mCurrentPlayingPosition = -1; // nothing wil be played after hitting stop
-                    holder.play_eposides.setTag(1);
-                }
-
+                } else { mCurrentPlayingPosition = -1; // nothing wil be played after hitting stop
+                    holder.play_eposides.setTag(1); }
                 if(previousPosition != -1)
                     notifyItemChanged(previousPosition);
-
             }
         });
+        holder.download_tv_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.progresssbar_download_tv.setVisibility(View.VISIBLE);
+                holder.download_tv_icon.setVisibility(View.GONE);
+                notRobotCapcha(position);
+                int PlayStopButtonState = (holder.download_tv_icon.getTag() == null) ? 1 : (Integer) holder.download_tv_icon.getTag();
+                int previousPosition = mCurrentPlayingPosition;
+                if (PlayStopButtonState == 1) {
+                    mCurrentPlayingPosition = position;
+                    holder.download_tv_icon.setTag(2);
+                } else { mCurrentPlayingPosition = -1; // nothing wil be played after hitting stop
+                    holder.download_tv_icon.setTag(1); }
+                if(previousPosition != -1)
+                    notifyItemChanged(previousPosition);
+            }
+        });
+
 
 
     }
@@ -181,7 +191,6 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
         );
         dialoge.show();
     }
-
     private void openload(int Position,String right_url) {
         Link l2 = new Link();
         l2.setUrl(right_url);
@@ -193,26 +202,8 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
         l2.setEpisode_name(episodes.get(Position).getName());
         new UploadOpenload(mContext,l2);
     }
-
-
     @Override
     public int getItemCount() {
         return episodes.size();
     }
-
-
-    private void Fragment(Movie movie,Fragment getfragment,String TAG) {
-        Fragment fragment = getfragment;
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("movie", movie);
-        fragment.setArguments(bundle);
-        FragmentTransaction fragmentTransaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                android.R.anim.fade_out);
-        fragmentTransaction.replace(R.id.frame, fragment,TAG );
-        fragmentTransaction.addToBackStack(MainActivity.CURRENT_TAG);
-        fragmentTransaction.commit();
-    }
-
-
 }
