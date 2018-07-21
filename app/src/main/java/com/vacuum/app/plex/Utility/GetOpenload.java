@@ -30,6 +30,7 @@ public class GetOpenload {
     private Boolean found_captcha = false;
     private Dialog dialog;
     private Boolean boolean_download = false;
+    private EditText captcha_edit_text;
     private String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
     public GetOpenload(Context mContext,String file_id,String title){
         this.file_id = file_id;
@@ -99,7 +100,7 @@ public class GetOpenload {
         dialog.setContentView(R.layout.alertdialog);
         dialog.setTitle("Test Capcha");
         ImageView captcha = dialog.findViewById(R.id.captcha);
-        final EditText captcha_edit_text= dialog.findViewById(R.id.captcha_edit_text);
+        captcha_edit_text= dialog.findViewById(R.id.captcha_edit_text);
         captcha_edit_text.requestFocus();
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(mContext.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -134,6 +135,12 @@ public class GetOpenload {
                 if (open.getOpenload() != null) {
                     if (boolean_download){ download(open.getOpenload().getUrl()); }
                     else { watchActivity(open.getOpenload().getUrl()); }
+
+                    View view = dialog.getCurrentFocus();
+                    if (view != null) {
+                        InputMethodManager imm = (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
                     if(dialog != null)
                         dialog.dismiss();
                 } else {

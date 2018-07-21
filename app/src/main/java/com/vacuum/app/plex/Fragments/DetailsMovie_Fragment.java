@@ -59,19 +59,13 @@ import com.vacuum.app.plex.Model.User;
 import com.vacuum.app.plex.R;
 import com.vacuum.app.plex.Utility.ApiClient;
 import com.vacuum.app.plex.Utility.ApiInterface;
-import com.vacuum.app.plex.Utility.DownloadFile;
 import com.vacuum.app.plex.Utility.GetOpenload;
 import com.vacuum.app.plex.Utility.UploadOpenload;
-
-import java.io.File;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import static android.content.Context.MODE_PRIVATE;
-import static cn.jzvd.JZVideoPlayer.TAG;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 import static com.vacuum.app.plex.Splash.SplashScreen.MY_PREFS_NAME;
 
@@ -87,12 +81,12 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     TextView title,year,rating,overview,runtime,voteCount,genre1,genre2,genre3,id_number;
     ImageView cover;
     Context mContext;
-    ProgressBar progresssbar_watch;
+    ProgressBar progresssbar_watch,progresssbar_download;
     RecyclerView recyclerView_trailers,recyclerView_actors,recyclerView_crew,recyclerView_images;
     RelativeLayout layout_genre1,layout_genre2,layout_genre3;
     LinearLayout trailer_layout,actors_layout,crew_layout,image_layout;
     RatingBar ratingBar;
-    ImageView like,watch;
+    ImageView like,watch,download_movie;
     int x,points;
     Movie movie;
     Handler mHandler;
@@ -126,11 +120,13 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         layout_genre2 = view.findViewById(R.id.layout_genre2);
         layout_genre3 = view.findViewById(R.id.layout_genre3);
         like = view.findViewById(R.id.like);
+        download_movie = view.findViewById(R.id.download_movie);
         watch = view.findViewById(R.id.watch);
         trailer_layout = view.findViewById(R.id.trailer_layout);
         actors_layout = view.findViewById(R.id.actors_layout);
         image_layout = view.findViewById(R.id.image_layout);
         progresssbar_watch = view.findViewById(R.id.progresssbar_watch);
+        progresssbar_download = view.findViewById(R.id.progresssbar_download);
 
         recyclerView_trailers = view.findViewById(R.id.recyclerView_trailers);
         recyclerView_actors = view.findViewById(R.id.recyclerView_actors);
@@ -141,6 +137,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
 
         like.setOnClickListener(this);
         watch.setOnClickListener(this);
+        download_movie.setOnClickListener(this);
 
 
         SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
@@ -190,10 +187,8 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
        else {enough_points=false; }
     }
 
-    private void analistcs() {
-        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
-        mFirebaseAnalytics.setCurrentScreen(getActivity(), "DetailsMovie_Fragment", null );
-    }
+    private void analistcs() {FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), "DetailsMovie_Fragment", null ); }
 
     private void retrofit() {
 
@@ -362,8 +357,6 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
             }
         });
     }
-
-
     private void change_backdrop(final List<Backdrop> imageArray) {
         mHandler=  new Handler();
         myRunnable = new Runnable() {
@@ -385,7 +378,6 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         };
         mHandler.postDelayed(myRunnable, 2000);
     }
-
     public void setgenre(List<Genre> names, int size){
 
         //Log.e("size",String.valueOf(size));
@@ -421,9 +413,21 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                             like.setImageResource(R.drawable.if_heart_1814104);
                             LIKE = true;
                         }
-                        boolean_download = true;
-                        retrofit_getfile_openload_id();
                 break;
+            case R.id.download_movie:
+                if (!boolean_download){
+                    progresssbar_download.setVisibility(View.VISIBLE);
+                    download_movie.setVisibility(View.GONE);
+                    boolean_download = true;
+                    retrofit_getfile_openload_id();}
+                else{
+                    progresssbar_download.setVisibility(View.GONE);
+                    download_movie.setVisibility(View.VISIBLE);
+                    boolean_download = false;
+                }
+
+                break;
+
             case  R.id.watch:
                 points();
                 if(enough_points == true){

@@ -166,6 +166,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -247,19 +248,44 @@
                     />
             </RelativeLayout>
 
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right">
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingRight="10dp"
-                android:gravity="right">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ProgressBar
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/progresssbar_download"
+                    android:visibility="visible"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:indeterminateDrawable="@drawable/progress"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    />
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/like"
-                    app:srcCompat="@drawable/if_heart_1814104"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/download_movie"
+                    android:padding="5dp"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/if_download_1031520"
                     />
             </RelativeLayout>
 
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/like"
+                android:padding="5dp"
+                app:srcCompat="@drawable/if_heart_1814104"
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
