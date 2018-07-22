@@ -28,6 +28,7 @@ import com.vacuum.app.plex.Model.Episode;
 import com.vacuum.app.plex.Model.Link;
 import com.vacuum.app.plex.Model.Movie;
 import com.vacuum.app.plex.R;
+import com.vacuum.app.plex.Utility.Balance;
 import com.vacuum.app.plex.Utility.UploadOpenload;
 
 import java.util.List;
@@ -111,7 +112,15 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
             public void onClick(View view) {
                 holder.progresssbar_watch_eposides.setVisibility(View.VISIBLE);
                 holder.play_eposides.setVisibility(View.GONE);
-                notRobotCapcha(position);
+                if(new Balance(mContext, Integer.parseInt(episode.getAirDate().substring(0, 4))).calculate_points() == true){
+                    notRobotCapcha(position);
+                    holder.progresssbar_watch_eposides.setVisibility(View.VISIBLE);
+                    holder.play_eposides.setVisibility(View.GONE);
+                }else {
+                    holder.progresssbar_watch_eposides.setVisibility(View.GONE);
+                    holder.play_eposides.setVisibility(View.VISIBLE);
+                    Toast.makeText(mContext, "not enough money", Toast.LENGTH_SHORT).show();
+                }
                 int PlayStopButtonState = (holder.play_eposides.getTag() == null) ? 1 : (Integer) holder.play_eposides.getTag();
                 int previousPosition = mCurrentPlayingPosition;
                 if (PlayStopButtonState == 1) {
@@ -141,22 +150,17 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Search
                     notifyItemChanged(previousPosition);
             }
         });
-
-
-
     }
-
     private void notRobotCapcha(final int Position) {
         WebView webView = null;
-        String cv = "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+l.getId_tvseries_tmdb()+"&tmdb=1&tv=1&s="+l.getSeason_number()+"&e="+(Position);
+        Log.e("TAG","Eposid:"+Position);
+        String cv = "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+l.getId_tvseries_tmdb()+"&tmdb=1&tv=1&s="+l.getSeason_number()+"&e="+(Position+1);
         final Dialog dialoge = new Dialog(mContext);
         dialoge.setContentView(R.layout.robotcapcha);
         webView = (WebView) dialoge.findViewById(R.id.webview2);
-
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.loadUrl(cv);
-
         webView.setWebViewClient(new WebViewClient() {
                                      @Override
                                      public boolean shouldOverrideUrlLoading(WebView view, String openload_url) {

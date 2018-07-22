@@ -59,6 +59,7 @@ import com.vacuum.app.plex.Model.User;
 import com.vacuum.app.plex.R;
 import com.vacuum.app.plex.Utility.ApiClient;
 import com.vacuum.app.plex.Utility.ApiInterface;
+import com.vacuum.app.plex.Utility.Balance;
 import com.vacuum.app.plex.Utility.GetOpenload;
 import com.vacuum.app.plex.Utility.UploadOpenload;
 import java.util.List;
@@ -87,13 +88,12 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
     LinearLayout trailer_layout,actors_layout,crew_layout,image_layout;
     RatingBar ratingBar;
     ImageView like,watch,download_movie;
-    int x,points;
+    int x,year_balance;
     Movie movie;
     Handler mHandler;
     Runnable myRunnable;
     ApiInterface apiService;
-    private String TMBDB_API_KEY,ADMOB_PLEX_BANNER_2,user_id;
-    private Boolean enough_points = true;
+    private String TMBDB_API_KEY,ADMOB_PLEX_BANNER_2;
     private Boolean boolean_download = false;
 
     @Override
@@ -139,13 +139,9 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         watch.setOnClickListener(this);
         download_movie.setOnClickListener(this);
 
-
         SharedPreferences prefs = mContext.getSharedPreferences("Plex", Activity.MODE_PRIVATE);
         TMBDB_API_KEY = prefs.getString("TMBDB_API_KEY",null);
         ADMOB_PLEX_BANNER_2 = prefs.getString("ADMOB_PLEX_BANNER_2",null);
-        user_id = prefs.getString("id",null);
-        points = prefs.getInt("points",0);
-
 
         movie = (Movie)getArguments().getSerializable("movie");
 
@@ -170,7 +166,7 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                     .load(cover_string_link)
                     .transition(withCrossFade())
                     .into(cover);
-            calculate_points(Integer.parseInt(movie.getReleaseDate().substring(0, 4)));
+            year_balance =  Integer.parseInt(movie.getReleaseDate().substring(0, 4));
         }catch (Exception e){
             Log.i("TAG :",e.toString());
         }
@@ -178,18 +174,8 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         Ads(view);
         return view;
     }
-
-    private void calculate_points(int year) {
-       if (year == 2018 &&points>=25) { points = points-25; enough_points=true;}
-        else if (year < 2018 &&year>=2012 &&points>=20) { points = points-20;enough_points=true; }
-       else if (year < 2012 &&year>=2000&&points>=15) { points = points-15;enough_points=true; }
-       else if (year < 2000&&points>=10) { points = points-10;enough_points=true; }
-       else {enough_points=false; }
-    }
-
     private void analistcs() {FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
         mFirebaseAnalytics.setCurrentScreen(getActivity(), "DetailsMovie_Fragment", null ); }
-
     private void retrofit() {
 
         String BASE_URL = "https://api.themoviedb.org/3/";
@@ -424,15 +410,10 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                     progresssbar_download.setVisibility(View.VISIBLE);
                     download_movie.setVisibility(View.GONE);
                     boolean_download = true;
-                    retrofit_getfile_openload_id();
-                }
-
+                    retrofit_getfile_openload_id(); }
                 break;
-
             case  R.id.watch:
-                points();
-                if(enough_points == true){
-                    boolean_download = false;
+                if(new Balance(mContext,year_balance).calculate_points() == true){
                     retrofit_getfile_openload_id();
                     progresssbar_watch.setVisibility(View.VISIBLE);
                     watch.setVisibility(View.GONE);
@@ -441,33 +422,9 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
                     watch.setVisibility(View.VISIBLE);
                     Toast.makeText(mContext, "not enough money", Toast.LENGTH_SHORT).show();
                 }
-
                 break;
         }
     }
-    private void points() {
-        String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
-
-        apiService =ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
-        Log.e("TAG :points",String.valueOf(points));
-        Call<User> call_details = apiService.points(user_id,String.valueOf(points));
-        call_details.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                User m = response.body();
-                SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-                editor.putInt("points",m.getPoints());
-                editor.apply();
-
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.e("TAG", t.toString());
-            }
-        });
-    }
-
     private void notRobotCapcha() {
         WebView webView = null;
         String cv = "https://videospider.in/getvideo?key=Yz25qgFkgmtIjOfB&video_id="+movie.getId().toString()+"&tmdb=1";
@@ -501,7 +458,6 @@ public class DetailsMovie_Fragment extends Fragment implements View.OnClickListe
         );
         dialoge.show();
     }
-
     private void retrofit_getfile_openload_id() {
         String BASE_URL = "https://mohamedebrahim.000webhostapp.com/";
         apiService =ApiClient.getClient(mContext,BASE_URL).create(ApiInterface.class);
