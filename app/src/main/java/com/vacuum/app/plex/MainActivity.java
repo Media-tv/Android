@@ -245,7 +245,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.e("TAG : Expetion :: ",e.toString());
                     AlertDialog(0,"Temporary Sleeping","This app will sleep just for 1 hour everyday for Free members");
                 }
-
             }
             @Override
             public void onFailure(Call<Update>call, Throwable t) {
@@ -333,7 +332,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
-
     public boolean isPackageInstalled() {
         try{
             getApplicationContext().getPackageManager().getApplicationInfo("com.mxtech.videoplayer.ad", 0);
