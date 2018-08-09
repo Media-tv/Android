@@ -28,12 +28,12 @@ You can download APK [on releases page][5].
 Screenshots
 -----------
 
-<img width="45%" src=".github/screen1.png" />
-<img width="45%" src=".github/screen2.png" />
+<img width="45%" src="https://user-images.githubusercontent.com/16405013/43924390-d27608ae-9c24-11e8-8fdc-0ec24bfe47fd.png" />
+<img width="45%" src="https://user-images.githubusercontent.com/16405013/43924412-df229392-9c24-11e8-908a-51f58a1ffe4c.png" />
 
-<img width="89%" src=".github/screen3.png" />
+<img width="89%" src="https://user-images.githubusercontent.com/16405013/43924413-df5041e8-9c24-11e8-85e3-57b2a0f95963.png" />
 
-<img width="90%" src=".github/screen4.png" />
+<img width="90%" src="https://user-images.githubusercontent.com/16405013/43924414-df848796-9c24-11e8-82e5-37b2deb82014.png" />
 
 Developer setup
 ---------------
