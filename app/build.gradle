@@ -16,8 +16,8 @@ android {
         applicationId "com.vacuum.app.cinema"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 27
-        versionName "5.5.27"
+        versionCode 28
+        versionName "5.8.28"
         //versionName <Major.Minor.Revision.Build>  //8.4.57.803
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
