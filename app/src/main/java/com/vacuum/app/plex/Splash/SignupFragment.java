@@ -61,7 +61,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     Button buttonRegister, determine_location, Date_of_Birth;
     Context mContext;
     static final Integer LOCATION = 0x1;
-    String  address;
+    String  address = "test";
     String age = "YYYY/MM/DD";
     AnimationDrawable anim;
     LinearLayout background_layout_signup;
