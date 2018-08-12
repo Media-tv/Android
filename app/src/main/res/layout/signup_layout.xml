@@ -46,10 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_margin="5dp"
-
-
-            >
+            android:layout_margin="5dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,8 +55,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"
-                fontPath="fonts/brownregular.ttf"
-                />
+                fontPath="fonts/brownregular.ttf" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="49dp">
@@ -68,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="49dp"
                     android:paddingLeft="10dp"
-                    android:paddingRight="50dp"
+                    android:paddingRight="10dp"
                     android:focusedByDefault="true"
                     fontPath="fonts/brownregular.ttf"
                     android:background="@drawable/rounded_edittext"
@@ -85,6 +81,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:visibility="gone"
                     />
             </RelativeLayout>
 
@@ -288,13 +285,14 @@
             android:textColor="@color/black"
             />
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_view_birth"
+                android:id="@+id/animation_view_birth_signup"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginRight="5dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:elevation="2dp"
+                android:visibility="visible"
+                android:layout_marginRight="5dp"
+                android:elevation="5dp"
                 />
         </RelativeLayout>
 

@@ -60,7 +60,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     LinearLayout layout_settings,layout2_payment,layout_about,layout_share,layout_request,layout_redeem,layout1_editprofile;
     Button more_points;
     Context mContext;
-    TextView points_textview;
+    TextView points_textview,title;
     RewardedVideoAd mRewardedVideoAd;
     SharedPreferences prefs;
     String ADMOB_PLEX_REWARDED_1,user_id;
@@ -83,6 +83,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
 
         more_points = view.findViewById(R.id.more_points);
         points_textview = view.findViewById(R.id.points);
+        title = view.findViewById(R.id.title);
 
         mContext = this.getActivity();
 
@@ -91,7 +92,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         prefs = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         ADMOB_PLEX_REWARDED_1 = prefs.getString("ADMOB_PLEX_REWARDED_1",null);
         user_id = prefs.getString("id",null);
-
+        title.setText(prefs.getString("full_name","John Doe"));
 
         layout_settings.setOnClickListener(this);
         more_points.setOnClickListener(this);

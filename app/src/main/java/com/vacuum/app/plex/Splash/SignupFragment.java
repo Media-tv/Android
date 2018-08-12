@@ -61,14 +61,14 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     Button buttonRegister, determine_location, Date_of_Birth;
     Context mContext;
     static final Integer LOCATION = 0x1;
-    String location, address;
+    String  address;
     String age = "YYYY/MM/DD";
     AnimationDrawable anim;
     LinearLayout background_layout_signup;
     String Details_MANUFACTURER;
-    LottieAnimationView animation_view_fullname, animation_view_birth, animation_view_email, animation_view_password, animation_view_phone, animation_view_location;
+    LottieAnimationView animation_view_fullname, animation_view_birth_signup, animation_view_email, animation_view_password, animation_view_phone, animation_view_location;
     int age_year;
-
+    String location = "test";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         animation_view_password = view.findViewById(R.id.animation_view_password);
         animation_view_phone = view.findViewById(R.id.animation_view_phone);
         animation_view_location = view.findViewById(R.id.animation_view_location);
-        animation_view_birth = view.findViewById(R.id.animation_view_birth);
+        animation_view_birth_signup = view.findViewById(R.id.animation_view_birth_signup);
 
 
         buttonRegister = view.findViewById(R.id.buttonRegister);
@@ -111,19 +111,19 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     private void validateFields2() {
         full_name.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override
             public void afterTextChanged(Editable s) {
                 if (full_name.getText().length() >= 6) {
+                    animation_view_fullname.setVisibility(View.VISIBLE);
                     animation_view_fullname.setAnimation(R.raw.success);
                     animation_view_fullname.playAnimation();
-                } else {
+                }else if(full_name.getText().toString().trim().length() == 0){
+                    animation_view_fullname.setProgress(0);
+                }
+                else {
                     animation_view_fullname.setProgress(0);
                 }
             }
@@ -148,16 +148,11 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-
         password.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override
             public void afterTextChanged(Editable s) {
                 if (password.getText().length() >= 8) {
@@ -226,11 +221,11 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                     age_year = view.getYear();
                     if (age_year <= 2002) {
                         Date_of_Birth.setTextColor(Color.BLACK);
-                        animation_view_birth.setAnimation(R.raw.success);
-                        animation_view_birth.playAnimation();
-                    } else {
+                        animation_view_birth_signup.setAnimation(R.raw.success);
+                        animation_view_birth_signup.playAnimation();
+                        } else {
                         Date_of_Birth.setTextColor(Color.RED);
-                        animation_view_birth.setProgress(0);
+                        animation_view_birth_signup.setProgress(0);
                     }
 
                 }
@@ -287,18 +282,23 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     private void validateFields() {
         if (full_name.getText().length() <= 4) {
             full_name.setError("Error");
+            animation_view_fullname.setProgress(0);
         } else if (email.getText().length() <= 5) {
             email.setError("Error");
+            animation_view_email.setProgress(0);
         } else if (password.getText().length() == 0) {
             password.setError("Empty Field");
+            animation_view_password.setProgress(0);
         } else if (phone.getText().length() <= 4) {
             phone.setError("Error");
-        } else if (location == null) {
+            animation_view_phone.setProgress(0);
+        } /*else if (location == null) {
             Toast.makeText(mContext, "Determine location", Toast.LENGTH_SHORT).show();
             determine_location.setTextColor(Color.RED);
-        } else if (age.toString().contains("YYYY/MM/DD") || age_year > 2002) {
+        }*/ else if (age.toString().contains("YYYY/MM/DD") || age_year > 2002) {
             Toast.makeText(mContext, "Date of Birth", Toast.LENGTH_SHORT).show();
             Date_of_Birth.setTextColor(Color.RED);
+            animation_view_birth_signup.setProgress(0);
         }else if(!isStoragePermissionGranted()){
             Toast.makeText(mContext, "Storage Permission", Toast.LENGTH_SHORT).show();
         } else {
