@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("TAG","versioncode"+String.valueOf(versioncode));
         Log.e("TAG","version_number()"+String.valueOf(version_number()));
 
-        if(version_number() != versioncode ){
+        if(version_number() < versioncode ){
             title_view.setText(title);
             message_update.setText(message);
             update_btn.setText("UPDATE");
@@ -340,6 +340,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return false;
         }
     }
+
+
 
 
 
