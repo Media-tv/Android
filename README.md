@@ -23,11 +23,8 @@ You can download APK [on releases page][5].
 
 
 
-
-======================================================================
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-## Screenshots
+Screenshots
+=============  
 
 <img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/device.png" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/device-2018-03-01-170340.png" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/device-2018-03-01-170358.png" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/device-2018-03-12-024225.png" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/device-2018-03-12-024251.png" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/device-2018-03-12-023849.png" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/30652486_1679086142173039_3874851981860274176_n.jpg" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/30623738_1679086555506331_7054340864348258304_n.jpg" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/30652486_1679086142173039_3874851981860274176_n3.jpeg" width="250">
 
