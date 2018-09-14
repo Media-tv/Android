@@ -21,15 +21,16 @@ This plex mobile application delivers the best experience anywhere, anytime.  Ge
 
 You can download APK [on releases page][5].
 
-Screenshots
------------
 
-<img width="45%" src="https://user-images.githubusercontent.com/16405013/43924390-d27608ae-9c24-11e8-8fdc-0ec24bfe47fd.png" />
-<img width="45%" src="https://user-images.githubusercontent.com/16405013/43924414-df848796-9c24-11e8-82e5-37b2deb82014.png" />
-<img width="45%" src="https://user-images.githubusercontent.com/16405013/43924412-df229392-9c24-11e8-908a-51f58a1ffe4c.png" />
 
-<img width="45%" src="https://user-images.githubusercontent.com/16405013/43924413-df5041e8-9c24-11e8-85e3-57b2a0f95963.png" />
-<img width="45%" src="https://user-images.githubusercontent.com/16405013/43924414-df848796-9c24-11e8-82e5-37b2deb82014.png" />
+
+======================================================================
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+## Screenshots
+
+<img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/device.png" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/device-2018-03-01-170340.png" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/device-2018-03-01-170358.png" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/device-2018-03-12-024225.png" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/device-2018-03-12-024251.png" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/device-2018-03-12-023849.png" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/30652486_1679086142173039_3874851981860274176_n.jpg" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/30623738_1679086555506331_7054340864348258304_n.jpg" width="250"><img src="https://raw.githubusercontent.com/PlexMediaInc/Plex-Design/master/30652486_1679086142173039_3874851981860274176_n3.jpeg" width="250">
+
 
 Developer setup
 ---------------
